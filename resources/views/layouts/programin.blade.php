@@ -17,10 +17,14 @@
     <link rel="stylesheet" href="{{ asset('css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('css/icheck-bootstrap.min.css')}}">
+      <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/select2-bootstrap4.min.css')}}">
     <!-- Styles original laravel-->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <!-- Theme style -->
     <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/programin.css') }}" rel="stylesheet">
     <!-- overlayScrollbars -->
     <link href="{{ asset('css/OverlayScrollbars.min.css') }}" rel="stylesheet">
     <!-- Daterange picker -->
@@ -63,7 +67,8 @@
     <script src="{{ asset('js/tempusdominus-bootstrap-4.min.js')}}"></script>
     <!-- overlayScrollbars -->
     <script src="{{ asset('js/jquery.overlayScrollbars.min.js')}}"></script>
-
+    <!-- Select2 -->
+    <script src="{{ asset('js/select2.full.min.js')}}"></script>
     <!-- Scripts original laravel-->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <!-- AdminLTE App -->

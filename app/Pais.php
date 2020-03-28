@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pais extends Model
 {
+    protected $table = 'paises';
     public $incrementing = false;
     public $timestamps = false;
+
+    protected $fillable = ['pais'];
 
 }

@@ -1,0 +1,12 @@
+/* pone * rojo a los campos abligatorios */
+.form-group .required::after {
+   content: " *";
+   color: red;
+}
+
+/* boton como enlace */
+button.enlace{
+   border:0; 
+   background-color: rgba(104, 13, 13, 0) !important;
+   cursor:pointer;
+}

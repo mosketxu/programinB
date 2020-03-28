@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Empresa;
+use App\{Empresa,Pais,Provincia,TipoEmpresa};
+use App\Http\Requests\EmpresaCreateRequest;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
@@ -12,9 +13,12 @@ class EmpresaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $busqueda=($request->busca) ? $request->busca : '';
+        $empresas=Empresa::search($request->busca)
+        ->paginate();
+        return view('empresa.index',compact('empresas','busqueda'));
     }
 
     /**
@@ -24,7 +28,13 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        //
+        $tipoempresas=TipoEmpresa::get();
+        $paises=Pais::get()
+        ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
+        $provincias=Provincia::get()
+        ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
+        $tipoempresas=TipoEmpresa::get();
+        return view('empresa.create',compact('tipoempresas','paises','provincias'));
     }
 
     /**
@@ -33,9 +43,11 @@ class EmpresaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmpresaCreateRequest $request)
     {
-        //
+        // dd($request);
+        Empresa::create($request->all());
+        return redirect()->back()->with('message', 'Empresa creada');
     }
 
     /**
