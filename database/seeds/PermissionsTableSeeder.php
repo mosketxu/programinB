@@ -54,6 +54,13 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'empresas.create']);
         // Permission::create(['name' => 'empresas.destroy']);
 
+        // contacto
+        Permission::create(['name' => 'contactos.index']);
+        Permission::create(['name' => 'contactos.edit']);
+        Permission::create(['name' => 'contactos.show']);
+        Permission::create(['name' => 'contactos.create']);
+        Permission::create(['name' => 'contactos.destroy']);
+
 
         // $admin->givePermissionTo([
         //     'products.index',

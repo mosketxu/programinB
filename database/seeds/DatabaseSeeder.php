@@ -1,5 +1,7 @@
 <?php
 
+use App\CondicionPago;
+use App\PeriodoFacturacion;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,5 +18,11 @@ class DatabaseSeeder extends Seeder
         // $this->call(PaisSeeder::class);
         // $this->call(ProvinciaSeeder::class);
         // $this->call(TipoEmpresaTableSeeder::class);
+        // $this->call(DepartamentoSeeder::class);
+        // $this->call(PeriodoFacturacionSeeder::class);
+        // $this->call(CondicionPagoSeeder::class);
+        // $this->call(EmpresaSeeder::class);
+        // $this->call(ContactoSeeder::class);
+
     }
 }

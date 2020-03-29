@@ -12,4 +12,14 @@ class Pais extends Model
 
     protected $fillable = ['pais'];
 
+    public function paises()
+    {
+        return $this->hasMany(Pais::class);
+    }
+
+    public function provincias()
+    {
+        return $this->hasMany(Provincia::class);
+    }
+
 }

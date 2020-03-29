@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Empresa,Pais,Provincia,TipoEmpresa};
-use App\Http\Requests\EmpresaCreateRequest;
+use App\Http\Requests\EmpresaRequest;
 use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
@@ -15,8 +15,11 @@ class EmpresaController extends Controller
      */
     public function index(Request $request)
     {
-        $busqueda=($request->busca) ? $request->busca : '';
+        // $busqueda=($request->busca) ? $request->busca : '';
+        $busqueda=($request->busca);
         $empresas=Empresa::search($request->busca)
+        ->orderBy('tipoempresa')
+        ->orderBy('alias')
         ->paginate();
         return view('empresa.index',compact('empresas','busqueda'));
     }
@@ -33,7 +36,6 @@ class EmpresaController extends Controller
         ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
         $provincias=Provincia::get()
         ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
-        $tipoempresas=TipoEmpresa::get();
         return view('empresa.create',compact('tipoempresas','paises','provincias'));
     }
 
@@ -43,9 +45,8 @@ class EmpresaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EmpresaCreateRequest $request)
+    public function store(EmpresaRequest $request)
     {
-        // dd($request);
         Empresa::create($request->all());
         return redirect()->back()->with('message', 'Empresa creada');
     }
@@ -69,7 +70,13 @@ class EmpresaController extends Controller
      */
     public function edit(Empresa $empresa)
     {
-        //
+
+        $tipoempresas=TipoEmpresa::get();
+        $paises=Pais::get();
+        $provincias=Provincia::get();
+        $empresa=Empresa::find($empresa->id);
+    
+        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias'));
     }
 
     /**
@@ -79,9 +86,11 @@ class EmpresaController extends Controller
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empresa $empresa)
+    public function update(EmpresaRequest $request, Empresa $empresa)
     {
-        //
+
+        Empresa::find($empresa->id)->update($request->all());
+        return redirect()->back()->with('message', 'Empresa Actualizada');
     }
 
     /**
@@ -94,4 +103,18 @@ class EmpresaController extends Controller
     {
         //
     }
+
+    /**
+     * Accede a contabilidad y resto menus del resource.
+     *
+     * @param  \App\Empresa\go  $empresa
+     * @return \Illuminate\Http\Response
+     */
+    public function go(Empresa $empresa)
+    {
+        $empresa=Empresa::find($empresa->id);
+    
+        return view('empresa.go',compact('empresa'));
+    }
+
 }
