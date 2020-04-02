@@ -44,9 +44,16 @@
        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         {{-- Empresas --}}
         <li class="nav-item">
-        <a href="{{route('empresa.index')}}" class="nav-link {{(request()->segment(1)=='empresa') ? 'active' : ''}}">
+          <a href="{{route('empresa.index')}}" class="nav-link {{(request()->segment(1)=='empresa') ? 'active' : ''}}">
             <i class="nav-icon far fa-building"></i>
             <p> Empresas</p>
+          </a>
+        </li>
+        {{-- Contactos --}}
+        <li class="nav-item">
+          <a href="{{route('contacto.index')}}" class="nav-link {{(request()->segment(1)=='contacto') ? 'active' : ''}}">
+            <i class="nav-icon far fa-id-card"></i>
+            <p> Contactos</p>
           </a>
         </li>
      </nav>

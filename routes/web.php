@@ -31,5 +31,9 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/permisos.php';
     //Empresas
     require __DIR__ .'/empresas.php';
+    //Contactos
+    require __DIR__ .'/contactos.php';
+    //EmpresaContactos
+    require __DIR__ .'/empresacontactos.php';
 });
 

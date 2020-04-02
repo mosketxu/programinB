@@ -10,3 +10,7 @@ button.enlace{
    background-color: rgba(104, 13, 13, 0) !important;
    cursor:pointer;
 }
+
+.selectsinborde {
+   border: none !important;
+   }

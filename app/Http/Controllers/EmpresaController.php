@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Empresa,Pais,Provincia,TipoEmpresa};
+use App\{CondicionPago, Empresa,Pais, PeriodoFacturacion, Provincia,TipoEmpresa};
 use App\Http\Requests\EmpresaRequest;
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ class EmpresaController extends Controller
         // $busqueda=($request->busca) ? $request->busca : '';
         $busqueda=($request->busca);
         $empresas=Empresa::search($request->busca)
-        ->orderBy('tipoempresa')
+        ->where('cliente',1)
         ->orderBy('alias')
         ->paginate();
         return view('empresa.index',compact('empresas','busqueda'));
@@ -74,9 +74,13 @@ class EmpresaController extends Controller
         $tipoempresas=TipoEmpresa::get();
         $paises=Pais::get();
         $provincias=Provincia::get();
+        $condpagos=CondicionPago::get();
+        $condpagos=CondicionPago::get();
+        $periodos=PeriodoFacturacion::get();
         $empresa=Empresa::find($empresa->id);
+
     
-        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias'));
+        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','periodos'));
     }
 
     /**
@@ -86,11 +90,16 @@ class EmpresaController extends Controller
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function update(EmpresaRequest $request, Empresa $empresa)
+    public function update(EmpresaRequest $request)
     {
+        Empresa::find($request->id)->update($request->all());
+        if($request->ajax()){
+            return response()->json(['message', 'Empresa Actualizada']);
+        }
+        else{
+            return redirect()->back()->with('message', 'Empresa Actualizada');
+        }
 
-        Empresa::find($empresa->id)->update($request->all());
-        return redirect()->back()->with('message', 'Empresa Actualizada');
     }
 
     /**
@@ -101,7 +110,7 @@ class EmpresaController extends Controller
      */
     public function destroy(Empresa $empresa)
     {
-        //
+        Empresa::where('id',$empresa->id)->delete();
     }
 
     /**

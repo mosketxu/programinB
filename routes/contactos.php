@@ -9,7 +9,7 @@ Route::get('contacto','ContactoController@index')->name('contacto.index')
 Route::get('contacto/create','ContactoController@create')->name('contacto.create')
 ->middleware('can:contactos.create');
 
-Route::put('contacto/{contacto}','ContactoController@update')->name('contacto.update')
+Route::put('contacto','ContactoController@update')->name('contacto.update')
 ->middleware('can:contactos.edit');
 
 Route::get('contacto/{contacto}','ContactoController@show')->name('contacto.show')

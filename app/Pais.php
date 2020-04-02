@@ -17,9 +17,4 @@ class Pais extends Model
         return $this->hasMany(Pais::class);
     }
 
-    public function provincias()
-    {
-        return $this->hasMany(Provincia::class);
-    }
-
 }

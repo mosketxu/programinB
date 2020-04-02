@@ -9,7 +9,7 @@ Route::get('empresa','EmpresaController@index')->name('empresa.index')
 Route::get('empresa/create','EmpresaController@create')->name('empresa.create')
 ->middleware('can:empresas.create');
 
-Route::put('empresa/{empresa}','EmpresaController@update')->name('empresa.update')
+Route::put('empresa','EmpresaController@update')->name('empresa.update')
 ->middleware('can:empresas.edit');
 
 Route::get('empresa/{empresa}','EmpresaController@show')->name('empresa.show')

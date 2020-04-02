@@ -45,16 +45,21 @@
                             </div>
                             {{-- <div class="card-tools col-auto"> --}}
                             <div class="col-2 mb-2">
-                                <form method="GET" action="{{route('empresa.index') }}">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="busca" class="form-control float-right" value='{{$busqueda}}' placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                                </form>
                             </div>
                         </div>
+                        @if($errors->any())
+                        <div id="error" class="alert alert-danger">
+                            <h6>Por favor, corrige los errores</h6>
+                                @foreach ($errors->all() as $error)
+                                    <li> {{ $error }}</li>
+                                @endforeach
+                            </div>
+                        @endif
+                        @if(session()->has('message'))
+                            <div id="success" class="alert alert-success">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                         <div class="table-responsive p-0">
                             <table class="table table-hover table-sm small text-nowrap">
                                 <thead>
@@ -65,6 +70,7 @@
                                     <th>Empresa</th>
                                     <th>Nif</th>
                                     <th>Provincia</th>
+                                    <th>Cliente</th>
                                     <th>Tipo</th>
                                     <th width=20px>Estado</th>
                                     <th></th>
@@ -78,8 +84,23 @@
                                         <td><a href="{{route('empresa.go', $empresa) }}">{{$empresa->alias}}</a></td>
                                         <td>{{$empresa->empresa}}</td>
                                         <td>{{$empresa->nif}}</td>
-                                        <td>{{$empresa->tipoempresa}}</td>
                                         <td>{{$empresa->provincia_id}}</td>
+                                        <form id="form{{$empresa->id}}" role="form" method="post" action="{{ route('empresa.update') }}" >
+                                            @method('PUT')
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$empresa->id}}" >
+                                            <input type="hidden" name="empresa" value="{{$empresa->empresa}}" >
+                                            <input type="hidden" name="alias" value="{{$empresa->alias}}" >
+                                            <input type="hidden" name="tipoempresa" value="{{$empresa->tipoempresa}}" >
+                                            <td>
+                                            <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
+                                                    <option value="{{old('cliente','0')}}" {{$empresa->cliente=='0' ? 'selected' : '' }}>No</option>
+                                                    <option value="{{old('cliente','1')}}"  {{$empresa->cliente=='1' ? 'selected' : ''}}>Sí</option>
+                                                </select>
+                                                {{-- <button type="submit">G</button> --}}
+                                            </td>
+                                        </form>
+                                        <td>{{$empresa->tipoempresa}}</td>
                                         <td class="mt-1 pt-1 badge {{($empresa->estado==0) ? "badge-danger" : "badge-success"}}">{{($empresa->estado==0) ? "Baja" : "Activo"}}</td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('empresa.destroy',$empresa->id)}}" method="post">
@@ -112,7 +133,44 @@
 @endsection
 
 @push('scriptchosen')
-    <script>
+<script>
+    function update(formulario,ruta) {
+        var token= $('#token').val();
+
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('#token').val() },
+        });
+        var formElement = document.getElementById(formulario);
+        var formData = new FormData(formElement);
+
+        $.ajax({
+            type:'POST',
+                url: ruta,
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    toastr.success(data[1],{
+                    "progressBar":true,
+                    "positionClass":"toast-top-center"
+                    });
+                },
+                error: function(data){
+                    toastr.error("No se ha actualizado el contacto",{
+                        "closeButton": true,
+                        "progressBar":true,
+                        "positionClass":"toast-top-center",
+                        "options.escapeHtml" : true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": 0,
+                    });
+                }
+            });
+        }
+    
+
     </script>
 @endpush
 

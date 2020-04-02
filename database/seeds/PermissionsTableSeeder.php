@@ -15,14 +15,17 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        //Admin (en realidad super admin)
+        // Admin (en realidad super admin)
         // $admin = Role::create(['name' => 'Admin']);
         // $admin->givePermissionTo(Permission::all());
         // $user = User::find(1); //admin
         // $user->assignRole('Admin');
 
-        //Guest
+        // Guest
         // $guest = Role::create(['name' => 'Guest']);
+        // $guest->givePermissionTo(Permission::all());
+        // $user = User::find(2); //guest
+        // $user->assignRole('Guest');
         
         //Permission list
 
@@ -47,19 +50,26 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'permissions.create']);
         // Permission::create(['name' => 'permissions.destroy']);
 
-        // empresa
+        // empresas
         // Permission::create(['name' => 'empresas.index']);
         // Permission::create(['name' => 'empresas.edit']);
         // Permission::create(['name' => 'empresas.show']);
         // Permission::create(['name' => 'empresas.create']);
         // Permission::create(['name' => 'empresas.destroy']);
 
-        // contacto
+        // contactos
         Permission::create(['name' => 'contactos.index']);
         Permission::create(['name' => 'contactos.edit']);
         Permission::create(['name' => 'contactos.show']);
         Permission::create(['name' => 'contactos.create']);
         Permission::create(['name' => 'contactos.destroy']);
+
+        // empresa
+        // Permission::create(['name' => 'empresacontacos.index']);
+        // Permission::create(['name' => 'empresacontacos.edit']);
+        // Permission::create(['name' => 'empresacontacos.show']);
+        // Permission::create(['name' => 'empresacontacos.create']);
+        // Permission::create(['name' => 'empresacontacos.destroy']);
 
 
         // $admin->givePermissionTo([

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contacto;
+use App\Http\Requests\ContactoRequest;
 use Illuminate\Http\Request;
+
 
 class ContactoController extends Controller
 {
@@ -12,9 +14,13 @@ class ContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $busqueda=($request->busca);
+        $contactos=Contacto::search($request->busca)
+        ->orderBy('alias')
+        ->paginate();
+        return view('contacto.index',compact('contactos','busqueda'));
     }
 
     /**
@@ -24,7 +30,11 @@ class ContactoController extends Controller
      */
     public function create()
     {
-        //
+        $paises=Pais::get()
+        ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
+        $provincias=Provincia::get()
+        ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
+        return view('contacto.create',compact('paises','provincias'));
     }
 
     /**
@@ -33,9 +43,10 @@ class ContactoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactoRequest $request)
     {
-        //
+        Contacto::create($request->all());
+        return redirect()->back()->with('message', 'Contacto creado');
     }
 
     /**
@@ -57,9 +68,13 @@ class ContactoController extends Controller
      */
     public function edit(Contacto $contacto)
     {
-        //
-    }
+        $paises=Pais::get();
+        $provincias=Provincia::get();
+        $contacto=Contacto::find($contacto->id);
 
+    
+        return view('contacto.edit',compact('contacto','paises','provincias'));
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -67,9 +82,15 @@ class ContactoController extends Controller
      * @param  \App\Contacto  $contacto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contacto $contacto)
+    public function update(ContactoRequest $request)
     {
-        //
+        Contacto::find($request->id)->update($request->all());
+        if($request->ajax()){
+            return response()->json(['message', 'Contacto Actualizado']);
+        }
+        else{
+            return redirect()->back()->with('message', 'Contacto Actualizado');
+        }
     }
 
     /**
@@ -80,6 +101,6 @@ class ContactoController extends Controller
      */
     public function destroy(Contacto $contacto)
     {
-        //
+        Contacto::where('id',$contacto->id)->delete();
     }
 }

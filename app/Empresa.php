@@ -9,12 +9,7 @@ class Empresa extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = [
-        'empresa','alias','nif', 'tipoempresa', 'direccion',
-        'codpostal', 'localidad', 'provincia_id', 'pais_id',
-        'cifnif', 'tfno', 'emailgral', 'emailadm', 'web', 'idioma', 'cuentacontable',
-        'observaciones', 'estado'
-      ];
+    protected $guarded = ['id'];
 
       public function pais()
       {
@@ -26,6 +21,14 @@ class Empresa extends Model
           return $this->belongsTo(Provincia::class);
       }
       
+      public function condicionpago()
+      {
+          return $this->belongsTo(CondicionPago::class);
+      }
+      public function periodofacturacion()
+      {
+          return $this->belongsTo(PeriodoFacturacion::class);
+      }
 
     public function scopeSearch($query, $busca){
         return $query->where('empresa', 'LIKE', "%$busca%")

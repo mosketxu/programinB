@@ -11,7 +11,7 @@
        <a href="#" class="nav-link">Bancos</a>
      </li>
      <li class="nav-item d-none d-sm-inline-block {{(request()->segment(3)=='contactos') ? 'active' : ''}}">
-       <a href="#" class="nav-link">Contactos</a>
+       <a href="contacto.index" class="nav-link">Contactos</a>
      </li>
      <li class="nav-item d-none d-sm-inline-block {{(request()->segment(3)=='pu') ? 'active' : ''}}">
        <a href="#" class="nav-link">PU</a>

@@ -20,15 +20,21 @@
       <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
     <link rel="stylesheet" href="{{ asset('css/select2-bootstrap4.min.css')}}">
+      <!-- Duallist -->
+    {{-- <link rel="stylesheet" href="{{ asset('css/bootstrap-duallistbox.min.css')}}"> --}}
+    <!-- overlayScrollbars -->
+    <link href="{{ asset('css/OverlayScrollbars.min.css') }}" rel="stylesheet">
+    <!-- Daterange picker -->
+    <link href="{{ asset('css/daterangepicker.css') }}" rel="stylesheet">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('css/toastr.min.css')}}">
+
+
     <!-- Styles original laravel-->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <!-- Theme style -->
     <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet">
     <link href="{{ asset('css/programin.css') }}" rel="stylesheet">
-    <!-- overlayScrollbars -->
-    <link href="{{ asset('css/OverlayScrollbars.min.css') }}" rel="stylesheet">
-    <!-- Daterange picker -->
-    <link href="{{ asset('css/daterangepicker.css') }}" rel="stylesheet">
 
     {{-- <title>{{ config('app.name', 'Programin') }}</title> --}}
     <title>@yield('title')</title>
@@ -69,6 +75,11 @@
     <script src="{{ asset('js/jquery.overlayScrollbars.min.js')}}"></script>
     <!-- Select2 -->
     <script src="{{ asset('js/select2.full.min.js')}}"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('js/toastr.min.js')}}"></script>
+
+    <!-- Duallist -->
+    {{-- <script src="{{ asset('js/jquery.bootstrap-duallistbox.min.js')}}"></script> --}}
     <!-- Scripts original laravel-->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <!-- AdminLTE App -->

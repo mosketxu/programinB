@@ -3,7 +3,7 @@
 @section('title','Programin-Contactos')
 @section('titlePag','Contactos')
 @section('navbar')
-    {{-- @include('layouts.partials.navbar') --}}
+    @include('layouts.partials.navbar')
 @endsection
 
 @section('content')
@@ -45,35 +45,33 @@
                             </div>
                             {{-- <div class="card-tools col-auto"> --}}
                             <div class="col-2 mb-2">
-                                <form method="GET" action="{{route('contacto.index') }}">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="busca" class="form-control float-right" value='{{$busqueda}}' placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                                </form>
                             </div>
                         </div>
+                        @if($errors->any())
+                        <div id="error" class="alert alert-danger">
+                            <h6>Por favor, corrige los errores</h6>
+                                @foreach ($errors->all() as $error)
+                                    <li> {{ $error }}</li>
+                                @endforeach
+                            </div>
+                        @endif
+                        @if(session()->has('message'))
+                            <div id="success" class="alert alert-success">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
                         <div class="table-responsive p-0">
                             <table class="table table-hover table-sm small text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th width="5px"></th>
                                     <th width=10px>#</th>
+                                    <th>Alias</th>
                                     <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Cargo</th>
-                                    <th>Departamento</th>
-                                    <th>Empresa</th>
                                     <th>Nif</th>
-                                    <th>Tfno</th>
-                                    <th>Movil</th>
-                                    <th>Email</th>
-                                    <th>Email 2</th>
-                                    <th>Direccion</th>
-                                    <th>Codigo Postal</th>
-                                    <th>Población</th>
+                                    <th>Provincia</th>
+                                    <th>Cliente</th>
+                                    <th>Tipo</th>
+                                    <th width=20px>Estado</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -81,23 +79,33 @@
                                     @foreach($contactos as $contacto)
                                     <tr>
                                         <td class="badge badge-default">{{$contacto->id}}</a></td>
-                                        <td>{{$contacto->name}}</td>
-                                        <td>>{{$contacto->apellido}}</td>
-                                        <td>>{{$contacto->cargo}}</td>
-                                        <td>>{{$contacto->empresa_id}}</td>
+                                        <td><a href="{{route('contacto.edit', $contacto) }}">{{$contacto->alias}}</a></td>
+                                        <td>{{$contacto->empresa}}</td>
                                         <td>{{$contacto->nif}}</td>
-                                        <td>{{$contacto->tfno}}</td>
-                                        <td>{{$contacto->email}}</td>
-                                        <td>{{$contacto->email2}}</td>
-                                        <td>{{$contacto->direccion}}</td>
-                                        <td>{{$contacto->cp}}</td>
-                                        <td>{{$contacto->poblacion}}</td>
+                                        <td>{{$contacto->provincia_id}}</td>
+                                        <form id="form{{$contacto->id}}" role="form" method="post" action="{{ route('contacto.update') }}" >
+                                            @method('PUT')
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$contacto->id}}" >
+                                            <input type="hidden" name="empresa" value="{{$contacto->empresa}}" >
+                                            <input type="hidden" name="alias" value="{{$contacto->alias}}" >
+                                            <input type="hidden" name="tipoempresa" value="{{$contacto->tipoempresa}}" >
+                                            <td>
+                                            <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$contacto->id}}','{{ route('contacto.update') }}')" required aria-placeholder="cliente">
+                                                    <option value="{{old('cliente','0')}}" {{$contacto->cliente=='0' ? 'selected' : '' }}>No</option>
+                                                    <option value="{{old('cliente','1')}}"  {{$contacto->cliente=='1' ? 'selected' : ''}}>Sí</option>
+                                                </select>
+                                                {{-- <button type="submit">G</button> --}}
+                                            </td>
+                                        </form>
+                                        <td>{{$contacto->tipoempresa}}</td>
+                                        <td class="mt-1 pt-1 badge {{($contacto->estado==0) ? "badge-danger" : "badge-success"}}">{{($contacto->estado==0) ? "Baja" : "Activo"}}</td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('contacto.destroy',$contacto->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="tokenCampaign">    
-                                                @can('contacto.edit')
+                                                @can('contactos.edit')
                                                     <a href="{{route('contacto.edit', $contacto) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
                                                 @endcan
                                                 @can('contactos.destroy')
@@ -123,7 +131,45 @@
 @endsection
 
 @push('scriptchosen')
-    <script>
+
+<script>
+    function update(formulario,ruta) {
+        var token= $('#token').val();
+
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('#token').val() },
+        });
+        var formElement = document.getElementById(formulario);
+        var formData = new FormData(formElement);
+
+        $.ajax({
+            type:'POST',
+                url: ruta,
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    toastr.success(data[1],{
+                    "progressBar":true,
+                    "positionClass":"toast-top-center"
+                    });
+                },
+                error: function(data){
+                    toastr.error("No se ha actualizado el contacto",{
+                        "closeButton": true,
+                        "progressBar":true,
+                        "positionClass":"toast-top-center",
+                        "options.escapeHtml" : true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": 0,
+                    });
+                }
+            });
+        }
+    
+
     </script>
 @endpush
 
