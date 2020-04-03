@@ -32,10 +32,5 @@ class PeriodoFacturacionSeeder extends Seeder
             'periodofacturacion' => 'Anual',
             'periodo'=>12,
             ]);
-        PeriodoFacturacion::create([
-            'id' => '0',
-            'periodofacturacion' => 'No Aplica',
-            'periodo'=>0,
-            ]);
     }
 }

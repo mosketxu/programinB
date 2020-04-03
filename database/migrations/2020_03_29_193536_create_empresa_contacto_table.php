@@ -15,8 +15,10 @@ class CreateEmpresaContactoTable extends Migration
     {
         Schema::create('empresa_contacto', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('empresa_id');
-            $table->bigInteger('contacto_id');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
+            $table->string('departamento',50)->nullable();
+            $table->string('observaciones')->nullable();
             $table->timestamps();
         });
     }
