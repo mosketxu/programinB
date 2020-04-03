@@ -72,6 +72,9 @@
                                     <th>Provincia</th>
                                     <th>Cliente</th>
                                     <th>Tipo</th>
+                                    <th>Tfno</th>
+                                    <th>Email</th>
+                                    <th>Suma</th>
                                     <th width=20px>Estado</th>
                                     <th></th>
                                 </tr>
@@ -101,6 +104,9 @@
                                             </td>
                                         </form>
                                         <td>{{$empresa->tipoempresa}}</td>
+                                        <td>{{$empresa->tfno}}</td>
+                                        <td>{{$empresa->emailgral}}</td>
+                                        <td>{{$empresa->contactosuma}}</td>
                                         <td class="mt-1 pt-1 badge {{($empresa->estado==0) ? "badge-danger" : "badge-success"}}">{{($empresa->estado==0) ? "Baja" : "Activo"}}</td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('empresa.destroy',$empresa->id)}}" method="post">

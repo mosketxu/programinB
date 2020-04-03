@@ -1,7 +1,7 @@
 @extends('layouts.programin')
 
-@section('title','Programin-Nueva Empresa')
-@section('titlePag','Crear empresa')
+@section('title','Programin-Nuevo Contacto')
+@section('titlePag','Crear contacto')
 @section('navbar')
     @include('layouts.partials.navbar')
 @endsection
@@ -52,6 +52,9 @@
                     <form method="POST" action="{{ route("empresa.store") }}">
                         @csrf
                         <div class="card-body">
+                            <input type="hidden" name="tipoempresa" id="tipoempresa" value="Contacto">
+                            <input type="hidden" name="estado" id="estado" value="1">
+                            <input type="hidden" name="cliente" id="cliente" value="1">
                             <div class="row">
                                 <div class="form-group col">
                                     <label class="required" for="empresa">Empresa</label>
@@ -64,25 +67,6 @@
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
                                     <input class="form-control" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">
-                                </div>
-                                <div class="form-group col-2">
-                                    <label class="required" for="tipoempresa">Tipo</label>
-                                    <select class="form-control" name="tipoempresa" id="tipoempresa" required aria-placeholder="tipo">
-                                        @foreach($tipoempresas as $tipoempresa)
-                                            <option value="{{ $tipoempresa->tipoempresa }}">{{ $tipoempresa->tipoempresa }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col">
-                                    <label class="required" for="cliente">Cliente</label>
-                                    <select class="form-control" name="cliente" id="cliente" required aria-placeholder="cliente">
-                                        <option value="{{old('cliente','0')}}" >No</option>
-                                        <option value="{{old('cliente','1')}}" selected >Sí</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-2">
-                                    <label for="nif">Cuenta Contable</label>
-                                    <input class="form-control" type="text" name="cuentacontable" id="cuentacontable" value="{{ old('cuentacontable', '') }}">
                                 </div>
                             </div>
                             <div class="row">
@@ -109,12 +93,8 @@
                                 <div class="form-group col-1">
                                     <label for="pais_id">País</label>
                                     <select class="form-control" name="pais_id" id="pais_id">
-                                        {{-- @foreach($paises as $id => $pais)
-                                            <option value="{{ $id }}" {{ old('pais_id') == $id ? 'selected' : '' }}>{{ $pais->pais }}</option>
-                                            @endforeach --}}
-                                            @foreach($paises as $pais)
+                                        @foreach($paises as $pais)
                                             <option value="{{ $pais->id }}" {{ old('pais_id') == $pais->id ? 'selected' : '' }}>{{ $pais->pais }}</option>
-                                            {{-- <option value="{{ $pais->id }}">{{ $pais->pais }}</option> --}}
                                         @endforeach
                                     </select>
                                 </div>
@@ -125,11 +105,11 @@
                                     <input class="form-control" type="text" name="tfno" id="tfno" value="{{ old('tfno', '') }}">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="emailgral">@ General</label>
+                                    <label for="emailgral">@ 1</label>
                                     <input class="form-control" type="text" name="emailgral" id="emailgral" value="{{ old('emailgral', '') }}">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="emailadm">@ Administración</label>
+                                    <label for="emailadm">@ 2</label>
                                     <input class="form-control" type="text" name="emailadm" id="emailadm" value="{{ old('emailadm', '') }}">
                                 </div>
                                 <div class="form-group col">
@@ -144,13 +124,8 @@
                                         <option value="CA" {{ old('idioma') == "CA" ? 'selected' : '' }}>CA</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-1">
-                                    <label for="estado">Estado</label>
-                                    <select class="form-control" name="estado" id="estado">
-                                        <option value="0" {{ old('estado') == "Activo" ? 'selected' : '' }}>Activo</option>
-                                        <option value="1" {{ old('estado') == "Baja" ? 'selected' : '' }}>Baja</option>
-                                    </select>
-                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="form-group col">
                                     <label for="observaciones">Observaciones</label>
                                     <input class="form-control" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', '') }}">

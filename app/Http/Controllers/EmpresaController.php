@@ -33,9 +33,9 @@ class EmpresaController extends Controller
     {
         $tipoempresas=TipoEmpresa::get();
         $paises=Pais::get()
-        ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
+            ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
         $provincias=Provincia::get()
-        ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
+            ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
         return view('empresa.create',compact('tipoempresas','paises','provincias'));
     }
 
@@ -79,7 +79,8 @@ class EmpresaController extends Controller
         $periodos=PeriodoFacturacion::get();
         $empresa=Empresa::find($empresa->id);
 
-    
+        // dd($empresa->periodofacturacion_id);
+        
         return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','periodos'));
     }
 
@@ -103,14 +104,18 @@ class EmpresaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. 
      *
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
     public function destroy(Empresa $empresa)
     {
-        Empresa::where('id',$empresa->id)->delete();
+        $empresa->estado=0;
+        $empresa->save();
+        $empresa->delete();
+        return redirect()->back()->with('message', 'Empresa '.$empresa->empresa.' eliminada');
+
     }
 
     /**

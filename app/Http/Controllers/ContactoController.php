@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contacto;
+use App\{Contacto,Pais,Provincia,TipoEmpresa};
 use App\Http\Requests\ContactoRequest;
 use Illuminate\Http\Request;
 
@@ -18,8 +18,10 @@ class ContactoController extends Controller
     {
         $busqueda=($request->busca);
         $contactos=Contacto::search($request->busca)
+        ->where('deleted_at',null)
         ->orderBy('alias')
         ->paginate();
+
         return view('contacto.index',compact('contactos','busqueda'));
     }
 
@@ -34,7 +36,7 @@ class ContactoController extends Controller
         ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
         $provincias=Provincia::get()
         ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
-        return view('contacto.create',compact('paises','provincias'));
+        return view('contacto.create',compact('tipoempresas','paises','provincias'));
     }
 
     /**
@@ -68,12 +70,12 @@ class ContactoController extends Controller
      */
     public function edit(Contacto $contacto)
     {
+        $tipoempresas=TipoEmpresa::get();
         $paises=Pais::get();
         $provincias=Provincia::get();
         $contacto=Contacto::find($contacto->id);
-
     
-        return view('contacto.edit',compact('contacto','paises','provincias'));
+        return view('contacto.edit',compact('contacto','tipoempresas','paises','provincias'));
     }
     /**
      * Update the specified resource in storage.
@@ -100,7 +102,9 @@ class ContactoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Contacto $contacto)
-    {
-        Contacto::where('id',$contacto->id)->delete();
+    { 
+        $contacto->delete();
+        return redirect()->back()->with('message', 'Contacto '.$contacto->empresa.' eliminado');
+
     }
 }

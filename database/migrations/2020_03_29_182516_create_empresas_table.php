@@ -45,6 +45,7 @@ class CreateEmpresasTable extends Migration
             $table->string('banco')->nullable();
             $table->string('iban')->nullable();
             $table->string('observaciones')->nullable();
+            $table->string('contactosuma')->default('marta.ruiz@sumaempresa.com')->nullable();
             $table->string('cliente')->default('1');
             $table->boolean('estado')->default('1');
             $table->timestamps();

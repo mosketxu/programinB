@@ -27,7 +27,7 @@ class ContactoRequest extends FormRequest
             'alias'=>'required|max:25',
             'codpostal'=>'max:10',
             'nif'=>'max:12',
-            'tfno'=>'max:25',
+            'tfno'=>'max:15',
             'emailgral' => 'nullable|email:rfc',
             'emailadm'=>'nullable|email:rfc',
         ];

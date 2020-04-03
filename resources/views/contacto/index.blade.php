@@ -68,6 +68,9 @@
                                     <th>Alias</th>
                                     <th>Nombre</th>
                                     <th>Nif</th>
+                                    <th>Tfno</th>
+                                    <th>Email 1</th>
+                                    <th>Email 2</th>
                                     <th>Provincia</th>
                                     <th>Cliente</th>
                                     <th>Tipo</th>
@@ -82,6 +85,9 @@
                                         <td><a href="{{route('contacto.edit', $contacto) }}">{{$contacto->alias}}</a></td>
                                         <td>{{$contacto->empresa}}</td>
                                         <td>{{$contacto->nif}}</td>
+                                        <td>{{$contacto->tfno}}-{{$contacto->estado}}</td>
+                                        <td>{{$contacto->emailgral}}</td>
+                                        <td>{{$contacto->emailadm}}</td>
                                         <td>{{$contacto->provincia_id}}</td>
                                         <form id="form{{$contacto->id}}" role="form" method="post" action="{{ route('contacto.update') }}" >
                                             @method('PUT')
@@ -99,7 +105,7 @@
                                             </td>
                                         </form>
                                         <td>{{$contacto->tipoempresa}}</td>
-                                        <td class="mt-1 pt-1 badge {{($contacto->estado==0) ? "badge-danger" : "badge-success"}}">{{($contacto->estado==0) ? "Baja" : "Activo"}}</td>
+                                        <td class="mt-1 pt-1 badge {{($contacto->estado==0) ? "badge-danger" : "badge-success"}}">{{($contacto->estado==0) ? "Baja" : "Activo"}} </td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('contacto.destroy',$contacto->id)}}" method="post">
                                                 @csrf
