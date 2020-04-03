@@ -17,6 +17,7 @@ class CreateEmpresaContactoTable extends Migration
             $table->id();
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
+            $table->bigInteger('contacto_id')->index();
             $table->string('departamento',50)->nullable();
             $table->string('observaciones')->nullable();
             $table->timestamps();

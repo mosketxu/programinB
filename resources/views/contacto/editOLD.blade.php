@@ -3,7 +3,8 @@
 @section('title','Programin-Editar Contacto')
 @section('titlePag','Editar Contacto')
 @section('navbar')
-    @include('layouts.partials.navbar')
+    @include('layouts.partials.navbarizquierda')
+    @include('layouts.partials.navbarderecha')
 @endsection
 
 @section('content')

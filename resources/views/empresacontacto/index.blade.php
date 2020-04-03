@@ -1,9 +1,10 @@
 @extends('layouts.programin')
 
-@section('title','Programin-Empresas')
-@section('titlePag','Empresas')
+@section('title','Programin-Contactos de la empresa')
+@section('titlePag','Contactos de la empresa')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    @include('empresa.navbar')
     @include('layouts.partials.navbarderecha')
 @endsection
 
@@ -16,12 +17,12 @@
                 <div class="row">
                     {{-- <div class="col-sm-3 text-left pl-2"> --}}
                     <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
+                    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
                     </div>
                     <div class="col-auto mr-auto">
-                        @can('empresas.create')
-                        <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
-                        @endcan
+                        {{-- @can('contactos.create')
+                        <a href="{{route('contacto.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+                        @endcan --}}
                     </div>
                     <div class="col-sm-3 text-right pr-2">
                     <a href="{{url()->previous()}}">Volver</a>
@@ -41,8 +42,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-10 row">
-                                {{ $empresas->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                                <span class="badge text-primary"> Pág {{$empresas->currentPage()}} de {{$empresas->lastPage()}} </span>
+                                {{-- {{ $empresacontactos->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
+                                <span class="badge text-primary"> Pág {{$empresacontactos->currentPage()}} de {{$empresacontactos->lastPage()}} </span> --}}
                             </div>
                             {{-- <div class="card-tools col-auto"> --}}
                             <div class="col-2 mb-2">
@@ -65,59 +66,49 @@
                             <table class="table table-hover table-sm small text-nowrap">
                                 <thead>
                                 <tr>
-                                    <th width="5px"></th>
                                     <th width=10px>#</th>
-                                    <th>Alias</th>
-                                    <th>Empresa</th>
-                                    <th>Nif</th>
-                                    <th>Provincia</th>
-                                    <th>Cliente</th>
-                                    <th>Tipo</th>
+                                    <th>Nombre</th>
+                                    <th>Departamento</th>
                                     <th>Tfno</th>
-                                    <th>Email</th>
-                                    <th>Suma</th>
-                                    <th width=20px>Estado</th>
+                                    <th>Email 1</th>
+                                    <th>Email 2</th>
+                                    <th>Provincia</th>
+                                    <th>Observaciones</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($empresas as $empresa)
+                                    @foreach($empresacontactos as $empresacontacto)
                                     <tr>
-                                        <td><a href="{{route('empresa.go', $empresa) }}" title="go"><i class="fab fa-goodreads text-primary fa-2x ml-3"></i></a></td>
-                                        <td class="badge badge-default">{{$empresa->id}}</a></td>
-                                        <td><a href="{{route('empresa.go', $empresa) }}">{{$empresa->alias}}</a></td>
-                                        <td>{{$empresa->empresa}}</td>
-                                        <td>{{$empresa->nif}}</td>
-                                        <td>{{$empresa->provincia_id}}</td>
-                                        <form id="form{{$empresa->id}}" role="form" method="post" action="{{ route('empresa.update') }}" >
+                                        <td class="badge badge-default">{{$empresacontacto->id}}-{{$empresacontacto->empresa_id}}-{{$empresacontacto->contacto_id}}</a></td>
+                                        <td>{{$empresacontacto->contacto->empresa}}</td>
+                                        {{-- <form id="form{{$empresacontacto->id}}" role="form" method="post" action="{{ route('empresacontacto.update',$empresacontacto->id) }}" > --}}
+                                        <form id="form{{$empresacontacto->id}}" role="form" method="post" action="{{ route('empresacontacto.update') }}" >
                                             @method('PUT')
                                             @csrf
-                                            <input type="hidden" name="id" value="{{$empresa->id}}" >
-                                            <input type="hidden" name="empresa" value="{{$empresa->empresa}}" >
-                                            <input type="hidden" name="alias" value="{{$empresa->alias}}" >
-                                            <input type="hidden" name="tipoempresa" value="{{$empresa->tipoempresa}}" >
+                                            <input type="hidden" name="id" value="{{$empresacontacto->id}}" >
                                             <td>
-                                            <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
-                                                    <option value="{{old('cliente','0')}}" {{$empresa->cliente=='0' ? 'selected' : '' }}>No</option>
-                                                    <option value="{{old('cliente','1')}}"  {{$empresa->cliente=='1' ? 'selected' : ''}}>Sí</option>
-                                                </select>
-                                                {{-- <button type="submit">G</button> --}}
+                                            <select class="selectsinborde" name="departamento" id="departamento" onchange="update('form{{$empresacontacto->id}}','{{ route('empresacontacto.update') }}')" required aria-placeholder="departamento">
+                                                @foreach($departamentos as $departamento)
+                                                    <option value="{{old('departamento',$departamento->departamento)}}"  {{ $departamento->departamento == $empresacontacto->departamento ? 'selected' : '' }}>{{ $departamento->departamento }}</option>
+                                                @endforeach
+                                            </select>
                                             </td>
                                         </form>
-                                        <td>{{$empresa->tipoempresa}}</td>
-                                        <td>{{$empresa->tfno}}</td>
-                                        <td>{{$empresa->emailgral}}</td>
-                                        <td>{{$empresa->contactosuma}}</td>
-                                        <td class="mt-1 pt-1 badge {{($empresa->estado==0) ? "badge-danger" : "badge-success"}}">{{($empresa->estado==0) ? "Baja" : "Activo"}}</td>
+                                        <td>{{$empresacontacto->contacto->tfno}}</td>
+                                        <td>{{$empresacontacto->contacto->emailgral}}</td>
+                                        <td>{{$empresacontacto->contacto->emailadm}}</td>
+                                        <td>{{$empresacontacto->contacto->provincia_id}}</td>
+                                        <td>{{$empresacontacto->observaciones}}</td>
                                         <td  class="text-right m-0 p-0">
-                                            <form  action="{{route('empresa.destroy',$empresa->id)}}" method="post">
+                                            <form  action="{{route('empresacontacto.destroy',$empresacontacto->id)}}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="token">    
-                                                @can('empresas.edit')
-                                                    <a href="{{route('empresa.edit', $empresa) }}" title="Editar empresa"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
+                                                @can('empresacontactos.edit')
+                                                    <a href="{{route('contacto.edit', $empresacontacto->contacto_id) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
                                                 @endcan
-                                                @can('empresas.destroy')
+                                                @can('empresacontactos.destroy')
                                                     <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
                                                 @endcan
                                             </form>
@@ -130,7 +121,17 @@
                     </div>
                     <!-- /.card-body -->
                     <!-- card-footer -->
-                    <div>
+                    <div class="card-footer">
+                        <form method="POST" action="{{ route("empresacontacto.store") }}">
+                        @csrf
+                        <input type="hidden" name="empresa_id" value="{{$empresa->id}}">
+                        <label for="empresas">Selecciona contactos</label>
+                        <select class="form-control" name="contactos[]" id="contactos" multiple="multiple">
+                            @foreach($contactos as $contacto)
+                                <option value="{{$contacto->id}}">{{$contacto->empresa}}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit">Guardar</button>
                     </div>
                     <!-- /.card-footer -->
                 </div>
@@ -140,7 +141,17 @@
 @endsection
 
 @push('scriptchosen')
-<script>
+    <script>
+
+    $(document).ready(function(){
+        $('#contactos').select2({
+            placeholder :"Selecciona contactos",
+            tags:true,
+            allowClear:true
+        });
+    });
+
+
     function update(formulario,ruta) {
         var token= $('#token').val();
 

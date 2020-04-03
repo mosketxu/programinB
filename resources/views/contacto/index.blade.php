@@ -3,7 +3,8 @@
 @section('title','Programin-Contactos')
 @section('titlePag','Contactos')
 @section('navbar')
-    @include('layouts.partials.navbar')
+    @include('layouts.partials.navbarizquierda')
+    @include('layouts.partials.navbarderecha')
 @endsection
 
 @section('content')
@@ -85,7 +86,7 @@
                                         <td><a href="{{route('contacto.edit', $contacto) }}">{{$contacto->alias}}</a></td>
                                         <td>{{$contacto->empresa}}</td>
                                         <td>{{$contacto->nif}}</td>
-                                        <td>{{$contacto->tfno}}-{{$contacto->estado}}</td>
+                                        <td>{{$contacto->tfno}}</td>
                                         <td>{{$contacto->emailgral}}</td>
                                         <td>{{$contacto->emailadm}}</td>
                                         <td>{{$contacto->provincia_id}}</td>

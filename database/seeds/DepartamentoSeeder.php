@@ -12,6 +12,7 @@ class DepartamentoSeeder extends Seeder
      */
     public function run()
     {
+        Departamento::create(['departamento' => '-']);
         Departamento::create(['departamento' => 'Marketing']);
         Departamento::create(['departamento' => 'Comercial']);
         Departamento::create(['departamento' => 'Administración']);

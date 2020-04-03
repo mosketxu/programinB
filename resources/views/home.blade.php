@@ -3,7 +3,8 @@
 @section('title','Programin')
 @section('titlePag','Hola '. Auth::user()->name)
 @section('navbar')
-    @include('layouts.partials.navbar')
+    @include('layouts.partials.navbarizquierda')
+    @include('layouts.partials.navbarderecha')
 @endsection
 
 @section('content')

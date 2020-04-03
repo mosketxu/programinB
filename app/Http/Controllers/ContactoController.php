@@ -74,7 +74,7 @@ class ContactoController extends Controller
         $paises=Pais::get();
         $provincias=Provincia::get();
         $contacto=Contacto::find($contacto->id);
-    
+        
         return view('contacto.edit',compact('contacto','tipoempresas','paises','provincias'));
     }
     /**

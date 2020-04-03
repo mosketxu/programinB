@@ -3,7 +3,8 @@
 @section('title','Programin-Nueva Empresa')
 @section('titlePag','Crear empresa')
 @section('navbar')
-    @include('layouts.partials.navbar')
+    @include('layouts.partials.navbarizquierda')
+    @include('layouts.partials.navbarderecha')
 @endsection
 
 @section('content')

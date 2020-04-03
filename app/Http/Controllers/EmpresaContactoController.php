@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\EmpresaContacto;
+use App\{Departamento, Empresa,EmpresaContacto};
 use Illuminate\Http\Request;
 
 class EmpresaContactoController extends Controller
@@ -14,7 +14,6 @@ class EmpresaContactoController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -33,36 +32,38 @@ class EmpresaContactoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeempresas(Request $request)
+    public function store(Request $request)
     {
-        EmpresaContacto::where('contacto_id',$request->contacto_id)->delete();
-        $asociadas = $request->duallistbox;
-        dd($asociadas);
-        if(!is_null($request->duallistbox)){
-            // dd($request->duallistbox[0]);
-            foreach($asociadas as $asociada){
-                if(!empty($asociada)){
-                    $c=json_decode($asociada);
-                        // dd($c);
-                        EmpresaContacto::insert([
-                                'contacto_id'=>$request->contacto_id,
-                                'empresa_id'=>$c,
-                            ]);
-                    }
-                }
-            }
-        return redirect()->back()->with('message', 'Empresas Asociadas');
+        // dd($request);
+        $contactos=$request->contactos;
+        foreach($contactos as $contacto){
+            // dd($request->empresa_id);
+            EmpresaContacto::create([
+                'empresa_id'=>$request->empresa_id,
+                'contacto_id'=>$contacto,
+                'departamento','-'
+            ]);
+        }
+
+        return redirect()->back()->with('message', 'Contactos Añadidos');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\EmpresaContacto  $empresaContacto
      * @return \Illuminate\Http\Response
      */
-    public function show(EmpresaContacto $empresaContacto)
+    public function show($empresa_id)
     {
-        //
+        $empresa=Empresa::find($empresa_id);
+        $empresacontactos=EmpresaContacto::where('empresa_id',$empresa_id)->get();
+        $departamentos=Departamento::get();
+        $contactos = Empresa::whereNotIn('id', function ($query) use ($empresa_id) {
+            $query->select('contacto_id')->from('empresa_contacto')->where('empresa_id', $empresa_id);
+            })
+            ->get();
+        return view('empresacontacto.index',compact('empresacontactos','empresa','departamentos','contactos'));
+
     }
 
     /**
@@ -83,9 +84,16 @@ class EmpresaContactoController extends Controller
      * @param  \App\EmpresaContacto  $empresaContacto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EmpresaContacto $empresaContacto)
+    // public function update(Request $request, EmpresaContacto $empresaContacto)
+    public function update(Request $request)
     {
-        //
+        EmpresaContacto::find($request->id)->update($request->all());
+        if($request->ajax()){
+            return response()->json(['message', 'Departamento Actualizado']);
+        }
+        else{
+            return redirect()->back()->with('message', 'Departamento Actualizado');
+        }
     }
 
     /**
@@ -94,8 +102,10 @@ class EmpresaContactoController extends Controller
      * @param  \App\EmpresaContacto  $empresaContacto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EmpresaContacto $empresaContacto)
+    public function destroy($empresaContacto)
     {
-        //
+        EmpresaContacto::find($empresaContacto)->forceDelete();
+
+        return redirect()->back()->with('message', 'Contacto eliminado');
     }
 }

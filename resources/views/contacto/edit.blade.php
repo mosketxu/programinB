@@ -3,7 +3,8 @@
 @section('title','Programin-Editar Contacto')
 @section('titlePag','Editar Contacto')
 @section('navbar')
-    @include('layouts.partials.navbar')
+    @include('layouts.partials.navbarizquierda')
+    @include('layouts.partials.navbarderecha')
 @endsection
 
 @section('content')
@@ -108,15 +109,21 @@
                                     <label for="provincia_id">Provincia</label>
                                     <select class="form-control form-control-sm" name="provincia_id" id="provincia_id">
                                         @foreach($provincias as $id => $provincia)
-                                            <option value="{{old('provincia_id',$provincia->id)}}"  {{ $provincia->provincia == $contacto->provincia->provincia ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
+                                        @if(!$contacto->provincia_id)
+                                            <option value="">-- Selecciona --</option>
+                                        @endif
+                                            <option value="{{old('provincia_id',$provincia->id)}}"  {{ $provincia->provincia == $contacto->provincia['provincia'] ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-1">
                                     <label for="pais_id">País</label>
                                     <select class="form-control form-control-sm" name="pais_id" id="pais_id">
+                                        @if(!$contacto->pais_id)
+                                        <option value="">-- Selecciona --</option>
+                                        @endif
                                         @foreach($paises as $pais)
-                                            <option value="{{old('pais_id',$pais->id)}}"  {{ $pais->pais == $contacto->pais->pais ? 'selected' : '' }}>{{ $pais->pais }}</option>
+                                            <option value="{{old('pais_id',$pais->id)}}"  {{ $pais->pais == $contacto->pais['pais'] ? 'selected' : '' }}>{{ $pais->pais }}</option>
                                         @endforeach
                                     </select>
                                 </div>

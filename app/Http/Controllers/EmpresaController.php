@@ -78,9 +78,7 @@ class EmpresaController extends Controller
         $condpagos=CondicionPago::get();
         $periodos=PeriodoFacturacion::get();
         $empresa=Empresa::find($empresa->id);
-
-        // dd($empresa->periodofacturacion_id);
-        
+      
         return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','periodos'));
     }
 

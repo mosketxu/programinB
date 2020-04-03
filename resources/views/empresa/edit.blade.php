@@ -3,7 +3,9 @@
 @section('title','Programin-Editar Empresa')
 @section('titlePag','Editar empresa')
 @section('navbar')
-    @include('layouts.partials.navbar')
+    @include('layouts.partials.navbarizquierda')
+    @include('empresa.navbar')
+    @include('layouts.partials.navbarderecha')
 @endsection
 
 @section('content')
@@ -111,9 +113,11 @@
                                 <div class="form-group col-2">
                                     <label for="provincia_id">Provincia</label>
                                     <select class="form-control form-control-sm" name="provincia_id" id="provincia_id">
-                                        {{-- <option value="{{ $empresa->provincia_id }}" >{{ $empresa->provincia->provincia ?? ''}}</option> --}}
+                                        @if(!$empresa->provincia_id)
+                                            <option value="">-- Selecciona --</option>
+                                        @endif
                                         @foreach($provincias as $id => $provincia)
-                                            <option value="{{old('provincia_id',$provincia->id)}}"  {{ $provincia->provincia == $empresa->provincia->provincia ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
+                                            <option value="{{old('provincia_id',$provincia->id)}}"  {{ $provincia->provincia == $empresa->provincia['provincia'] ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -175,7 +179,7 @@
                                     <label for="condicionpago_id">Condiciones pago</label>
                                     <select class="form-control form-control-sm" name="condicionpago_id" id="condicionpago_id">
                                         @foreach($condpagos as $condpagos)
-                                            <option value="{{old('condicionpago_id',$condpagos->id)}}"  {{ $condpagos->condicionpago == $empresa->condicionpago->condicionpago ? 'selected' : '' }}>{{ $condpagos->condicionpago }}</option>
+                                            <option value="{{old('condicionpago_id',$condpagos->id)}}"  {{ $condpagos->condicionpago == $empresa->condicionpago->condicionpago ? 'selected' : '' }}>{{ $condpagos->condicionpago  }}</option>
                                         @endforeach
                                     </select>
                                 </div>
