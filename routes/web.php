@@ -35,5 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/contactos.php';
     //EmpresaContactos
     require __DIR__ .'/empresacontactos.php';
+    //Pus
+    require __DIR__ .'/pus.php';
 });
 

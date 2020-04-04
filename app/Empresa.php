@@ -21,6 +21,11 @@ class Empresa extends Model
           return $this->hasMany(EmpresaContacto::class);
       }
 
+      public function pus()
+      {
+          return $this->hasMany(Pu::class);
+      }
+
       public function provincia()
       {
           return $this->belongsTo(Provincia::class);

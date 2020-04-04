@@ -64,12 +64,19 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'contactos.create']);
         // Permission::create(['name' => 'contactos.destroy']);
 
-        // empresa
-        // Permission::create(['name' => 'empresacontacos.index']);
-        // Permission::create(['name' => 'empresacontacos.edit']);
-        // Permission::create(['name' => 'empresacontacos.show']);
-        // Permission::create(['name' => 'empresacontacos.create']);
-        // Permission::create(['name' => 'empresacontacos.destroy']);
+        // empresacontactos
+        // Permission::create(['name' => 'empresacontactos.index']);
+        // Permission::create(['name' => 'empresacontactos.edit']);
+        // Permission::create(['name' => 'empresacontactos.show']);
+        // Permission::create(['name' => 'empresacontactos.create']);
+        // Permission::create(['name' => 'empresacontactos.destroy']);
+
+        // pus
+        Permission::create(['name' => 'pus.index']);
+        Permission::create(['name' => 'pus.edit']);
+        Permission::create(['name' => 'pus.show']);
+        Permission::create(['name' => 'pus.create']);
+        Permission::create(['name' => 'pus.destroy']);
 
 
         // $admin->givePermissionTo([
