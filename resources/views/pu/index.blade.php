@@ -123,7 +123,9 @@
                                 <input type="text" class="form-control form-control-sm" name="observaciones" id="observaciones">
                             </div>
                         </div>
-                        <button type="submit">Guardar</button>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                        <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
+
                     </div>
                     <!-- /.card-footer -->
                 </div>
@@ -134,53 +136,6 @@
 
 @push('scriptchosen')
     <script>
-
-    $(document).ready(function(){
-        $('#contactos').select2({
-            placeholder :"Selecciona contactos",
-            tags:true,
-            allowClear:true
-        });
-    });
-
-
-    function update(formulario,ruta) {
-        var token= $('#token').val();
-
-        $.ajaxSetup({
-            headers: { "X-CSRF-TOKEN": $('#token').val() },
-        });
-        var formElement = document.getElementById(formulario);
-        var formData = new FormData(formElement);
-
-        $.ajax({
-            type:'POST',
-                url: ruta,
-                data:formData,
-                cache:false,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    toastr.success(data[1],{
-                    "progressBar":true,
-                    "positionClass":"toast-top-center"
-                    });
-                },
-                error: function(data){
-                    toastr.error("No se ha actualizado el contacto",{
-                        "closeButton": true,
-                        "progressBar":true,
-                        "positionClass":"toast-top-center",
-                        "options.escapeHtml" : true,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": 0,
-                    });
-                }
-            });
-        }
-    
-
     </script>
 @endpush
 

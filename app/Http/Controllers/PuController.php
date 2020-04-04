@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Pu,Empresa};
+use App\Http\Requests\PuRequest;
 use Illuminate\Http\Request;
 
 class PuController extends Controller
@@ -33,9 +34,10 @@ class PuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PuRequest $request)
     {
-        //
+        Pu::create($request->all());
+        return redirect()->back()->with('message', 'pu creada');
     }
 
     /**
@@ -59,7 +61,10 @@ class PuController extends Controller
      */
     public function edit(Pu $pu)
     {
-        //
+        $empresa=Empresa::find($pu->empresa_id);
+        $pu = Pu::find($pu->id);
+        return view('pu.edit',compact('pu','empresa'));
+
     }
 
     /**
@@ -69,9 +74,10 @@ class PuController extends Controller
      * @param  \App\Pu  $pu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pu $pu)
+    public function update(PuRequest $request)
     {
-        //
+        Pu::find($request->id)->update($request->all());
+        return redirect()->back()->with('message', 'Empresa Actualizada');
     }
 
     /**
@@ -82,6 +88,7 @@ class PuController extends Controller
      */
     public function destroy(Pu $pu)
     {
-        //
+        $pu->delete();
+        return redirect()->back()->with('message', 'Pu '.$pu->destino.' eliminado');
     }
 }

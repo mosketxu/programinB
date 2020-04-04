@@ -52,7 +52,7 @@
                                 <div class="form-group col">
                                     <input type="hidden" name="id" id="id" value="{{$empresa->id}}">
                                     <label class="required" for="empresa">Empresa</label>
-                                    <input class="form-control form-control-sm" type="text" name="empresa" id="name" value="{{ old('name', $empresa->empresa) }}" maxlength="255" required>
+                                    <input class="form-control form-control-sm" type="text" name="empresa" id="name" value="{{ old('empresa', $empresa->empresa) }}" maxlength="255" required>
                                 </div>
                                 <div class="form-group col">
                                     <label for="alias">Alias</label>

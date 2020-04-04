@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +40,9 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/pus.php';
 });
 
+use App\Jobs\UserEmailWelcome;
+
+Route::get('/mail',function(){
+    UserEmailWelcome::dispatch(App\User::find(2))->delay(now()->addSeconds(10));
+    return "dones";
+});
