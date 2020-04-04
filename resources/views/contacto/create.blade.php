@@ -37,19 +37,10 @@
                         </div>
                       </div>
                     </div>
-                    @if($errors->any())
-                    <div class="alert alert-danger">
-                        <h6>Por favor, corrige los errores</h6>
-                            @foreach ($errors->all() as $error)
-                                <li> {{ $error }}</li>
-                            @endforeach
-                        </div>
-                    @endif
-                    @if(session()->has('message'))
-                        <div class="alert alert-success">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
+                    {{-- mensajes de exito o error --}}
+                    @include('layouts.partials.mensajes')
+                    {{-- fin mensajes de exito o error --}}
+
                     <form method="POST" action="{{ route("empresa.store") }}">
                         @csrf
                         <div class="card-body">

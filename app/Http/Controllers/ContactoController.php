@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Contacto,Pais,Provincia,TipoEmpresa};
+use App\{Contacto,Pais,Provincia,TipoEmpresa,EmpresaContacto,Empresa};
 use App\Http\Requests\ContactoRequest;
 use Illuminate\Http\Request;
 
@@ -74,8 +74,14 @@ class ContactoController extends Controller
         $paises=Pais::get();
         $provincias=Provincia::get();
         $contacto=Contacto::find($contacto->id);
+        $c=$contacto->id;
+        // $empresas=EmpresaContacto::where('contacto_id',$contacto->id)->get()->toArray();
+        $empresasasociadas=EmpresaContacto::where('contacto_id',$contacto->id)->pluck('empresa_id')->toArray();
         
-        return view('contacto.edit',compact('contacto','tipoempresas','paises','provincias'));
+        $empresas= Empresa::orderBy('empresa')
+            ->get();
+
+        return view('contacto.edit',compact('contacto','tipoempresas','paises','provincias','empresasasociadas','empresas'));
     }
     /**
      * Update the specified resource in storage.

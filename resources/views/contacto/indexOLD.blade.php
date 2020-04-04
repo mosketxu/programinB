@@ -34,22 +34,13 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    @if($errors->any())
-                    <div class="alert alert-danger">
-                        <h6>Por favor, corrige los errores</h6>
-                            @foreach ($errors->all() as $error)
-                                <li> {{ $error }}</li>
-                            @endforeach
-                        </div>
-                    @endif
-                    @if(session()->has('message'))
-                        <div class="alert alert-success">
-                            {{ session()->get('message') }}
-                        </div>
-                    @endif
                     <!-- card-header -->
                     {{-- <div class="card-header">
                     </div> --}}
+                    {{-- mensajes de exito o error --}}
+                    @include('layouts.partials.mensajes')
+                    {{-- fin mensajes de exito o error --}}
+
                     <!-- card-body -->
                     <div class="card-body">
                         <div class="row">

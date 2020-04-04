@@ -3,6 +3,9 @@
 Route::post('empresacontacto/store','EmpresaContactoController@store')->name('empresacontacto.store')
 ->middleware('can:empresacontactos.create');
 
+Route::post('empresacontacto/storeempresas','EmpresaContactoController@storeempresas')->name('empresacontacto.storeempresas')
+->middleware('can:empresacontactos.create');
+
 Route::get('empresacontacto/','EmpresaContactoController@index')->name('empresacontacto.index')
 ->middleware('can:empresacontactos.index');
 

@@ -37,13 +37,31 @@ class EmpresaContactoController extends Controller
         // dd($request);
         $contactos=$request->contactos;
         foreach($contactos as $contacto){
-            // dd($request->empresa_id);
             EmpresaContacto::create([
                 'empresa_id'=>$request->empresa_id,
                 'contacto_id'=>$contacto,
                 'departamento','-'
             ]);
         }
+
+        return redirect()->back()->with('message', 'Contactos Añadidos');
+    }
+
+    public function storeempresas(Request $request)
+    {
+        EmpresaContacto::where('contacto_id',$request->contacto_id)->forceDelete();
+
+        if($request->empresas)
+            foreach($request->empresas as $empresa){
+                $emp=Empresa::where('id',$empresa)->get();
+
+                if($emp->count()>0)
+                    EmpresaContacto::create([
+                        'contacto_id'=>$request->contacto_id,
+                        'empresa_id'=>$empresa,
+                        'departamento','-'
+                    ]);
+            }
 
         return redirect()->back()->with('message', 'Contactos Añadidos');
     }

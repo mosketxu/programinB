@@ -48,19 +48,12 @@
                             <div class="col-2 mb-2">
                             </div>
                         </div>
-                        @if($errors->any())
-                        <div id="error" class="alert alert-danger">
-                            <h6>Por favor, corrige los errores</h6>
-                                @foreach ($errors->all() as $error)
-                                    <li> {{ $error }}</li>
-                                @endforeach
-                            </div>
-                        @endif
-                        @if(session()->has('message'))
-                            <div id="success" class="alert alert-success">
-                                {{ session()->get('message') }}
-                            </div>
-                        @endif
+
+                        {{-- mensajes de exito o error --}}
+                        @include('layouts.partials.mensajes')
+                        {{-- fin mensajes de exito o error --}}
+
+
                         <div class="table-responsive p-0">
                             <table class="table table-hover table-sm small text-nowrap">
                                 <thead>
