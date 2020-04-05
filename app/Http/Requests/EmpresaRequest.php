@@ -24,7 +24,6 @@ class EmpresaRequest extends FormRequest
     public function rules(){
         $rules= [
             'empresa'=>'required',
-            'alias'=>'required|max:25',
             'tipoempresa'=>'required',
             'cliente'=>'required',
             'codpostal'=>'max:10',
@@ -38,7 +37,7 @@ class EmpresaRequest extends FormRequest
         if ($this->getMethod() == 'POST') {
             $rules += [
                 'empresa'=>'unique:empresas,empresa',
-                'alias'=>'unique:empresas,alias',
+                'nif'=>'unique:empresas,nif',
             ];
         }
 
@@ -49,8 +48,6 @@ class EmpresaRequest extends FormRequest
         return [
             'empresa.required' => 'El nombre de la empresa es obligatorio.',
             'empresa.unique' => 'El nombre de la empresa ya existe.',
-            'alias.required' => 'El nombre del alias es obligatorio.',
-            'alias.unique' => 'El nombre del alias ya existe.',
             'tipoempresa.required' => 'El tipo de empresa es obligatorio.',
             'cliente.required' => 'El campo cliente es obligatorio.',
             'emailgral.email' => 'Añade un :attribute válido',

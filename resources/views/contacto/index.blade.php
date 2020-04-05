@@ -58,7 +58,6 @@
                                 <thead>
                                 <tr>
                                     <th width=10px>#</th>
-                                    <th>Alias</th>
                                     <th>Nombre</th>
                                     <th>Nif</th>
                                     <th>Tfno</th>
@@ -75,8 +74,7 @@
                                     @foreach($contactos as $contacto)
                                     <tr>
                                         <td class="badge badge-default">{{$contacto->id}}</a></td>
-                                        <td><a href="{{route('contacto.edit', $contacto) }}">{{$contacto->alias}}</a></td>
-                                        <td>{{$contacto->empresa}}</td>
+                                        <td><a href="{{route('contacto.edit', $contacto) }}">{{$contacto->empresa}}</a></td>
                                         <td>{{$contacto->nif}}</td>
                                         <td>{{$contacto->tfno}}</td>
                                         <td>{{$contacto->emailgral}}</td>
@@ -87,7 +85,6 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{$contacto->id}}" >
                                             <input type="hidden" name="empresa" value="{{$contacto->empresa}}" >
-                                            <input type="hidden" name="alias" value="{{$contacto->alias}}" >
                                             <input type="hidden" name="tipoempresa" value="{{$contacto->tipoempresa}}" >
                                             <td>
                                             <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$contacto->id}}','{{ route('contacto.update') }}')" required aria-placeholder="cliente">

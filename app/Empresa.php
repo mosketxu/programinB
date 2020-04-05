@@ -26,6 +26,11 @@ class Empresa extends Model
           return $this->hasMany(Pu::class);
       }
 
+      public function suma()
+      {
+          return $this->belongsTo(Suma::class);
+      }
+
       public function provincia()
       {
           return $this->belongsTo(Provincia::class);
@@ -42,7 +47,7 @@ class Empresa extends Model
 
     public function scopeSearch($query, $busca){
         return $query->where('empresa', 'LIKE', "%$busca%")
-        ->orWhere('alias', 'LIKE', "%$busca%");
+        ->orWhere('nif', 'LIKE', "%$busca%");
     }
   
 }

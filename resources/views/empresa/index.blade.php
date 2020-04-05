@@ -60,7 +60,6 @@
                                 <tr>
                                     <th width="5px"></th>
                                     <th width=10px>#</th>
-                                    <th>Alias</th>
                                     <th>Empresa</th>
                                     <th>Nif</th>
                                     <th>Provincia</th>
@@ -78,7 +77,6 @@
                                     <tr>
                                         <td><a href="{{route('empresa.go', $empresa) }}" title="go"><i class="fab fa-goodreads text-primary fa-2x ml-3"></i></a></td>
                                         <td class="badge badge-default">{{$empresa->id}}</a></td>
-                                        <td><a href="{{route('empresa.go', $empresa) }}">{{$empresa->alias}}</a></td>
                                         <td>{{$empresa->empresa}}</td>
                                         <td>{{$empresa->nif}}</td>
                                         <td>{{$empresa->provincia_id}}</td>
@@ -87,7 +85,6 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{$empresa->id}}" >
                                             <input type="hidden" name="empresa" value="{{$empresa->empresa}}" >
-                                            <input type="hidden" name="alias" value="{{$empresa->alias}}" >
                                             <input type="hidden" name="tipoempresa" value="{{$empresa->tipoempresa}}" >
                                             <td>
                                             <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">

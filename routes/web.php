@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/empresacontactos.php';
     //Pus
     require __DIR__ .'/pus.php';
+    //Proveedores
+    require __DIR__ .'/proveedores.php';
 });
 
 use App\Jobs\UserEmailWelcome;

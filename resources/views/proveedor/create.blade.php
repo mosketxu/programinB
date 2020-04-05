@@ -1,7 +1,7 @@
 @extends('layouts.programin')
 
-@section('title','Programin-Nueva Empresa')
-@section('titlePag','Crear empresa')
+@section('title','Programin-Nuevo Proveedor')
+@section('titlePag','Crear Proveedor')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
     @include('layouts.partials.navbarderecha')
@@ -32,7 +32,7 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Nueva empresa</h3>
+                        <h3 class="card-title">Nuevo proveedor</h3>
                         <div class="card-tools">
                         </div>
                       </div>
@@ -42,43 +42,21 @@
                     @include('layouts.partials.mensajes')
                     {{-- fin mensajes de exito o error --}}
 
-                    <form method="POST" action="{{ route("empresa.store") }}">
+
+                    <form method="POST" action="{{ route("proveedor.store") }}">
                         @csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col">
-                                    <label class="required" for="empresa">Empresa</label>
-                                    <input class="form-control" type="text" name="empresa" id="empresa" value="{{ old('empresa', '') }}" required>
+                                    <label class="required" for="proveedor">proveedor</label>
+                                    <input class="form-control" type="text" name="proveedor" id="proveedor" value="{{ old('proveedor', '') }}" required>
                                 </div>
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
                                     <input class="form-control" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">
                                 </div>
-                                <div class="form-group col-2">
-                                    <label class="required" for="tipoempresa">Tipo</label>
-                                    <select class="form-control" name="tipoempresa" id="tipoempresa" required aria-placeholder="tipo">
-                                        @foreach($tipoempresas as $tipoempresa)
-                                            <option value="{{ $tipoempresa->tipoempresa }}">{{ $tipoempresa->tipoempresa }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col">
-                                    <label class="required" for="cliente">Cliente</label>
-                                    <select class="form-control" name="cliente" id="cliente" required aria-placeholder="cliente">
-                                        <option value="{{old('cliente','0')}}" >No</option>
-                                        <option value="{{old('cliente','1')}}" selected >Sí</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-2">
-                                    <label for="nif">Cuenta Contable</label>
-                                    <input class="form-control" type="text" name="cuentacontable" id="cuentacontable" value="{{ old('cuentacontable', '') }}">
-                                </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col">
-                                    <label for="direccion">Dirección</label>
-                                    <input class="form-control" type="text" name="direccion" id="direccion" value="{{ old('direccion', '') }}">
-                                </div>
                                 <div class="form-group col-1">
                                     <label for="codpostal">Código Postal</label>
                                     <input class="form-control" type="text" name="codpostal" id="codpostal" value="{{ old('codpostal', '') }}">
@@ -110,31 +88,24 @@
                                     <input class="form-control" type="text" name="tfno" id="tfno" value="{{ old('tfno', '') }}">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="emailgral">@ General</label>
-                                    <input class="form-control" type="text" name="emailgral" id="emailgral" value="{{ old('emailgral', '') }}">
+                                    <label for="email">@</label>
+                                    <input class="form-control" type="text" name="email" id="emailgral" value="{{ old('email', '') }}">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="emailadm">@ Administración</label>
-                                    <input class="form-control" type="text" name="emailadm" id="emailadm" value="{{ old('emailadm', '') }}">
+                                    <label for="banco1">Banco 1</label>
+                                    <input class="form-control" type="text" name="banco1" id="banco1" value="{{ old('banco1', '') }}">
                                 </div>
                                 <div class="form-group col">
-                                    <label for="web">Web</label>
-                                    <input class="form-control" type="text" name="web" id="web" value="{{ old('web', '') }}">
+                                    <label for="iban1">Iban 1</label>
+                                    <input class="form-control" type="text" name="iban1" id="iban1" value="{{ old('iban1', '') }}">
                                 </div>
-                                <div class="form-group col-1">
-                                    <label for="idioma">Idioma</label>
-                                    <select class="form-control" name="idioma" id="idioma">
-                                        <option value="ES" {{ old('idioma') == "ES" ? 'selected' : '' }}>ES</option>
-                                        <option value="EN" {{ old('idioma') == "EN" ? 'selected' : '' }}>EN</option>
-                                        <option value="CA" {{ old('idioma') == "CA" ? 'selected' : '' }}>CA</option>
-                                    </select>
+                                <div class="form-group col">
+                                    <label for="banco2">Banco 2</label>
+                                    <input class="form-control" type="text" name="banco2" id="banco2" value="{{ old('banco2', '') }}">
                                 </div>
-                                <div class="form-group col-1">
-                                    <label for="estado">Estado</label>
-                                    <select class="form-control" name="estado" id="estado">
-                                        <option value="0" {{ old('estado') == "Activo" ? 'selected' : '' }}>Activo</option>
-                                        <option value="1" {{ old('estado') == "Baja" ? 'selected' : '' }}>Baja</option>
-                                    </select>
+                                <div class="form-group col">
+                                    <label for="iban2">Iban 2</label>
+                                    <input class="form-control" type="text" name="iban2" id="iban2" value="{{ old('iban2', '') }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="observaciones">Observaciones</label>
@@ -145,7 +116,7 @@
                         <div class="card-footer">
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Guardar</button>
-                                <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
+                                <a class="btn btn-default" href="{{route('proveedor.index')}}" title="Ir la página anterior">Volver</a>
                             </div>
                 
                         </div>

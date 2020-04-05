@@ -52,8 +52,15 @@
         {{-- Contactos --}}
         <li class="nav-item">
           <a href="{{route('contacto.index')}}" class="nav-link {{(request()->segment(1)=='contacto') ? 'active' : ''}}">
-            <i class="nav-icon far fa-id-card"></i>
+            <i class="nav-icon fas fa-users"></i>
             <p> Contactos</p>
+          </a>
+        </li>
+        {{-- Proveedores --}}
+        <li class="nav-item">
+          <a href="{{route('proveedor.index')}}" class="nav-link {{(request()->segment(1)=='proveedor') ? 'active' : ''}}">
+            <i class="nav-icon fas fa-users-cog"></i>
+            <p> Proveedores</p>
           </a>
         </li>
      </nav>

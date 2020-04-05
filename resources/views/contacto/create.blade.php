@@ -52,10 +52,6 @@
                                     <label class="required" for="empresa">Empresa</label>
                                     <input class="form-control" type="text" name="empresa" id="empresa" value="{{ old('empresa', '') }}" required>
                                 </div>
-                                <div class="form-group col">
-                                    <label class="required" for="alias">Alias</label>
-                                    <input class="form-control" type="text" name="alias" id="alias" value="{{ old('alias', '') }}" required>
-                                </div>
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
                                     <input class="form-control" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">

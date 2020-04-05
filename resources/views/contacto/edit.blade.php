@@ -51,10 +51,6 @@
                                 <label class="required" for="empresa">Nombre</label>
                                 <input class="form-control form-control-sm" type="text" name="empresa" id="name" value="{{ old('name', $contacto->empresa) }}" required>
                             </div>
-                            <div class="form-group col">
-                                <label for="alias">Alias</label>
-                                <input class="form-control form-control-sm" type="text" name="alias" id="alias" value="{{ old('alias', $contacto->alias) }}" required>
-                            </div>
                             <div class="form-group col-1">
                                 <label for="nif">Nif</label>
                                 <input class="form-control form-control-sm" type="text" name="nif" id="nif" value="{{ old('nif', $contacto->nif) }}">

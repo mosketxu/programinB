@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Contacto extends Model
+class Proveedor extends Model
 {
-    protected $table = 'empresas';
+    protected $table = 'proveedores';
     protected $guarded = ['id']; 
 
     public function pais()
@@ -20,9 +20,8 @@ class Contacto extends Model
     }
 
     public function scopeSearch($query, $busca){
-        return $query->where('empresa', 'LIKE', "%$busca%")
+        return $query->where('proveedor', 'LIKE', "%$busca%")
         ->orWhere('nif', 'LIKE', "%$busca%");
     }
-
 
 }

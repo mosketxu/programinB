@@ -19,7 +19,7 @@ class ContactoController extends Controller
         $busqueda=($request->busca);
         $contactos=Contacto::search($request->busca)
         ->where('deleted_at',null)
-        ->orderBy('alias')
+        ->orderBy('empresa')
         ->paginate();
 
         return view('contacto.index',compact('contactos','busqueda'));

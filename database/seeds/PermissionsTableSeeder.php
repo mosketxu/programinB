@@ -72,12 +72,18 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'empresacontactos.destroy']);
 
         // pus
-        Permission::create(['name' => 'pus.index']);
-        Permission::create(['name' => 'pus.edit']);
-        Permission::create(['name' => 'pus.show']);
-        Permission::create(['name' => 'pus.create']);
-        Permission::create(['name' => 'pus.destroy']);
+        // Permission::create(['name' => 'pus.index']);
+        // Permission::create(['name' => 'pus.edit']);
+        // Permission::create(['name' => 'pus.show']);
+        // Permission::create(['name' => 'pus.create']);
+        // Permission::create(['name' => 'pus.destroy']);
 
+        // proveedores
+        Permission::create(['name' => 'proveedores.index']);
+        Permission::create(['name' => 'proveedores.edit']);
+        Permission::create(['name' => 'proveedores.show']);
+        Permission::create(['name' => 'proveedores.create']);
+        Permission::create(['name' => 'proveedores.destroy']);
 
         // $admin->givePermissionTo([
         //     'products.index',

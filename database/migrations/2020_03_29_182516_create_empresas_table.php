@@ -16,7 +16,7 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->string('empresa');
-            $table->string('alias',0)->index();
+            $table->string('alias',0)->nullable();
             $table->string('tipoempresa',25);
             $table->string('direccion',100)->nullable();
             $table->string('codpostal',10)->nullable();
@@ -45,7 +45,10 @@ class CreateEmpresasTable extends Migration
             $table->string('banco')->nullable();
             $table->string('iban')->nullable();
             $table->string('observaciones')->nullable();
-            $table->string('contactosuma')->default('marta.ruiz@sumaempresa.com')->nullable();
+            // $table->string('contactosuma')->default('marta.ruiz@sumaempresa.com')->nullable();
+            $table->unsignedBigInteger('suma_id')->default('1');
+            $table->foreign('suma_id')->references('id')->on('suma')->onDelete('cascade');
+
             $table->string('cliente')->default('1');
             $table->boolean('estado')->default('1');
             $table->timestamps();

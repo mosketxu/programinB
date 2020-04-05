@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{CondicionPago, Empresa,Pais, PeriodoFacturacion, Provincia,TipoEmpresa};
+use App\{CondicionPago, Empresa,Pais, PeriodoFacturacion, Provincia, Suma, TipoEmpresa};
 use App\Http\Requests\EmpresaRequest;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ class EmpresaController extends Controller
         $busqueda=($request->busca);
         $empresas=Empresa::search($request->busca)
         ->where('cliente',1)
-        ->orderBy('alias')
+        ->orderBy('empresa')
         ->paginate();
         return view('empresa.index',compact('empresas','busqueda'));
     }
@@ -32,11 +32,13 @@ class EmpresaController extends Controller
     public function create()
     {
         $tipoempresas=TipoEmpresa::get();
+        $sumas=Suma::get();
+
         $paises=Pais::get()
             ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
         $provincias=Provincia::get()
             ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
-        return view('empresa.create',compact('tipoempresas','paises','provincias'));
+        return view('empresa.create',compact('tipoempresas','paises','provincias','sumas')); 
     }
 
     /**
@@ -70,16 +72,15 @@ class EmpresaController extends Controller
      */
     public function edit(Empresa $empresa)
     {
-
         $tipoempresas=TipoEmpresa::get();
+        $sumas=Suma::get();
         $paises=Pais::get();
         $provincias=Provincia::get();
-        $condpagos=CondicionPago::get();
         $condpagos=CondicionPago::get();
         $periodos=PeriodoFacturacion::get();
         $empresa=Empresa::find($empresa->id);
       
-        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','periodos'));
+        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','periodos','sumas'));
     }
 
     /**
