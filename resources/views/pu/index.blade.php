@@ -1,9 +1,10 @@
 @extends('layouts.programin')
 
 @section('title','Programin-Pu')
-@section('titlePag','Pu de la empresa')
+@section('titlePag','Pu de ')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
     @include('empresa.navbar')
     @include('layouts.partials.navbarderecha')
 @endsection
@@ -13,22 +14,18 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
+            {{-- <div class="container-fluid">
                 <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
                     <div class="col-auto">
                     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
                     </div>
                     <div class="col-auto mr-auto">
-                        {{-- @can('contactos.create')
-                        <a href="{{route('contacto.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
-                        @endcan --}}
                     </div>
                     <div class="col-sm-3 text-right pr-2">
                     <a href="{{url()->previous()}}">Volver</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}
@@ -69,6 +66,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                     @foreach($pus as $pu)
                                     <tr>
                                         <td class="badge badge-default">{{$pu->id}}-{{$pu->empresa_id}}</td>
@@ -100,7 +98,7 @@
                     <div class="card-footer">
                         <form method="POST" action="{{ route("pu.store") }}">
                         @csrf
-                        <input type="hidden" name="empresa_id" value="{{$pu->empresa_id}}">
+                        <input type="hidden" name="empresa_id" value="{{$empresa->id}}">
                         <div class="row">
                             <div class="form-group col">
                                 <label for="destino">Destino</label>
@@ -125,7 +123,6 @@
                         </div>
                         <button class="btn btn-primary" type="submit">Guardar</button>
                         <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
-
                     </div>
                     <!-- /.card-footer -->
                 </div>

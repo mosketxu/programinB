@@ -1,9 +1,10 @@
 @extends('layouts.programin')
 
-@section('title','Programin-Contactos de la empresa')
-@section('titlePag','Contactos de la empresa')
+@section('title','Programin-Contactos')
+@section('titlePag','Contactos de ')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
     @include('empresa.navbar')
     @include('layouts.partials.navbarderecha')
 @endsection
@@ -13,22 +14,18 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
+            {{-- <div class="container-fluid">
                 <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
                     <div class="col-auto">
                     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
                     </div>
                     <div class="col-auto mr-auto">
-                        {{-- @can('contactos.create')
-                        <a href="{{route('contacto.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
-                        @endcan --}}
                     </div>
                     <div class="col-sm-3 text-right pr-2">
                     <a href="{{url()->previous()}}">Volver</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}
@@ -74,7 +71,7 @@
                                     @foreach($empresacontactos as $empresacontacto)
                                     <tr>
                                         <td class="badge badge-default">{{$empresacontacto->id}}-{{$empresacontacto->empresa_id}}-{{$empresacontacto->contacto_id}}</a></td>
-                                        <td>{{$empresacontacto->contacto->empresa}}</td>
+                                        <td>{{$empresacontacto->contacto->empresa ?? '-'}}</td>
                                         {{-- <form id="form{{$empresacontacto->id}}" role="form" method="post" action="{{ route('empresacontacto.update',$empresacontacto->id) }}" > --}}
                                         <form id="form{{$empresacontacto->id}}" role="form" method="post" action="{{ route('empresacontacto.update') }}" >
                                             @method('PUT')
@@ -88,10 +85,10 @@
                                             </select>
                                             </td>
                                         </form>
-                                        <td>{{$empresacontacto->contacto->tfno}}</td>
-                                        <td>{{$empresacontacto->contacto->emailgral}}</td>
-                                        <td>{{$empresacontacto->contacto->emailadm}}</td>
-                                        <td>{{$empresacontacto->contacto->provincia_id}}</td>
+                                        <td>{{$empresacontacto->contacto->tfno ?? '-'}}</td>
+                                        <td>{{$empresacontacto->contacto->emailgral ?? '-'}}</td>
+                                        <td>{{$empresacontacto->contacto->emailadm ?? '-'}}</td>
+                                        <td>{{$empresacontacto->contacto->provincia_id ?? '-'}}</td>
                                         <td>{{$empresacontacto->observaciones}}</td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('empresacontacto.destroy',$empresacontacto->id)}}" method="post">
@@ -118,7 +115,13 @@
                         <form method="POST" action="{{ route("empresacontacto.store") }}">
                         @csrf
                         <input type="hidden" name="empresa_id" value="{{$empresa->id}}">
-                        <label for="empresas">Selecciona contactos</label>
+                        <label for="empresas">Selecciona contactos 
+                            @can('empresacontactos.create')
+                            o pulsa  
+                            <a href="{{route('empresacontacto.create',$empresa)}}">AQUÍ</a> 
+                            aqui para crear uno nuevo
+                            @endcan
+                        </label>
                         <select class="form-control" name="contactos[]" id="contactos" multiple="multiple">
                             @foreach($contactos as $contacto)
                                 <option value="{{$contacto->id}}">{{$contacto->empresa}}</option>
@@ -140,7 +143,7 @@
         $('#contactos').select2({
             placeholder :"Selecciona contactos",
             tags:true,
-            allowClear:true
+            allowClear:true,
         });
     });
 
@@ -180,8 +183,6 @@
                 }
             });
         }
-    
-
     </script>
 @endpush
 

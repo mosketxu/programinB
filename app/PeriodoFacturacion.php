@@ -10,4 +10,9 @@ class PeriodoFacturacion extends Model
     public $incrementing = false;
 
     protected $fillable = ['periodofacturacion','periodo']; 
+
+    public function empresas()
+    {
+        return $this->hasMany(Empresa::class);
+    }
 }

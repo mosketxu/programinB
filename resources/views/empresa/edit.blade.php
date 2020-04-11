@@ -4,6 +4,7 @@
 @section('titlePag','Editar empresa')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
     @include('empresa.navbar')
     @include('layouts.partials.navbarderecha')
 @endsection
@@ -13,9 +14,8 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
+            {{-- <div class="container-fluid">
                 <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
                     <div class="col-auto">
                         <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
                     </div>
@@ -25,20 +25,20 @@
                     <a href="{{url()->previous()}}">Volver</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
                     <h3 class="card-title">Editar empresa {{$empresa->empresa}}</h3>
                         <div class="card-tools">
                         </div>
                       </div>
                     </div>
-
+ --}}
                     {{-- mensajes de exito o error --}}
                     @include('layouts.partials.mensajes')
                     {{-- fin mensajes de exito o error --}}
@@ -59,6 +59,14 @@
                                                     <input class="form-control form-control-sm" type="text" name="empresa" id="name" value="{{ old('empresa', $empresa->empresa) }}" maxlength="255" required>
                                                 </div>
                                                 <div class="form-group col-1">
+                                                    <label for="favorito">Favorito</label>
+                                                    <select class="form-control form-control-sm" name="favorito" id="favorito">
+                                                        <option value="{{old('favorito','1')}}"  {{$empresa->favorito=='1' ? 'selected' : ''}}>Sí</option>
+                                                        <option value="{{old('favorito','0')}}" {{$empresa->favorito=='0' ? 'selected' : '' }}>No</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group col-2">
                                                     <label for="nif">Nif</label>
                                                     <input class="form-control form-control-sm" type="text" name="nif" id="nif" value="{{ old('nif', $empresa->nif) }}" maxlength="12">
                                                 </div>
@@ -210,7 +218,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col">
-                                                <label for="periodofacturacion_id">Per.Fact</label>
+                                            <label for="periodofacturacion_id">Per.Fact</label>
                                                 <select class="form-control form-control-sm" name="periodofacturacion_id" id="periodofacturacion_id"> 
                                                     @foreach($periodos as $periodo)
                                                         <option value="{{old('periodofacturacion_id',$periodo->id)}}"  {{ $periodo->periodofacturacion == $empresa->periodofacturacion->periodofacturacion ? 'selected' : '' }}>{{ $periodo->periodofacturacion }}</option>
@@ -253,12 +261,10 @@
                             </div>    
                             <div class="row">
                                 <div class="col">
-                                    {{-- <div class="card-body border border-warninf rounded"> --}}
-                                        <div class="form-group col">
-                                            <label for="observaciones">Observaciones</label>
-                                            <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $empresa->observaciones) }}" maxlength="255">
-                                        </div>
-                                    {{-- </div> --}}
+                                    <div class="form-group col">
+                                        <label for="observaciones">Observaciones</label>
+                                        <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $empresa->observaciones) }}" maxlength="255">
+                                    </div>
                                 </div>
                             </div>
                         </div>

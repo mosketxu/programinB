@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/pus.php';
     //Proveedores
     require __DIR__ .'/proveedores.php';
+    //Contas
+    require __DIR__ .'/contas.php';
 });
 
 use App\Jobs\UserEmailWelcome;

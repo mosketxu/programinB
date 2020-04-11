@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProveedorRequest;
-use App\Proveedor;
+use App\{Proveedor,Provincia,Pais};
 use Illuminate\Http\Request;
 
 class ProveedorController extends Controller
@@ -29,10 +29,8 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        $paises=Pais::get()
-            ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
-        $provincias=Provincia::get()
-            ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
+        $paises=Pais::get();
+        $provincias=Provincia::get();
         return view('proveedor.create',compact('paises','provincias'));
     }
 
@@ -103,7 +101,7 @@ class ProveedorController extends Controller
     public function destroy(Proveedor $proveedor)
     {
         $proveedor->delete();
-        return redirect()->back()->with('message', 'Proveedor '.$provedor->proveedor.' eliminado');
+        return redirect()->back()->with('message', 'Proveedor '.$proveedor->proveedor.' eliminado');
 
     }
 }

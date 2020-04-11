@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\{Departamento, Empresa,EmpresaContacto};
+use App\{Departamento, Empresa,EmpresaContacto, Pais, Provincia,Contacto};
+use App\Http\Requests\ContactoRequest;
 use Illuminate\Http\Request;
 
 class EmpresaContactoController extends Controller
@@ -21,9 +22,14 @@ class EmpresaContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Empresa $empresa)
     {
-        //
+        $paises=Pais::get()
+            ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
+        $provincias=Provincia::get()
+            ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
+        $departamentos=Departamento::get();
+        return view('empresacontacto.create',compact('empresa','paises','provincias','departamentos'));
     }
 
     /**
@@ -34,14 +40,16 @@ class EmpresaContactoController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $contactos=$request->contactos;
+
         foreach($contactos as $contacto){
-            EmpresaContacto::create([
-                'empresa_id'=>$request->empresa_id,
-                'contacto_id'=>$contacto,
-                'departamento','-'
-            ]);
+            $existe=Contacto::find($contacto);
+            if(!is_null($existe))
+                EmpresaContacto::create([
+                    'empresa_id'=>$request->empresa_id,
+                    'contacto_id'=>$contacto,
+                    'departamento','-'
+                ]);
         }
 
         return redirect()->back()->with('message', 'Contactos Añadidos');
@@ -64,6 +72,20 @@ class EmpresaContactoController extends Controller
             }
 
         return redirect()->back()->with('message', 'Contactos Añadidos');
+    }
+
+    public function storecontacto(ContactoRequest $request,$empresa_id)
+    {
+        $contacto=$request->contactos;
+        $contacto=Contacto::create($request->except(['departamento']));
+        
+        EmpresaContacto::create([
+            'empresa_id'=>$empresa_id,
+            'contacto_id'=>$contacto->id,
+            'departamento'=>$request->departamento,
+            ]);
+        
+        return redirect()->back()->with('message', 'Contacto Añadido');
     }
 
     /**
@@ -90,8 +112,9 @@ class EmpresaContactoController extends Controller
      * @param  \App\EmpresaContacto  $empresaContacto
      * @return \Illuminate\Http\Response
      */
-    public function edit(EmpresaContacto $empresaContacto)
+    public function edit($empresa)
     {
+        dd('llego');
         //
     }
 

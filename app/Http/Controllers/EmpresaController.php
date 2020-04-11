@@ -19,6 +19,7 @@ class EmpresaController extends Controller
         $busqueda=($request->busca);
         $empresas=Empresa::search($request->busca)
         ->where('cliente',1)
+        ->orderBy('favorito','DESC')
         ->orderBy('empresa')
         ->paginate();
         return view('empresa.index',compact('empresas','busqueda'));
@@ -116,18 +117,4 @@ class EmpresaController extends Controller
         return redirect()->back()->with('message', 'Empresa '.$empresa->empresa.' eliminada');
 
     }
-
-    /**
-     * Accede a contabilidad y resto menus del resource.
-     *
-     * @param  \App\Empresa\go  $empresa
-     * @return \Illuminate\Http\Response
-     */
-    public function go(Empresa $empresa)
-    {
-        $empresa=Empresa::find($empresa->id);
-    
-        return view('empresa.go',compact('empresa'));
-    }
-
 }

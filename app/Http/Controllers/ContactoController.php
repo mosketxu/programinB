@@ -32,8 +32,7 @@ class ContactoController extends Controller
      */
     public function create()
     {
-        $paises=Pais::get()
-        ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
+        $paises=Pais::get();
         $provincias=Provincia::get()
         ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
         return view('contacto.create',compact('tipoempresas','paises','provincias'));

@@ -6,10 +6,13 @@ Route::post('empresacontacto/store','EmpresaContactoController@store')->name('em
 Route::post('empresacontacto/storeempresas','EmpresaContactoController@storeempresas')->name('empresacontacto.storeempresas')
 ->middleware('can:empresacontactos.create');
 
+Route::post('empresacontacto/storecontacto/{empresa_id}','EmpresaContactoController@storecontacto')->name('empresacontacto.storecontacto')
+->middleware('can:empresacontactos.create');
+
 Route::get('empresacontacto/','EmpresaContactoController@index')->name('empresacontacto.index')
 ->middleware('can:empresacontactos.index');
 
-Route::get('empresacontacto/create','EmpresaContactoController@create')->name('empresacontacto.create')
+Route::get('empresacontacto/create/{empresa}','EmpresaContactoController@create')->name('empresacontacto.create')
 ->middleware('can:empresacontactos.create');
 
 Route::put('empresacontacto','EmpresaContactoController@update')->name('empresacontacto.update')

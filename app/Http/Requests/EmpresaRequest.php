@@ -28,7 +28,7 @@ class EmpresaRequest extends FormRequest
             'cliente'=>'required',
             'codpostal'=>'max:10',
             'nif'=>'max:12',
-            'tfno'=>'max:15',
+            'tfno'=>'max:50',
             'cuentacontable'=>'max:10',
             'emailgral' => 'nullable|email:rfc',
             'emailadm'=>'nullable|email:rfc',

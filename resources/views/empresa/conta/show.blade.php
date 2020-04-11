@@ -3,7 +3,11 @@
 @section('title','Programin-Go')
 @section('titlePag','Go')
 @section('navbar')
-    @include('empresa.navbar')
+@include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}-{{$empresa->nif}}</p>
+@include('empresa.conta.navbar')
+@include('layouts.partials.navbarderecha')
+
 @endsection
 
 @section('content')
@@ -11,31 +15,42 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
-                    <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                        @can('empresas.create')
-                        {{-- <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a> --}}
-                        @endcan
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
-            </div>
         </div>
-        {{-- - /.content-header --}}
         {{-- main content  --}}
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
                     <!-- card-header -->
-                    {{-- <div class="card-header">
-                    </div> --}}
+                    <div class="card-header">
+                        <form method="POST" action="{{ route("pu.store") }}">
+                        @csrf
+                        <input type="hidden" name="empresa_id" value="{{$empresa->id}}">
+                        <div class="row">
+                            <div class="form-group col">
+                                <label for="destino">Destino</label>
+                                <input type="text" class="form-control form-control-sm" name="destino" id="destino">
+                            </div>
+                            <div class="form-group col">
+                                <label for="us">Us</label>
+                                <input type="text" class="form-control form-control-sm" name="us" id="us">
+                            </div>
+                            <div class="form-group col">
+                                <label for="us2">Us2</label>
+                                <input type="text" class="form-control form-control-sm" name="us2" id="us2">
+                            </div>
+                            <div class="form-group col">
+                                <label for="ps">Ps</label>
+                                <input type="text" class="form-control form-control-sm" name="ps" id="ps">
+                            </div>
+                            <div class="form-group col">
+                                <label for="observaciones">Observaciones</label>
+                                <input type="text" class="form-control form-control-sm" name="observaciones" id="observaciones">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                        <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
+                    </div>
+
                     <!-- card-body -->
                     <div class="card-body">
                         <div class="row">

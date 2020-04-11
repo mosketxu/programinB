@@ -4,6 +4,11 @@
 @section('titlePag','Empresas')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag') </p>
+    @can('empresas.create')
+    &nbsp;&nbsp; <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+    @endcan
+
     @include('layouts.partials.navbarderecha')
 @endsection
 
@@ -12,22 +17,6 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
-                    <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                        @can('empresas.create')
-                        <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
-                        @endcan
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
-            </div>
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}
@@ -60,6 +49,7 @@
                                 <tr>
                                     <th width="5px"></th>
                                     <th width=10px>#</th>
+                                    <th></th>
                                     <th>Empresa</th>
                                     <th>Nif</th>
                                     <th>Provincia</th>
@@ -75,8 +65,9 @@
                                 <tbody>
                                     @foreach($empresas as $empresa)
                                     <tr>
-                                        <td><a href="{{route('empresa.go', $empresa) }}" title="go"><i class="fab fa-goodreads text-primary fa-2x ml-3"></i></a></td>
+                                        <td><a href="{{route('conta.index',$empresa) }}" title="go"><i class="fab fa-goodreads text-primary fa-2x ml-3"></i></a></td>
                                         <td class="badge badge-default">{{$empresa->id}}</a></td>
+                                        <td class="mt-1 pt-1 {{($empresa->favorito==1) ? "text-warning" : "text-grey"}}"><i class="{{($empresa->favorito==1) ? "fas fa-star" : "far fa-star"}}"></i></td>
                                         <td>{{$empresa->empresa}}</td>
                                         <td>{{$empresa->nif}}</td>
                                         <td>{{$empresa->provincia_id}}</td>
@@ -97,7 +88,7 @@
                                         <td>{{$empresa->tipoempresa}}</td>
                                         <td>{{$empresa->tfno}}</td>
                                         <td>{{$empresa->emailgral}}</td>
-                                        <td>{{$empresa->contactosuma}}</td>
+                                        <td>{{$empresa->suma->nombre}}</td>
                                         <td class="mt-1 pt-1 badge {{($empresa->estado==0) ? "badge-danger" : "badge-success"}}">{{($empresa->estado==0) ? "Baja" : "Activo"}}</td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('empresa.destroy',$empresa->id)}}" method="post">

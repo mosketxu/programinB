@@ -4,7 +4,9 @@
 @section('titlePag','Crear contacto')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
-    @include('layouts.partials.navbarderecha')
+    <p class="h3 pt-2 text-dark">@yield('titlePag') de {{$empresa->empresa}}</p>
+    {{-- @include('empresacontacto.navbar') --}}
+    @include('layouts.partials.navbarderecha') 
 @endsection
 
 @section('content')
@@ -12,39 +14,39 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
+            {{-- <div class="container-fluid"> --}}
+                {{-- <div class="row"> --}}
                     {{-- <div class="col-sm-3 text-left pl-2"> --}}
-                    <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
+                    {{-- <div class="col-auto"> --}}
+                        {{-- <p class="h3 pt-2 text-dark">@yield('titlePag') de {{$empresa->empresa}}</p> --}}
+                    {{-- </div> --}}
+                    {{-- <div class="col-auto mr-auto"> --}}
+                    {{-- </div> --}}
+                    {{-- <div class="col-sm-3 text-right pr-2"> --}}
+                    {{-- <a href="{{url()->previous()}}">Volver</a> --}}
+                    {{-- </div> --}}
+                {{-- </div> --}}
             </div>
-        </div>
+        {{-- </div> --}}
         {{-- - /.content-header --}}
         {{-- main content  --}}
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Nuevo Contacto</h3>
+                    {{-- <div class="card-header">
                         <div class="card-tools">
                         </div>
                       </div>
-                    </div>
+                    </div> --}}
                     {{-- mensajes de exito o error --}}
                     @include('layouts.partials.mensajes')
                     {{-- fin mensajes de exito o error --}}
 
-                    <form method="POST" action="{{ route("contacto.store") }}">
+                    <form method="POST" action="{{ route("empresacontacto.storecontacto",$empresa->id) }}">
                         @csrf
                         <div class="card-body">
                             <input type="hidden" name="tipoempresa" id="tipoempresa" value="Contacto">
+                            {{-- <input type="hidden" name="empresa_id" id="empresa_id" value="{{$empresa->id}}"> --}}
                             <input type="hidden" name="estado" id="estado" value="1">
                             <input type="hidden" name="cliente" id="cliente" value="0">
                             <input type="hidden" name="periodofacturacion_id" id="periodofacturacion_id" value="0">
@@ -57,6 +59,15 @@
                                     <label for="nif">Nif</label>
                                     <input class="form-control" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">
                                 </div>
+                                <div class="form-group col-2">
+                                    <label for="departamento">Departamento</label>
+                                    <select class="form-control" name="departamento" id="departamento">
+                                        @foreach($departamentos as $departamento)
+                                            <option value="{{ $departamento->departamento }}">{{ $departamento->departamento }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                             </div>
                             <div class="row">
                                 <div class="form-group col">
@@ -74,8 +85,8 @@
                                 <div class="form-group col-2">
                                     <label for="provincia_id">Provincia</label>
                                     <select class="form-control" name="provincia_id" id="provincia_id">
-                                        @foreach($provincias as $id => $provincia)
-                                            <option value="{{ $id }}" {{ old('provincia_id') == $id ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
+                                        @foreach($provincias as $provincia)
+                                            <option value="{{ $provincia->id }}" >{{ $provincia->provincia }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -84,7 +95,7 @@
                                     <select class="form-control" name="pais_id" id="pais_id">
                                         <option value="ES">España</option>
                                         @foreach($paises as $pais)
-                                            <option value="{{ $pais->id }}" {{ old('pais_id') == $pais->id ? 'selected' : '' }}>{{ $pais->pais }}</option>
+                                            <option value="{{ $pais->id }}" >{{ $pais->pais }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -125,7 +136,7 @@
                         <div class="card-footer">
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Guardar</button>
-                                <a class="btn btn-default" href="{{route('contacto.index')}}" title="Ir la página anterior">Volver</a>
+                                <a class="btn btn-default" href="{{route('empresacontacto.show',$empresa)}}" title="Ir la página anterior">Volver</a>
                             </div>
                 
                         </div>

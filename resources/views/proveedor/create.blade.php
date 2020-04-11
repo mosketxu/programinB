@@ -4,6 +4,7 @@
 @section('titlePag','Crear Proveedor')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
     @include('layouts.partials.navbarderecha')
 @endsection
 
@@ -12,9 +13,8 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
+            {{-- <div class="container-fluid">
                 <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
                     <div class="col-auto">
                         <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
                     </div>
@@ -24,19 +24,18 @@
                     <a href="{{url()->previous()}}">Volver</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
                         <h3 class="card-title">Nuevo proveedor</h3>
                         <div class="card-tools">
                         </div>
-                      </div>
-                    </div>
+                    </div> --}}
 
                     {{-- mensajes de exito o error --}}
                     @include('layouts.partials.mensajes')
@@ -48,19 +47,19 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col">
-                                    <label class="required" for="proveedor">proveedor</label>
+                                    <label class="required" for="proveedor">Proveedor</label>
                                     <input class="form-control" type="text" name="proveedor" id="proveedor" value="{{ old('proveedor', '') }}" required>
                                 </div>
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
                                     <input class="form-control" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="form-group col-1">
                                     <label for="codpostal">Código Postal</label>
                                     <input class="form-control" type="text" name="codpostal" id="codpostal" value="{{ old('codpostal', '') }}">
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="form-group col">
                                     <label for="localidad">Localidad</label>
                                     <input class="form-control" type="text" name="localidad" id="localidad" value="{{ old('localidad', '') }}">
@@ -68,21 +67,21 @@
                                 <div class="form-group col-2">
                                     <label for="provincia_id">Provincia</label>
                                     <select class="form-control" name="provincia_id" id="provincia_id">
-                                        @foreach($provincias as $id => $provincia)
-                                            <option value="{{ $id }}" {{ old('provincia_id') == $id ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
+                                        <option value="08">Barcelona</option>
+                                        @foreach($provincias as $provincia)
+                                            <option value="{{ $provincia->id }}">{{ $provincia->provincia }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group col-1">
+                                <div class="form-group col-2">
                                     <label for="pais_id">País</label>
                                     <select class="form-control" name="pais_id" id="pais_id">
+                                        <option value="ES" >España</option>
                                         @foreach($paises as $pais)
-                                            <option value="{{ $pais->id }}" {{ old('pais_id') == $pais->id ? 'selected' : '' }}>{{ $pais->pais }}</option>
+                                            <option value="{{ $pais->id }}" >{{ $pais->pais }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="form-group col">
                                     <label for="tfno">Teléfono</label>
                                     <input class="form-control" type="text" name="tfno" id="tfno" value="{{ old('tfno', '') }}">
@@ -91,6 +90,8 @@
                                     <label for="email">@</label>
                                     <input class="form-control" type="text" name="email" id="emailgral" value="{{ old('email', '') }}">
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="form-group col">
                                     <label for="banco1">Banco 1</label>
                                     <input class="form-control" type="text" name="banco1" id="banco1" value="{{ old('banco1', '') }}">

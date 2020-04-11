@@ -1,11 +1,7 @@
-    <!-- Left navbar links -->
-  <ul class="navbar-nav">
-    {{-- @if(explode(".", Route::currentRouteName())[1]=='edit') --}}
-      <li class="nav-item d-none d-sm-inline-block">
-        @can('empresas.index')
-        <a href="{{route('contas.index',$empresa) }}" class="nav-link" title="Empresa Go">Go</a>
-        @endcan
-      </li>
+<h3 class="card-title">Nuevo Contacto</h3>
+
+<!-- Left navbar links -->
+  {{-- <ul class="navbar-nav">
       <li class="nav-item d-none d-sm-inline-block">
         @can('empresas.index')
             <a href="{{route('empresa.index') }}" class="nav-link" title="Editar empresa">Empresas</a>
@@ -26,6 +22,5 @@
           <a href="{{route('pu.show', $empresa) }}" class="nav-link" title="Contacto de la empresa">Pus</a>
         @endcan
       </li>
-    {{-- @endif --}}
-  </ul>
+  </ul> --}}
   

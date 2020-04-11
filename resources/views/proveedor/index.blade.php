@@ -4,6 +4,12 @@
 @section('titlePag','Proveedores')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
+    &nbsp;&nbsp;
+    @can('proveedores.create')
+        <a href="{{route('proveedor.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+    @endcan
+
     @include('layouts.partials.navbarderecha')
 @endsection
 
@@ -12,9 +18,8 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
+            {{-- <div class="container-fluid">
                 <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
                     <div class="col-auto">
                         <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
                     </div>
@@ -27,7 +32,7 @@
                     <a href="{{url()->previous()}}">Volver</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}

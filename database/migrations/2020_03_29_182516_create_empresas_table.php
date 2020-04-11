@@ -17,6 +17,7 @@ class CreateEmpresasTable extends Migration
             $table->id();
             $table->string('empresa');
             $table->string('alias',0)->nullable();
+            $table->boolean('favorito',0)->default(0);
             $table->string('tipoempresa',25);
             $table->string('direccion',100)->nullable();
             $table->string('codpostal',10)->nullable();
@@ -24,7 +25,7 @@ class CreateEmpresasTable extends Migration
             $table->string('provincia_id')->nullable();
             $table->string('pais_id', 2)->default('ES');
             $table->string('nif',12)->nullable();
-            $table->string('tfno',15)->nullable();
+            $table->string('tfno',50)->nullable();
             $table->string('emailgral',100)->nullable();
             $table->string('emailadm',100)->nullable();
             $table->string('web',100)->nullable();

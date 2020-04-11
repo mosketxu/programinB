@@ -49,21 +49,29 @@
                         @method('PUT')
                         <div class="card-body">
                             <input type="hidden" name="id" id="id" value="{{$pu->id}}">
-                            <div class="form-group row">
-                                <label class="required" for="destino">Destino</label>
-                                <input class="form-control form-control-sm" type="text" name="destino" id="destino" value="{{ old('destino', $pu->destino) }}" required>
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label class="required" for="destino">Destino</label>
+                                    <input class="form-control form-control-sm" type="text" name="destino" id="destino" value="{{ old('destino', $pu->destino) }}" required>
+                                </div>
+                                <div class="form-group col">
+                                    <label for="us">Us</label>
+                                    <input class="form-control form-control-sm" type="text" name="us" id="us" value="{{ old('us', $pu->us) }}">
+                                </div>
+                                <div class="form-group col">
+                                    <label for="us2">Us2</label>
+                                    <input class="form-control form-control-sm" type="text" name="us2" id="us2" value="{{ old('us2', $pu->us2) }}">
+                                </div>
+                                <div class="form-group col">
+                                    <label for="ps">Ps</label>
+                                    <input class="form-control form-control-sm" type="text" name="ps" id="ps" value="{{ old('ps', $pu->ps) }}">
+                                </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="us">Us</label>
-                                <input class="form-control form-control-sm" type="text" name="us" id="us" value="{{ old('us', $pu->us) }}">
-                            </div>
-                            <div class="form-group row">
-                                <label for="us2">Us2</label>
-                                <input class="form-control form-control-sm" type="text" name="us2" id="us2" value="{{ old('us2', $pu->us2) }}">
-                            </div>
-                            <div class="form-group row">
-                                <label for="observaciones">Observaciones</label>
-                                <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $pu->observaciones) }}">
+                            <div class="row">
+                                <div class="form-group col">
+                                    <label for="observaciones">Observaciones</label>
+                                    <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $pu->observaciones) }}">
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
