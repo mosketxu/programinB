@@ -38,8 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/empresacontactos.php';
     //Pus
     require __DIR__ .'/pus.php';
-    //Proveedores
-    require __DIR__ .'/proveedores.php';
+    //Prov-cli
+    require __DIR__ .'/provclis.php';
     //Contas
     require __DIR__ .'/contas.php';
 });

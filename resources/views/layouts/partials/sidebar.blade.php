@@ -56,11 +56,11 @@
             <p> Contactos</p>
           </a>
         </li>
-        {{-- Proveedores --}}
+        {{-- Prov Cli --}}
         <li class="nav-item">
-          <a href="{{route('proveedor.index')}}" class="nav-link {{(request()->segment(1)=='proveedor') ? 'active' : ''}}">
+          <a href="{{route('provcli.index')}}" class="nav-link {{(request()->segment(1)=='nombre') ? 'active' : ''}}">
             <i class="nav-icon fas fa-users-cog"></i>
-            <p> Proveedores</p>
+            <p> Prov/Cli</p>
           </a>
         </li>
      </nav>

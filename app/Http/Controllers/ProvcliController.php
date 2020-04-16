@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProveedorRequest;
-use App\{Proveedor,Provincia,Pais};
+use App\Http\Requests\ProvcliRequest;
+use App\{Provcli,Provincia,Pais};
 use Illuminate\Http\Request;
 
-class ProveedorController extends Controller
+class ProvcliController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,10 @@ class ProveedorController extends Controller
     public function index(Request $request)
     {
         $busqueda=($request->busca);
-        $proveedores=Proveedor::search($request->busca)
-        ->orderBy('proveedor')
+        $provclis=Provcli::search($request->busca)
+        ->orderBy('nombre')
         ->paginate();
-        return view('proveedor.index',compact('proveedores','busqueda'));
+        return view('provcli.index',compact('provclis','busqueda'));
     }
 
     /**
@@ -31,7 +31,7 @@ class ProveedorController extends Controller
     {
         $paises=Pais::get();
         $provincias=Provincia::get();
-        return view('proveedor.create',compact('paises','provincias'));
+        return view('provcli.create',compact('paises','provincias'));
     }
 
     /**
@@ -40,20 +40,20 @@ class ProveedorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProveedorRequest $request)
+    public function store(ProvcliRequest $request)
     {
-        Proveedor::create($request->all());
-        return redirect()->back()->with('message', 'Proveedor creado');
+        Provcli::create($request->all());
+        return redirect()->back()->with('message', 'Creado con exito');
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Provcli  $provcli
      * @return \Illuminate\Http\Response
      */
-    public function show(Proveedor $proveedor)
+    public function show(Provcli $provcli)
     {
         //
     }
@@ -61,33 +61,33 @@ class ProveedorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Provcli  $provcli
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proveedor $proveedor)
+    public function edit(Provcli $provcli)
     {
         $paises=Pais::get();
         $provincias=Provincia::get();
-        $proveedor=Proveedor::find($proveedor->id);
+        $provcli=Provcli::find($provcli->id);
       
-        return view('proveedor.edit',compact('proveedor','paises','provincias'));
+        return view('provcli.edit',compact('provcli','paises','provincias'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Provcli  $provcli
      * @return \Illuminate\Http\Response
      */
-    public function update(ProveedorRequest $request)
+    public function update(ProvcliRequest $request)
     {
-        Proveedor::find($request->id)->update($request->all());
+        Provcli::find($request->id)->update($request->all());
         if($request->ajax()){
-            return response()->json(['message', 'Proveedor Actualizado']);
+            return response()->json(['message', 'Actualizado']);
         }
         else{
-            return redirect()->back()->with('message', 'Proveedor Actualizado');
+            return redirect()->back()->with('message', 'Actualizado');
         }
 
     }
@@ -95,13 +95,13 @@ class ProveedorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Provcli  $provcli
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proveedor $proveedor)
+    public function destroy(Provcli $provcli)
     {
-        $proveedor->delete();
-        return redirect()->back()->with('message', 'Proveedor '.$proveedor->proveedor.' eliminado');
+        $provcli->delete();
+        return redirect()->back()->with('message', $provcli->nombre.' eliminado');
 
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Conta;
+use App\{Empresa, Conta,Provcli};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ContaController extends Controller
 {
@@ -12,9 +14,20 @@ class ContaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Empresa $empresa, Request $request)
     {
-        dd('llego');
+        $busqueda=($request->busca);
+        $emitidas=Conta::search($request->busca)
+        ->where('empresa_id',$empresa->id)
+        ->where('tipo','E')
+        ->get();
+
+        $recibidas=Conta::search($request->busca)
+        ->where('empresa_id',$empresa->id)
+        ->where('tipo','R')
+        ->get();
+
+        return view('empresa.conta.index',compact('emitidas','recibidas','empresa','busqueda')); 
     }
 
     /**

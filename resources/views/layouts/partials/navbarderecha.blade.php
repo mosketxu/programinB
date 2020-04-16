@@ -3,7 +3,7 @@
      <!-- SEARCH FORM -->
    <ul class="navbar-nav ml-auto">
      <li>
-      @if(explode(".", Route::currentRouteName())[1]=='index')
+      {{-- @if(explode(".", Route::currentRouteName())[1]=='index')
         <form class="form-inline ml-3" method="GET" action="{{route(Route::currentRouteName())}}">
           <div class="input-group input-group-sm">
             <input type="search" name="busca" value='{{$busqueda}}' class="form-control form-control-navbar"  placeholder="Search" aria-label="Search">
@@ -14,7 +14,7 @@
               </div>
           </div>
         </form>
-      @endif
+      @endif --}}
       </li>
       <!-- Previous -->
       <li class="nav-link">

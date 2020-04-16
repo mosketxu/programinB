@@ -1,7 +1,7 @@
 @extends('layouts.programin')
 
-@section('title','Programin-Nuevo Proveedor')
-@section('titlePag','Crear Proveedor')
+@section('title','Programin-Nuevo Prov-Cli')
+@section('titlePag','Crear Prov-Cli')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
@@ -32,9 +32,6 @@
             <div class="container-fluid">
                 <div class="card">
                     {{-- <div class="card-header">
-                        <h3 class="card-title">Nuevo proveedor</h3>
-                        <div class="card-tools">
-                        </div>
                     </div> --}}
 
                     {{-- mensajes de exito o error --}}
@@ -42,13 +39,13 @@
                     {{-- fin mensajes de exito o error --}}
 
 
-                    <form method="POST" action="{{ route("proveedor.store") }}">
+                    <form method="POST" action="{{ route("provcli.store") }}">
                         @csrf
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col">
-                                    <label class="required" for="proveedor">Proveedor</label>
-                                    <input class="form-control" type="text" name="proveedor" id="proveedor" value="{{ old('proveedor', '') }}" required>
+                                    <label class="required" for="nombre">Nombre</label>
+                                    <input class="form-control" type="text" name="nombre" id="nombre" value="{{ old('nombre', '') }}" required>
                                 </div>
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
@@ -117,7 +114,7 @@
                         <div class="card-footer">
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Guardar</button>
-                                <a class="btn btn-default" href="{{route('proveedor.index')}}" title="Ir la página anterior">Volver</a>
+                                <a class="btn btn-default" href="{{route('provcli.index')}}" title="Ir la página anterior">Volver</a>
                             </div>
                 
                         </div>

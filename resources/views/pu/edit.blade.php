@@ -4,8 +4,10 @@
 @section('titlePag','Editar Pu')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
     @include('empresa.navbar')
-    @include('layouts.partials.navbarderecha')
+
+    {{-- @include('layouts.partials.navbarderecha') --}}
 @endsection
 
 @section('content')
@@ -32,17 +34,12 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    <div class="card-header">
-                    <h3 class="card-title">Editar Pu de {{$empresa->empresa}}</h3>
-                        <div class="card-tools">
-                        </div>
-                      </div>
-                    </div>
+                    {{-- <div class="card-header">
+                    </div> --}}
 
                     {{-- mensajes de exito o error --}}
                     @include('layouts.partials.mensajes')
                     {{-- fin mensajes de exito o error --}}
-
 
                     <form method="POST" action="{{ route("pu.update") }}">
                         @csrf

@@ -6,7 +6,7 @@
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
     @include('empresa.navbar')
-    @include('layouts.partials.navbarderecha')
+    {{-- @include('layouts.partials.navbarderecha') --}}
 @endsection
 
 @section('content')
@@ -15,16 +15,6 @@
         {{-- content header --}}
         <div class="content-header">
             {{-- <div class="container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
             </div> --}}
         </div>
         {{-- - /.content-header --}}
@@ -74,6 +64,7 @@
                                         <td><input type="text" readonly class="form-control-plaintext" value="{{$pu->us}}"/></td>
                                         <td><input type="text" readonly class="form-control-plaintext" value="{{$pu->us2}}"/></td>
                                         <td><input type="text" readonly class="form-control-plaintext" value="{{$pu->ps}}"/></td>
+                                        <td><input type="text" readonly class="form-control-plaintext" value="{{$pu->observaciones}}"/></td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('pu.destroy',$pu->id)}}" method="post">
                                                 @csrf

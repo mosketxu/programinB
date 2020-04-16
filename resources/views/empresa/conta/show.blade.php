@@ -78,7 +78,7 @@
                                     <th>Fecha Asiento</th>
                                     <th>Fecha Factura</th>
                                     <th>Factura</th>
-                                    <th>Proveedor</th>
+                                    <th>Provcli</th>
                                     <th>Base 21%</th>
                                     <th>Iva 21%</th>
                                     <th>Base Ret</th>

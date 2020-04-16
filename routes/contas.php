@@ -6,9 +6,6 @@ Route::post('conta/store','ContaController@store')->name('conta.store')
 Route::get('conta/{empresa}','ContaController@index')->name('conta.index')
 ->middleware('can:contas.index');
 
-// Route::get('conta/{empresa}/go','ContaController@index')->name('conta.go')
-// ->middleware('can:contas.index');
-
 Route::get('conta/create','ContaController@create')->name('conta.create')
 ->middleware('can:contas.create');
 

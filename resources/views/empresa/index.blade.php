@@ -9,7 +9,8 @@
     &nbsp;&nbsp; <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
     @endcan
 
-    @include('layouts.partials.navbarderecha')
+    @include('empresa.navbar')
+    {{-- @include('layouts.partials.navbarderecha') --}}
 @endsection
 
 @section('content')
@@ -96,10 +97,13 @@
                                                 @method('DELETE')
                                                 <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="token">    
                                                 @can('empresas.edit')
-                                                    <a href="{{route('empresa.edit', $empresa) }}" title="Editar empresa"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
+                                                    <a href="{{route('pu.show', $empresa) }}" title="pu"><i class="fas fa-key text-warning  ml-3"></i></a>
+                                                    <a href="{{route('empresacontacto.show', $empresa) }}" title="contactos"><i class="fas fa-users text-success fa-lg ml-3 mr-3"></i></a>
+
+                                                    <a href="{{route('empresa.edit', $empresa) }}" title="Editar empresa"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
                                                 @endcan
                                                 @can('empresas.destroy')
-                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
+                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></button>
                                                 @endcan
                                             </form>
                                         </td>

@@ -14,18 +14,6 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            {{-- <div class="container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
-            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}
@@ -39,8 +27,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-10 row">
-                                {{-- {{ $empresacontactos->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                                <span class="badge text-primary"> Pág {{$empresacontactos->currentPage()}} de {{$empresacontactos->lastPage()}} </span> --}}
+                                {{ $empresacontactos->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
+                                <span class="badge text-primary"> Pág {{$empresacontactos->currentPage()}} de {{$empresacontactos->lastPage()}} </span>
                             </div>
                             {{-- <div class="card-tools col-auto"> --}}
                             <div class="col-2 mb-2">

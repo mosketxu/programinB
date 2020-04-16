@@ -78,19 +78,19 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'pus.create']);
         // Permission::create(['name' => 'pus.destroy']);
 
-        // proveedores
-        // Permission::create(['name' => 'proveedores.index']);
-        // Permission::create(['name' => 'proveedores.edit']);
-        // Permission::create(['name' => 'proveedores.show']);
-        // Permission::create(['name' => 'proveedores.create']);
-        // Permission::create(['name' => 'proveedores.destroy']);
+        // provclis
+        Permission::create(['name' => 'provclis.index']);
+        Permission::create(['name' => 'provclis.edit']);
+        Permission::create(['name' => 'provclis.show']);
+        Permission::create(['name' => 'provclis.create']);
+        Permission::create(['name' => 'provclis.destroy']);
 
         // contas
-        Permission::create(['name' => 'contas.index']);
-        Permission::create(['name' => 'contas.edit']);
-        Permission::create(['name' => 'contas.show']);
-        Permission::create(['name' => 'contas.create']);
-        Permission::create(['name' => 'contas.destroy']);
+        // Permission::create(['name' => 'contas.index']);
+        // Permission::create(['name' => 'contas.edit']);
+        // Permission::create(['name' => 'contas.show']);
+        // Permission::create(['name' => 'contas.create']);
+        // Permission::create(['name' => 'contas.destroy']);
 
         // $admin->givePermissionTo([
         //     'products.index',
