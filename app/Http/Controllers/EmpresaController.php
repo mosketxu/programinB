@@ -19,6 +19,7 @@ class EmpresaController extends Controller
         $busqueda=($request->busca);
         $empresas=Empresa::search($request->busca)
         ->where('cliente',1)
+        ->with('suma')
         ->orderBy('favorito','DESC')
         ->orderBy('empresa')
         ->paginate();

@@ -3,8 +3,9 @@
 @section('title','Programin-Editar Contacto')
 @section('titlePag','Editar Contacto')
 @section('navbar')
-    @include('layouts.partials.navbarizquierda')
-    @include('layouts.partials.navbarderecha')
+@include('layouts.partials.navbarizquierda')
+<p class="h3 pt-2 text-dark">@yield('titlePag')</p> 
+@include('contacto.navbar')
 @endsection
 
 @section('content')
@@ -13,17 +14,6 @@
         {{-- content header --}}
         <div class="content-header">
             <div class="container-fluid">
-                <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
-                    <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
             </div>
         </div>
         {{-- - /.content-header --}}

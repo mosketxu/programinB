@@ -8,9 +8,7 @@
     @can('empresas.create')
     &nbsp;&nbsp; <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
     @endcan
-
     @include('empresa.navbar')
-    {{-- @include('layouts.partials.navbarderecha') --}}
 @endsection
 
 @section('content')

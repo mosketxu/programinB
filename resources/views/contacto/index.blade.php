@@ -4,7 +4,11 @@
 @section('titlePag','Contactos')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
-    @include('layouts.partials.navbarderecha')
+    <p class="h3 pt-2 text-dark">@yield('titlePag') </p>
+    @can('contactos.create')
+    &nbsp;&nbsp; <a href="{{route('contacto.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+    @endcan
+    @include('contacto.navbar')
 @endsection
 
 @section('content')
@@ -12,22 +16,16 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
+            {{-- <div class="container-fluid">
                 <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
                     <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
                     </div>
                     <div class="col-auto mr-auto">
-                        @can('contactos.create')
-                        <a href="{{route('contacto.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
-                        @endcan
                     </div>
                     <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}

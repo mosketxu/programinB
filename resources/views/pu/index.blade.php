@@ -6,7 +6,6 @@
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
     @include('empresa.navbar')
-    {{-- @include('layouts.partials.navbarderecha') --}}
 @endsection
 
 @section('content')

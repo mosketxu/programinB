@@ -6,7 +6,10 @@
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
     @include('empresa.navbar')
-    @include('layouts.partials.navbarderecha')
+{{-- @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
+    @include('empresa.navbar')
+    @include('layouts.partials.navbarderecha') --}}
 @endsection
 
 @section('content')
@@ -27,8 +30,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-10 row">
-                                {{ $empresacontactos->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                                <span class="badge text-primary"> Pág {{$empresacontactos->currentPage()}} de {{$empresacontactos->lastPage()}} </span>
+                                {{-- {{ $empresacontactos->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
+                                <span class="badge text-primary"> Pág {{$empresacontactos->currentPage()}} de {{$empresacontactos->lastPage()}} </span> --}}
                             </div>
                             {{-- <div class="card-tools col-auto"> --}}
                             <div class="col-2 mb-2">
@@ -77,7 +80,7 @@
                                         <td>{{$empresacontacto->contacto->emailgral ?? '-'}}</td>
                                         <td>{{$empresacontacto->contacto->emailadm ?? '-'}}</td>
                                         <td>{{$empresacontacto->contacto->provincia_id ?? '-'}}</td>
-                                        <td>{{$empresacontacto->observaciones}}</td>
+                                        <td>{{$empresacontacto->contacto->observaciones}}</td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('empresacontacto.destroy',$empresacontacto->id)}}" method="post">
                                                 @csrf

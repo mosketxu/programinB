@@ -1,6 +1,6 @@
-   <!-- Left navbar links -->
-    <ul class="navbar-nav ml-auto">
-      @if(explode(".", Route::currentRouteName())[1]=='index')
+  <!-- Left navbar links -->
+  <ul class="navbar-nav ml-auto">
+    @if(explode(".", Route::currentRouteName())[1]=='index')
       <li class="nav-link">
         <form class="form-inline ml-3" method="GET" action="{{route(Route::currentRouteName())}}">
           <div class="input-group input-group-sm">
@@ -13,42 +13,30 @@
           </div>
         </form>
       </li>
-      @else
-          <!-- Left navbar links -->
+    @else
+        <!-- Left navbar links -->
       <ul class="navbar-nav">
-        {{-- @if(explode(".", Route::currentRouteName())[1]=='edit') --}}
         <li class="nav-item d-none d-sm-inline-block">
-          @can('empresas.index')
-          <a href="{{route('conta.index',$empresa) }}" class="nav-link" title="Empresa Go">Go</a>
+          @can('contactos.index')
+              <a href="{{route('contacto.index') }}" class="nav-link" title="Editar contacto">Contactos</a>
           @endcan
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          @can('empresas.index')
-              <a href="{{route('empresa.index') }}" class="nav-link" title="Editar empresa">Empresas</a>
+          @can('contactos.edit')
+              <a href="{{route('contacto.edit', $contacto) }}" class="nav-link" title="Editar empresa">Editar Contacto</a>
           @endcan
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          @can('empresas.edit')
-              <a href="{{route('empresa.edit', $empresa) }}" class="nav-link" title="Editar empresa">Editar Empresa</a>
-          @endcan
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        {{-- <li class="nav-item d-none d-sm-inline-block">
           @can('contactos.index')
             <a href="{{route('empresacontacto.show', $empresa) }}" class="nav-link" title="Contacto de la empresa">Contactos</a>
           @endcan
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          @can('pus.index')
-            <a href="{{route('pu.show', $empresa) }}" class="nav-link" title="Contacto de la empresa">Pus</a>
-          @endcan
-        </li>
-        {{-- @endif --}}
+        </li> --}}
       </ul>
-      @endif
-    <!-- Previous -->
+    @endif
+  <!-- Previous -->
     <li class="nav-link">
       <a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward"></i></a>
     </li>
   </ul>
 </nav>
-  
+
