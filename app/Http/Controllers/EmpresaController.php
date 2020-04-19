@@ -108,12 +108,11 @@ class EmpresaController extends Controller
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empresa $empresa)
+    public function destroy($empresa_id)
     {
-        $empresa->estado=0;
-        $empresa->save();
-        $empresa->delete();
-        return redirect()->back()->with('message', 'Empresa '.$empresa->empresa.' eliminada');
+        $empresa=Empresa::find($empresa_id);
+        $empresa->destroy($empresa_id);
 
+        return response()->json(['message', 'Empresa  '.$empresa->empresa.' eliminada']);
     }
 }

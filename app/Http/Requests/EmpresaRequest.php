@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 
 class EmpresaRequest extends FormRequest
 {
@@ -23,21 +25,28 @@ class EmpresaRequest extends FormRequest
      */
     public function rules(){
         $rules= [
-            'empresa'=>'required|unique:empresas,empresa',
+            'empresa'=>[
+                'required',
+                Rule::unique('empresas')->ignore($this->id),
+            ],
             'tipoempresa'=>'required',
             'cliente'=>'required',
             'codpostal'=>'max:10',
-            'nif'=>'max:12',
+            'nif'=>[
+                'nullable',
+                'max:12',
+                Rule::unique('empresas')->ignore($this->id),
+            ],
             'tfno'=>'max:50',
             'cuentacontable'=>'max:10',
             'emailgral' => 'nullable|email:rfc',
             'emailadm'=>'nullable|email:rfc',
         ];
 
-        if ($this->getMethod() == 'POST') {
+        if (!$this->id) {
             $rules += [
                 'empresa'=>'unique:empresas,empresa',
-                'nif'=>'unique:empresas,nif',
+                'nif'=>'nullable|unique:empresas,nif',
             ];
         }
 

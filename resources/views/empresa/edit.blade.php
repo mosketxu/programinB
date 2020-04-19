@@ -32,19 +32,11 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    {{-- <div class="card-header">
-                    <h3 class="card-title">Editar empresa {{$empresa->empresa}}</h3>
-                        <div class="card-tools">
-                        </div>
-                      </div>
-                    </div>
- --}}
                     {{-- mensajes de exito o error --}}
                     @include('layouts.partials.mensajes')
-                    {{-- fin mensajes de exito o error --}}
 
-
-                    <form method="POST" action="{{ route("empresa.update") }}">
+                    {{-- <form method="POST" action="{{ route("empresa.update") }}"> --}}
+                        <form id="creaForm">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="id" id="id" value="{{$empresa->id}}">
@@ -221,7 +213,7 @@
                                             <label for="periodofacturacion_id">Per.Fact</label>
                                                 <select class="form-control form-control-sm" name="periodofacturacion_id" id="periodofacturacion_id"> 
                                                     @foreach($periodos as $periodo)
-                                                        <option value="{{old('periodofacturacion_id',$periodo->id)}}"  {{ $periodo->periodofacturacion == $empresa->periodofacturacion->periodofacturacion ? 'selected' : '' }}>{{ $periodo->periodofacturacion }}</option>
+                                                        <option value="{{old('periodofacturacion_id',$periodo->id)}}"  {{ $periodo->periodofacturacion == ($empresa->periodofacturacion->periodofacturacion??'-') ? 'selected' : '' }}>{{ $periodo->periodofacturacion }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -270,7 +262,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Actualizar</button>
+                                {{-- <button class="btn btn-primary" type="submit">Actualizar</button> --}}
+                                <a class="btn btn-primary" href="#" title="Ir la página anterior" onclick="update('creaForm','{{ route('empresa.update') }}',0)">Actualizar</a>
                                 <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
                             </div>
                 

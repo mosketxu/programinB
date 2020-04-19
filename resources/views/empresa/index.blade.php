@@ -63,7 +63,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($empresas as $empresa)
-                                    <tr>
+                                    <tr id="tr{{$empresa->id}}">
                                         <td><a href="{{route('conta.index',$empresa) }}" title="go"><i class="fab fa-goodreads text-primary fa-lg ml-3"></i></a></td>
                                         <td class="badge badge-default">{{$empresa->id}}</a></td>
                                         <td class="mt-1 pt-1 {{($empresa->favorito==1) ? "text-warning" : "text-grey"}}"><i class="{{($empresa->favorito==1) ? "fas fa-star" : "far fa-star"}}"></i></td>
@@ -77,11 +77,10 @@
                                             <input type="hidden" name="empresa" value="{{$empresa->empresa}}" >
                                             <input type="hidden" name="tipoempresa" value="{{$empresa->tipoempresa}}" >
                                             <td>
-                                            <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
+                                            <select class="selectsinborde" name="cliente" id="cliente{{$empresa->id}}" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
                                                     <option value="{{old('cliente','0')}}" {{$empresa->cliente=='0' ? 'selected' : '' }}>No</option>
                                                     <option value="{{old('cliente','1')}}"  {{$empresa->cliente=='1' ? 'selected' : ''}}>Sí</option>
                                                 </select>
-                                                {{-- <button type="submit">G</button> --}}
                                             </td>
                                         </form>
                                         <td>{{$empresa->tipoempresa}}</td>
@@ -90,19 +89,17 @@
                                         <td>{{$empresa->suma->nombre}}</td>
                                         <td class="mt-1 pt-1 badge {{($empresa->estado==0) ? "badge-danger" : "badge-success"}}">{{($empresa->estado==0) ? "Baja" : "Activo"}}</td>
                                         <td  class="text-right m-0 p-0">
-                                            <form  action="{{route('empresa.destroy',$empresa->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="token">    
-                                                @can('empresas.edit')
-                                                    <a href="{{route('pu.show', $empresa) }}" title="pu"><i class="fas fa-key text-warning  ml-3"></i></a>
-                                                    <a href="{{route('empresacontacto.show', $empresa) }}" title="contactos"><i class="fas fa-users text-success fa-lg ml-3 mr-3"></i></a>
-
-                                                    <a href="{{route('empresa.edit', $empresa) }}" title="Editar empresa"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
-                                                @endcan
-                                                @can('empresas.destroy')
-                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></button>
-                                                @endcan
+                                            {{-- @can('empresas.edit') --}}
+                                                <a href="{{route('pu.show', $empresa) }}" title="pu"><i class="fas fa-key text-warning  ml-3"></i></a>
+                                                <a href="{{route('empresacontacto.show', $empresa) }}" title="contactos"><i class="fas fa-users text-success fa-lg ml-3 mr-3"></i></a>
+                                                <a href="{{route('empresa.edit', $empresa) }}" title="Editar empresa"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
+                                            {{-- @endcan
+                                            @can('empresas.destroy') --}}
+                                                <form  id="formDelete{{$empresa->id}}">
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                    <a href="#!" class="btn-delete " title="Eliminar" onclick="eliminar('{{route('empresa.destroy',$empresa->id)}}','{{$empresa->id}}')"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></a>
+                                            {{-- @endcan --}}
                                             </form>
                                         </td>
                                     </tr>
@@ -124,7 +121,8 @@
 
 @push('scriptchosen')
 <script>
-    
+
+
 
 </script>
 @endpush
