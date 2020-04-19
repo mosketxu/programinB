@@ -77,13 +77,17 @@
     <script src="{{ asset('js/select2.full.min.js')}}"></script>
     <!-- Toastr -->
     <script src="{{ asset('js/toastr.min.js')}}"></script>
-
+    {{-- <script src="{{ asset('js/toastr.js.map')}}"></script> --}}
+    
     <!-- Duallist -->
     {{-- <script src="{{ asset('js/jquery.bootstrap-duallistbox.min.js')}}"></script> --}}
     <!-- Scripts original laravel-->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <!-- AdminLTE App -->
     <script src="{{ asset('js/adminlte.js')}}"></script>
+
+    <!-- programins -->
+    <script src="{{ asset('js/programin.js')}}"></script>
     
     @yield('script')
     @stack('scriptchosen')

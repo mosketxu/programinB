@@ -23,7 +23,7 @@ class EmpresaRequest extends FormRequest
      */
     public function rules(){
         $rules= [
-            'empresa'=>'required',
+            'empresa'=>'required|unique:empresas,empresa',
             'tipoempresa'=>'required',
             'cliente'=>'required',
             'codpostal'=>'max:10',

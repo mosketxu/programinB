@@ -1,12 +1,12 @@
 @extends('layouts.programin')
 
-@section('title','Programin-Empresas')
-@section('titlePag','Crea Empresa')
+@section('title','Programin-Nueva Empresa')
+@section('titlePag','Crear empresa')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') </p>
     @can('empresas.create')
-    &nbsp;&nbsp; <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+        &nbsp;&nbsp; <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
     @endcan
     @include('empresa.navbar')
 @endsection
@@ -21,7 +21,10 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    <!-- card-body -->
+                    {{-- mensajes de exito o error --}}
+                    @include('layouts.partials.mensajes')
+                    {{-- fin mensajes de exito o error --}}
+                    {{-- <form method="POST" id="creaempresaForm" action="{{ route("empresa.store") }}"> --}}
                     <form id="creaForm">
                         @csrf
                         <div class="card-body small">
@@ -38,7 +41,7 @@
                                     <label class="required" for="tipoempresa">Tipo</label>
                                     <select class="form-control form-control-sm" name="tipoempresa" id="tipoempresa" required aria-placeholder="tipo">
                                         @foreach($tipoempresas as $tipoempresa)
-                                        <option value="{{ $tipoempresa->tipoempresa }}">{{ $tipoempresa->tipoempresa }}</option>
+                                            <option value="{{ $tipoempresa->tipoempresa }}">{{ $tipoempresa->tipoempresa }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -70,9 +73,9 @@
                                 <div class="form-group col-2">
                                     <label for="provincia_id">Provincia</label>
                                     <select class="form-control form-control-sm" name="provincia_id" id="provincia_id">
-                                        <option value="08" selected >Barcelona</option>
+                                            <option value="08" selected >Barcelona</option>
                                         @foreach($provincias as $provincia)
-                                        <option value="{{ $provincia->id }}" {{ old('provincia_id') == $provincia->id ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
+                                            <option value="{{ $provincia->id }}" {{ old('provincia_id') == $provincia->id ? 'selected' : '' }}>{{ $provincia->provincia }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -81,7 +84,7 @@
                                     <select class="form-control form-control-sm" name="pais_id" id="pais_id">
                                             <option value="ES"  selected>España</option>
                                         @foreach($paises as $pais)
-                                        <option value="{{ $pais->id }}" {{ old('pais_id') == $pais->id ? 'selected' : '' }}>{{ $pais->pais }}</option>
+                                            <option value="{{ $pais->id }}" {{ old('pais_id') == $pais->id ? 'selected' : '' }}>{{ $pais->pais }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -126,20 +129,24 @@
                         </div>
                         <div class="card-footer">
                             <div class="form-group">
-                                <a class="btn btn-primary" href="#" title="Ir la página anterior" onclick="update('creaForm','{{ route('empresa.store') }}',1)">Guardar</a>
+                                {{-- <button class="btn btn-primary" type="submit">Guardar</button> --}}
+                                {{-- <button class="btn btn-primary" id="submit">Guardar</button> --}}
+                                {{-- <button class="btn btn-primary" onclick="submit('creaempresaForm','{{ route('empresa.store') }}')">Guardar</button> --}}
+                                <a href="" onclick="guardar('creaForm','{{ route('empresa.store') }}')">adsa</a>
                                 <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
                             </div>
+                
                         </div>
                     </form>
                 </div>
             </div>
-        </section>
-    </div>
-    @endsection
+        </div>
+    </section>
+</div>
+@endsection
 
 @push('scriptchosen')
 <script>
-    
 
 </script>
 @endpush

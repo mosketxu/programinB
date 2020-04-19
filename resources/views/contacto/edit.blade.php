@@ -132,11 +132,12 @@
                             </div>
                             <div class="form-group col">
                                 <label for="observaciones">Observaciones</label>
-                                <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $contacto->observaciones) }}">
+                                {{-- <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $contacto->observaciones) }}"> --}}
+                                <textarea class="form-control form-control-sm" rows=3 name="observaciones" id="observaciones"> {{ old('observaciones', $contacto->observaciones) }}</textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col ml-4">
+                            <div class="form-group col">
                                 <button class="btn btn-primary" type="submit">Actualizar</button>
                                 <a class="btn btn-default" href="{{route('contacto.index')}}" title="Ir la página anterior">Volver</a>
                             </div>

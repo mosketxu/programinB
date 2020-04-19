@@ -26,23 +26,12 @@
                     </div> --}}
                     <!-- card-body -->
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-10 row">
-                                {{-- {{ $pus->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                                <span class="badge text-primary"> Pág {{$pus->currentPage()}} de {{$pus->lastPage()}} </span> --}}
-                            </div>
-                            {{-- <div class="card-tools col-auto"> --}}
-                            <div class="col-2 mb-2">
-                            </div>
-                        </div>
-
                         {{-- mensajes de exito o error --}}
                         @include('layouts.partials.mensajes')
-                        {{-- fin mensajes de exito o error --}}
 
 
-                        <div class="table-responsive p-0">
-                            <table class="table table-hover table-sm small text-nowrap">
+                        <div class="table-responsive p-0" style="height: 400px">
+                            <table class="table table-hover table-sm small table-head-fixed text-nowrap">
                                 <thead>
                                 <tr>
                                     <th width=10px>#</th>
@@ -85,7 +74,7 @@
                     </div>
                     <!-- /.card-body -->
                     <!-- card-footer -->
-                    <div class="card-footer">
+                    <div class="card-footer small py-1">
                         <form method="POST" action="{{ route("pu.store") }}">
                         @csrf
                         <input type="hidden" name="empresa_id" value="{{$empresa->id}}">

@@ -16,16 +16,6 @@
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            {{-- <div class="container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                    </div>
-                    <div class="col-auto mr-auto">
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    </div>
-                </div>
-            </div> --}}
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}
@@ -127,41 +117,41 @@
 @push('scriptchosen')
 
 <script>
-    function update(formulario,ruta) {
-        var token= $('#token').val();
+    // function update(formulario,ruta) {
+    //     var token= $('#token').val();
 
-        $.ajaxSetup({
-            headers: { "X-CSRF-TOKEN": $('#token').val() },
-        });
-        var formElement = document.getElementById(formulario);
-        var formData = new FormData(formElement);
+    //     $.ajaxSetup({
+    //         headers: { "X-CSRF-TOKEN": $('#token').val() },
+    //     });
+    //     var formElement = document.getElementById(formulario);
+    //     var formData = new FormData(formElement);
 
-        $.ajax({
-            type:'POST',
-                url: ruta,
-                data:formData,
-                cache:false,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    toastr.success(data[1],{
-                    "progressBar":true,
-                    "positionClass":"toast-top-center"
-                    });
-                },
-                error: function(data){
-                    toastr.error("No se ha actualizado el contacto",{
-                        "closeButton": true,
-                        "progressBar":true,
-                        "positionClass":"toast-top-center",
-                        "options.escapeHtml" : true,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": 0,
-                    });
-                }
-            });
-        }
+    //     $.ajax({
+    //         type:'POST',
+    //             url: ruta,
+    //             data:formData,
+    //             cache:false,
+    //             contentType: false,
+    //             processData: false,
+    //             success: function(data) {
+    //                 toastr.success(data[1],{
+    //                 "progressBar":true,
+    //                 "positionClass":"toast-top-center"
+    //                 });
+    //             },
+    //             error: function(data){
+    //                 toastr.error("No se ha actualizado el contacto",{
+    //                     "closeButton": true,
+    //                     "progressBar":true,
+    //                     "positionClass":"toast-top-center",
+    //                     "options.escapeHtml" : true,
+    //                     "showDuration": "300",
+    //                     "hideDuration": "1000",
+    //                     "timeOut": 0,
+    //                 });
+    //             }
+    //         });
+    //     }
     
 
     </script>

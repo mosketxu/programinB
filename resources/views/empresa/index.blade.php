@@ -29,8 +29,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-10 row">
-                                {{ $empresas->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                                <span class="badge text-primary"> Pág {{$empresas->currentPage()}} de {{$empresas->lastPage()}} </span>
+                                {{-- {{ $empresas->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
+                                <span class="badge text-primary"> Pág {{$empresas->currentPage()}} de {{$empresas->lastPage()}} </span> --}}
                             </div>
                             {{-- <div class="card-tools col-auto"> --}}
                             <div class="col-2 mb-2">
@@ -42,8 +42,8 @@
                         {{-- fin mensajes de exito o error --}}
 
 
-                        <div class="table-responsive p-0">
-                            <table class="table table-hover table-sm small text-nowrap">
+                        <div class="table-responsive p-0" style="height: 450px">
+                            <table class="table table-hover table-sm small table-head-fixed text-nowrap">
                                 <thead>
                                 <tr>
                                     <th width="5px"></th>
@@ -64,7 +64,7 @@
                                 <tbody>
                                     @foreach($empresas as $empresa)
                                     <tr>
-                                        <td><a href="{{route('conta.index',$empresa) }}" title="go"><i class="fab fa-goodreads text-primary fa-2x ml-3"></i></a></td>
+                                        <td><a href="{{route('conta.index',$empresa) }}" title="go"><i class="fab fa-goodreads text-primary fa-lg ml-3"></i></a></td>
                                         <td class="badge badge-default">{{$empresa->id}}</a></td>
                                         <td class="mt-1 pt-1 {{($empresa->favorito==1) ? "text-warning" : "text-grey"}}"><i class="{{($empresa->favorito==1) ? "fas fa-star" : "far fa-star"}}"></i></td>
                                         <td>{{$empresa->empresa}}</td>
@@ -124,43 +124,8 @@
 
 @push('scriptchosen')
 <script>
-    function update(formulario,ruta) {
-        var token= $('#token').val();
-
-        $.ajaxSetup({
-            headers: { "X-CSRF-TOKEN": $('#token').val() },
-        });
-        var formElement = document.getElementById(formulario);
-        var formData = new FormData(formElement);
-
-        $.ajax({
-            type:'POST',
-                url: ruta,
-                data:formData,
-                cache:false,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    toastr.success(data[1],{
-                    "progressBar":true,
-                    "positionClass":"toast-top-center"
-                    });
-                },
-                error: function(data){
-                    toastr.error("No se ha actualizado el contacto",{
-                        "closeButton": true,
-                        "progressBar":true,
-                        "positionClass":"toast-top-center",
-                        "options.escapeHtml" : true,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": 0,
-                    });
-                }
-            });
-        }
     
 
-    </script>
+</script>
 @endpush
 

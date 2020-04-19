@@ -13,8 +13,8 @@
           </div>
         </form>
       </li>
-      @else
-          <!-- Left navbar links -->
+      @elseif(explode(".", Route::currentRouteName())[1]!='create')
+        <!-- Left navbar links -->
       <ul class="navbar-nav">
         {{-- @if(explode(".", Route::currentRouteName())[1]=='edit') --}}
         <li class="nav-item d-none d-sm-inline-block">
@@ -42,12 +42,11 @@
             <a href="{{route('pu.show', $empresa) }}" class="nav-link" title="Contacto de la empresa">Pus</a>
           @endcan
         </li>
-        {{-- @endif --}}
       </ul>
       @endif
     <!-- Previous -->
     <li class="nav-link">
-      <a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward"></i></a>
+      {{url()->previous()}}<a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward"></i></a>
     </li>
   </ul>
 </nav>

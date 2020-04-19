@@ -15,16 +15,6 @@
         {{-- content header --}}
         <div class="content-header">
             {{-- <div class="container-fluid"> --}}
-                {{-- <div class="row"> --}}
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
-                    {{-- <div class="col-auto"> --}}
-                        {{-- <p class="h3 pt-2 text-dark">@yield('titlePag') de {{$empresa->empresa}}</p> --}}
-                    {{-- </div> --}}
-                    {{-- <div class="col-auto mr-auto"> --}}
-                    {{-- </div> --}}
-                    {{-- <div class="col-sm-3 text-right pr-2"> --}}
-                    {{-- <a href="{{url()->previous()}}">Volver</a> --}}
-                    {{-- </div> --}}
                 {{-- </div> --}}
             </div>
         {{-- </div> --}}
@@ -33,11 +23,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="card">
-                    {{-- <div class="card-header">
-                        <div class="card-tools">
-                        </div>
-                      </div>
-                    </div> --}}
+
                     {{-- mensajes de exito o error --}}
                     @include('layouts.partials.mensajes')
                     {{-- fin mensajes de exito o error --}}

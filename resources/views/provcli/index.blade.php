@@ -4,13 +4,11 @@
 @section('titlePag','Proveedores-Clientes')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
-    <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
-    &nbsp;&nbsp;
-    @can('provclis.create')
-        <a href="{{route('provcli.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+    <p class="h3 pt-2 text-dark">@yield('titlePag') </p>
+    @can('empresas.create')
+    &nbsp;&nbsp; <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
     @endcan
-
-    @include('layouts.partials.navbarderecha')
+    @include('empresa.navbar')
 @endsection
 
 @section('content')

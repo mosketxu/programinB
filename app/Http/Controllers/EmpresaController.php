@@ -22,7 +22,7 @@ class EmpresaController extends Controller
         ->with('suma')
         ->orderBy('favorito','DESC')
         ->orderBy('empresa')
-        ->paginate();
+        ->get();
         return view('empresa.index',compact('empresas','busqueda'));
     }
 
@@ -36,10 +36,8 @@ class EmpresaController extends Controller
         $tipoempresas=TipoEmpresa::get();
         $sumas=Suma::get();
 
-        $paises=Pais::get()
-            ->prepend(new Pais(['pais'=>'--selecciona un pais--']));
-        $provincias=Provincia::get()
-            ->prepend(new Provincia(['provincia'=>'selecciona una provincia']));
+        $paises=Pais::get();
+        $provincias=Provincia::get();
         return view('empresa.create',compact('tipoempresas','paises','provincias','sumas')); 
     }
 
@@ -52,7 +50,7 @@ class EmpresaController extends Controller
     public function store(EmpresaRequest $request)
     {
         Empresa::create($request->all());
-        return redirect()->back()->with('message', 'Empresa creada');
+        return response()->json(['message', 'Empresa Creada']);
     }
 
     /**
