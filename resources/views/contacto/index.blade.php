@@ -54,13 +54,13 @@
                                     <th>Provincia</th>
                                     <th>Cliente</th>
                                     <th>Tipo</th>
-                                    <th width=20px>Estado</th>
+                                    <th  width=20px;>Estado</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($contactos as $contacto)
-                                    <tr>
+                                    <tr id="tr{{$contacto->id}}">
                                         <td class="badge badge-default">{{$contacto->id}}</a></td>
                                         <td><a href="{{route('contacto.edit', $contacto) }}">{{$contacto->empresa}}</a></td>
                                         <td>{{$contacto->nif}}</td>
@@ -68,33 +68,27 @@
                                         <td>{{$contacto->emailgral}}</td>
                                         <td>{{$contacto->emailadm}}</td>
                                         <td>{{$contacto->provincia_id}}</td>
-                                        <form id="form{{$contacto->id}}" role="form" method="post" action="{{ route('contacto.update') }}" >
+                                        <form id="form{{$contacto->id}}" >
                                             @method('PUT')
                                             @csrf
                                             <input type="hidden" name="id" value="{{$contacto->id}}" >
                                             <input type="hidden" name="empresa" value="{{$contacto->empresa}}" >
                                             <input type="hidden" name="tipoempresa" value="{{$contacto->tipoempresa}}" >
                                             <td>
-                                            <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$contacto->id}}','{{ route('contacto.update') }}')" required aria-placeholder="cliente">
+                                                <select class="selectsinborde" name="cliente" id="cliente" onchange="update('form{{$contacto->id}}','{{ route('contacto.update') }}')" required aria-placeholder="cliente">
                                                     <option value="{{old('cliente','0')}}" {{$contacto->cliente=='0' ? 'selected' : '' }}>No</option>
                                                     <option value="{{old('cliente','1')}}"  {{$contacto->cliente=='1' ? 'selected' : ''}}>Sí</option>
                                                 </select>
-                                                {{-- <button type="submit">G</button> --}}
                                             </td>
                                         </form>
                                         <td>{{$contacto->tipoempresa}}</td>
                                         <td class="mt-1 pt-1 badge {{($contacto->estado==0) ? "badge-danger" : "badge-success"}}">{{($contacto->estado==0) ? "Baja" : "Activo"}} </td>
                                         <td  class="text-right m-0 p-0">
-                                            <form  action="{{route('contacto.destroy',$contacto->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="tokenCampaign">    
-                                                @can('contactos.edit')
-                                                    <a href="{{route('contacto.edit', $contacto) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
-                                                @endcan
-                                                @can('contactos.destroy')
-                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
-                                                @endcan
+                                            <form  id="formDelete{{$contacto->id}}">
+                                                <a href="{{route('contacto.edit', $contacto) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-lg ml-3"></i></a>
+                                                <input type="hidden" name="_method" value="DELETE" />
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                <a href="#!" class="btn-delete " title="Eliminar" onclick="eliminar('{{route('contacto.destroy',$contacto->id)}}','{{$contacto->id}}')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>
                                             </form>
                                         </td>
                                     </tr>
@@ -117,43 +111,7 @@
 @push('scriptchosen')
 
 <script>
-    // function update(formulario,ruta) {
-    //     var token= $('#token').val();
 
-    //     $.ajaxSetup({
-    //         headers: { "X-CSRF-TOKEN": $('#token').val() },
-    //     });
-    //     var formElement = document.getElementById(formulario);
-    //     var formData = new FormData(formElement);
-
-    //     $.ajax({
-    //         type:'POST',
-    //             url: ruta,
-    //             data:formData,
-    //             cache:false,
-    //             contentType: false,
-    //             processData: false,
-    //             success: function(data) {
-    //                 toastr.success(data[1],{
-    //                 "progressBar":true,
-    //                 "positionClass":"toast-top-center"
-    //                 });
-    //             },
-    //             error: function(data){
-    //                 toastr.error("No se ha actualizado el contacto",{
-    //                     "closeButton": true,
-    //                     "progressBar":true,
-    //                     "positionClass":"toast-top-center",
-    //                     "options.escapeHtml" : true,
-    //                     "showDuration": "300",
-    //                     "hideDuration": "1000",
-    //                     "timeOut": 0,
-    //                 });
-    //             }
-    //         });
-    //     }
-    
-
-    </script>
+</script>
 @endpush
 

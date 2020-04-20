@@ -41,7 +41,6 @@ class EmpresaContactoController extends Controller
     public function store(Request $request)
     {
         $contactos=$request->contactos;
-
         foreach($contactos as $contacto){
             $existe=Contacto::find($contacto);
             if(!is_null($existe))
@@ -53,6 +52,7 @@ class EmpresaContactoController extends Controller
         }
 
         return redirect()->back()->with('message', 'Contactos Añadidos');
+        
     }
 
     public function storeempresas(Request $request)
@@ -85,7 +85,7 @@ class EmpresaContactoController extends Controller
             'departamento'=>$request->departamento,
             ]);
         
-        return redirect()->back()->with('message', 'Contacto Añadido');
+        return response()->json(['message', 'Contacto añadido']);
     }
 
     /**
@@ -96,7 +96,8 @@ class EmpresaContactoController extends Controller
     public function show($empresa_id)
     {
         $empresa=Empresa::find($empresa_id);
-        $empresacontactos=EmpresaContacto::where('empresa_id',$empresa_id)->get();
+        $empresacontactos=EmpresaContacto::where('empresa_id',$empresa_id)
+        ->get();
         $departamentos=Departamento::get();
         $contactos = Empresa::whereNotIn('id', function ($query) use ($empresa_id) {
             $query->select('contacto_id')->from('empresa_contacto')->where('empresa_id', $empresa_id);
@@ -114,7 +115,6 @@ class EmpresaContactoController extends Controller
      */
     public function edit($empresa)
     {
-        dd('llego');
         //
     }
 
@@ -129,12 +129,7 @@ class EmpresaContactoController extends Controller
     public function update(Request $request)
     {
         EmpresaContacto::find($request->id)->update($request->all());
-        if($request->ajax()){
             return response()->json(['message', 'Departamento Actualizado']);
-        }
-        else{
-            return redirect()->back()->with('message', 'Departamento Actualizado');
-        }
     }
 
     /**
@@ -147,6 +142,7 @@ class EmpresaContactoController extends Controller
     {
         EmpresaContacto::find($empresaContacto)->forceDelete();
 
-        return redirect()->back()->with('message', 'Contacto eliminado');
+        return response()->json(['message', 'Contacto eliminado']);
+
     }
 }

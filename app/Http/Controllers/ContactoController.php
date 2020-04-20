@@ -47,7 +47,7 @@ class ContactoController extends Controller
     public function store(ContactoRequest $request)
     {
         Contacto::create($request->all());
-        return redirect()->back()->with('message', 'Contacto creado');
+        return response()->json(['message', 'Contacto Creado']);
     }
 
     /**
@@ -92,12 +92,7 @@ class ContactoController extends Controller
     public function update(ContactoRequest $request)
     {
         Contacto::find($request->id)->update($request->all());
-        if($request->ajax()){
-            return response()->json(['message', 'Contacto Actualizado']);
-        }
-        else{
-            return redirect()->back()->with('message', 'Contacto Actualizado');
-        }
+        return response()->json(['message', 'Contacto Actualizado']);
     }
 
     /**
@@ -109,7 +104,7 @@ class ContactoController extends Controller
     public function destroy(Contacto $contacto)
     { 
         $contacto->delete();
-        return redirect()->back()->with('message', 'Contacto '.$contacto->empresa.' eliminado');
+        return response()->json(['message', 'Contacto  '.$contacto->contacto.' eliminado']);
 
     }
 }

@@ -93,13 +93,7 @@ class EmpresaController extends Controller
     public function update(EmpresaRequest $request)
     {
         Empresa::find($request->id)->update($request->all());
-        if($request->ajax()){
-            return response()->json(['message', 'Empresa Actualizada']);
-        }
-        else{
-            return redirect()->back()->with('message', 'Empresa Actualizada');
-        }
-
+        return response()->json(['message', 'Empresa Actualizada']);
     }
 
     /**

@@ -6,7 +6,7 @@
           <div class="input-group input-group-sm">
             <input type="search" name="busca" value='{{$busqueda}}' class="form-control form-control-navbar"  placeholder="Search" aria-label="Search">
             <div class="input-group-append">
-              <button class="btn btn-navbar" type="submit">
+              <button class="btn btn-navbar" type="submit"> 
                 <i class="fas fa-search"></i>
                 </button>
               </div>
@@ -46,7 +46,7 @@
       @endif
     <!-- Previous -->
     <li class="nav-link">
-      {{url()->previous()}}<a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward"></i></a>
+      <a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward fa-2x"></i></a>
     </li>
   </ul>
 </nav>

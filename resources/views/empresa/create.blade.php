@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
+    <!-- Content Wrapper. Contains page content --> 
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
@@ -126,8 +126,8 @@
                         </div>
                         <div class="card-footer">
                             <div class="form-group">
-                                <a class="btn btn-primary" href="#" title="Ir la página anterior" onclick="update('creaForm','{{ route('empresa.store') }}',1)">Guardar</a>
                                 <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
+                                <a class="btn btn-primary" href="#" title="Actualizar" onclick="update('creaForm','{{ route('empresa.store') }}',1)">Guardar</a>
                             </div>
                         </div>
                     </form>

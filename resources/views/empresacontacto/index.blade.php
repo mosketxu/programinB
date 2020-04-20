@@ -6,10 +6,6 @@
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
     @include('empresa.navbar')
-{{-- @include('layouts.partials.navbarizquierda')
-    <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
-    @include('empresa.navbar')
-    @include('layouts.partials.navbarderecha') --}}
 @endsection
 
 @section('content')
@@ -28,21 +24,10 @@
                     </div> --}}
                     <!-- card-body -->
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-10 row">
-                                {{-- {{ $empresacontactos->appends(request()->except('page'))->links() }} &nbsp; &nbsp;
-                                <span class="badge text-primary"> Pág {{$empresacontactos->currentPage()}} de {{$empresacontactos->lastPage()}} </span> --}}
-                            </div>
-                            {{-- <div class="card-tools col-auto"> --}}
-                            <div class="col-2 mb-2">
-                            </div>
-                        </div>
-
-                        {{-- mensajes de exito o error --}}
-                        @include('layouts.partials.mensajes')
-                        {{-- fin mensajes de exito o error --}}
-
-                         <div class="table-responsive p-0" style="height: 380px">
+{{-- mensajes de exito o error --}}
+@include('layouts.partials.mensajes')
+{{-- fin mensajes de exito o error --}}
+                        <div class="table-responsive p-0" style="height: 380px">
                             <table class="table table-hover table-sm small table-head-fixed ">
                                 <thead>
                                 <tr>
@@ -58,11 +43,10 @@
                                 </thead>
                                 <tbody>
                                     @foreach($empresacontactos as $empresacontacto)
-                                    <tr>
+                                    <tr id="tr{{$empresacontacto->id}}">
                                         <td class="badge badge-default">{{$empresacontacto->id}}-{{$empresacontacto->empresa_id}}-{{$empresacontacto->contacto_id}}</a></td>
                                         <td>{{$empresacontacto->contacto->empresa ?? '-'}}</td>
-                                        {{-- <form id="form{{$empresacontacto->id}}" role="form" method="post" action="{{ route('empresacontacto.update',$empresacontacto->id) }}" > --}}
-                                        <form id="form{{$empresacontacto->id}}" role="form" method="post" action="{{ route('empresacontacto.update') }}" >
+                                        <form id="form{{$empresacontacto->id}}">
                                             @method('PUT')
                                             @csrf
                                             <input type="hidden" name="id" value="{{$empresacontacto->id}}" >
@@ -78,17 +62,12 @@
                                         <td>{{$empresacontacto->contacto->emailgral ?? '-'}}</td>
                                         <td>{{$empresacontacto->contacto->emailadm ?? '-'}}</td>
                                         <td>{{$empresacontacto->contacto->observaciones}}</td>
-                                        <td class="text-right m-0 p-0">
-                                            <form  action="{{route('empresacontacto.destroy',$empresacontacto->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="token">    
-                                                @can('empresacontactos.edit')
-                                                    <a href="{{route('contacto.edit', $empresacontacto->contacto_id) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
-                                                @endcan
-                                                @can('empresacontactos.destroy')
-                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
-                                                @endcan
+                                        <td class="text-right m-0 pr-3">
+                                            <form  id="formDelete{{$empresacontacto->id}}">
+                                                <a href="{{route('contacto.edit', $empresacontacto->contacto_id) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-lg ml-3"></i></a>
+                                                <input type="hidden" name="_method" value="DELETE" />
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                <a href="#!" class="btn-delete " title="Eliminar" onclick="eliminar('{{route('empresacontacto.destroy',$empresacontacto->id)}}','{{$empresacontacto->id}}')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>
                                             </form>
                                         </td>
                                     </tr>

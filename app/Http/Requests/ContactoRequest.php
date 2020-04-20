@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ContactoRequest extends FormRequest
 {
@@ -23,25 +24,35 @@ class ContactoRequest extends FormRequest
      */
     public function rules(){
         $rules= [
-            'empresa'=>'required',
+            'empresa'=>[
+                'required',
+                Rule::unique('empresas')->ignore($this->id),
+            ],
             'codpostal'=>'max:10',
-            'nif'=>'max:12',
+            'nif'=>[
+                'nullable',
+                'max:12',
+                Rule::unique('empresas')->ignore($this->id),
+            ],
             'tfno'=>'max:50',
             'emailgral' => 'nullable|email:rfc',
             'emailadm'=>'nullable|email:rfc',
         ];
 
-        if ($this->getMethod() == 'POST') {
+        if (!$this->id) {
             $rules += [
-                'nif'=>'unique:empresas,nif',
+                'empresa'=>'unique:empresas,empresa',
+                'nif'=>'nullable|unique:empresas,nif',
             ];
         }
+
         return $rules;
     }
 
     public function messages(){
         return [
             'empresa.required' => 'El nombre del contacto es obligatorio.',
+            'empresa.unique' => 'El nombre del contacto ya existe.',
             'emailgral.email' => 'Añade un :attribute válido',
             'emailadm.email' => 'Añade un :attribute válido',
             'nif.unique' => 'El Nif ya existe',
