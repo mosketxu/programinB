@@ -84,12 +84,8 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="token">    
-                                                @can('provclis.edit')
                                                     <a href="{{route('provcli.edit', $provcli) }}" title="Editar prov-cli"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
-                                                @endcan
-                                                @can('provclis.destroy')
                                                     <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
-                                                @endcan
                                             </form>
                                         </td>
                                     </tr>

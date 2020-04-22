@@ -58,12 +58,8 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="_token" value="{{ csrf_token()}}" id="token">    
-                                                @can('pu.edit')
                                                     <a href="{{route('pu.edit', $pu->id) }}" title="Editar pu"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
-                                                @endcan
-                                                @can('pu.destroy')
                                                     <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
-                                                @endcan
                                             </form>
                                         </td>
                                     </tr>

@@ -61,7 +61,7 @@
                                         <td>{{$empresacontacto->contacto->tfno ?? '-'}}</td>
                                         <td>{{$empresacontacto->contacto->emailgral ?? '-'}}</td>
                                         <td>{{$empresacontacto->contacto->emailadm ?? '-'}}</td>
-                                        <td>{{$empresacontacto->contacto->observaciones}}</td>
+                                        <td>{{$empresacontacto->contacto->observaciones??'-'}}</td>
                                         <td class="text-right m-0 pr-3">
                                             <form  id="formDelete{{$empresacontacto->id}}">
                                                 <a href="{{route('contacto.edit', $empresacontacto->contacto_id) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-lg ml-3"></i></a>

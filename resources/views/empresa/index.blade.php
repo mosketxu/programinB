@@ -78,8 +78,10 @@
                                                 <a href="{{route('pu.show', $empresa) }}" title="pu"><i class="fas fa-key text-warning  ml-3"></i></a>
                                                 <a href="{{route('empresacontacto.show', $empresa) }}" title="contactos"><i class="fas fa-users text-success fa-lg ml-3 mr-3"></i></a>
                                                 <a href="{{route('empresa.edit', $empresa) }}" title="Editar empresa"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
-                                                <input type="hidden" name="_method" value="DELETE" />
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                                {{-- <input type="hidden" name="_method" value="DELETE" />
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
+                                                @method('DELETE')
+                                                @csrf
                                                 <a href="#!" class="btn-delete " title="Eliminar" onclick="eliminar('{{route('empresa.destroy',$empresa->id)}}','{{$empresa->id}}')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>
                                             </form>
                                         </td>

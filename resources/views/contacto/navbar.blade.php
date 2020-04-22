@@ -17,20 +17,16 @@
         <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item d-none d-sm-inline-block">
-          @can('contactos.index')
-              <a href="{{route('contacto.index') }}" class="nav-link" title="Editar contacto">Contactos</a>
-          @endcan
+            <a href="{{route('contacto.index') }}" class="nav-link" title="Editar contacto">Contactos</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          @can('contactos.edit')
-              <a href="{{route('contacto.edit', $contacto) }}" class="nav-link" title="Editar empresa">Editar Contacto</a>
-          @endcan
+            <a href="{{route('contacto.edit', $contacto) }}" class="nav-link" title="Editar empresa">Editar Contacto</a>
         </li>
       </ul>
     @endif
   <!-- Previous -->
     <li class="nav-link">
-      {{url()->previous()}}<a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward fa-2x"></i></a>
+      <a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward fa-2x"></i></a>
     </li>
   </ul>
 </nav>

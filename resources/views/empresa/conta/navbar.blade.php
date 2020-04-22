@@ -1,14 +1,13 @@
       <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item d-none d-sm-inline-block">
-          @can('contas.index')
-          <a href="{{route('conta.show',[$empresa,'R']) }}" class="nav-link" title="Recibidas">Recibidas</a>
-          @endcan
+          <a href="{{route('conta.index',$empresa) }}" class="nav-link" title="Go">Go</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          @can('contas.index')
-          <a href="{{route('conta.show',[$empresa,'E']) }}" class="nav-link" title="Recibidas">Emitidas</a>
-          @endcan
+          <a href="{{route('conta.emitidas',$empresa) }}" class="nav-link" title="Recibidas">Emitidas</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{{route('conta.recibidas',$empresa) }}" class="nav-link" title="Recibidas">Recibidas</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">

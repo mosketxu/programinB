@@ -18,10 +18,12 @@ class CreateContasTable extends Migration
             $table->unsignedBigInteger('empresa_id');
             $table->foreign('empresa_id')->references('id')->on('empresas')->onDelete('cascade');
             $table->date('fechaasiento');
-            $table->date('fechaafactura')->nullable();
+            $table->date('fechafactura')->nullable();
             $table->string('factura',100)->nullable();
             $table->string('tipo',1)->nullable();
             $table->bigInteger('provcli_id')->nullable();
+            $table->string('concepto')->nullable();
+            $table->string('categoria')->nullable();
             $table->decimal('base21', 8, 2)->default(0);
             $table->decimal('iva21', 8, 2)->default(0);
             $table->decimal('base10', 8, 2)->default(0);

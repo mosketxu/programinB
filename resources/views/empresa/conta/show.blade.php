@@ -97,29 +97,6 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach($empresas as $empresa)
-                                    <tr>
-                                        <td>{{$empresa->id}}</td>
-                                        <td>{{$empresa->name}}</td>
-                                        <td>{{$empresa->nif}}</td>
-                                        <td>{{$empresa->provincia_id}}</td>
-                                        <td>{{($empresa->estado==0) ? "Baja" : "Activo"}}</td>
-                                        <td  class="text-right m-0 p-0">
-                                            <form  action="{{route('empresa.destroy',$empresa->id)}}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="tokenCampaign">    
-                                                @can('empresas.edit')
-                                                    <a href="{{route('empresa.edit', $empresa) }}" title="Editar empresa"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
-                                                    <a href="{{route('empresa.go', $empresa) }}" title="actuar"><i class="fas fa-file-invoice text-primary fa-2x ml-3"></i></a>
-                                                @endcan
-                                                @can('empresas.destroy')
-                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
-                                                @endcan
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
