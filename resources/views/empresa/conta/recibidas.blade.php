@@ -19,6 +19,7 @@
         <section class="content">
             <div class="container-fluid"> 
                 {{-- Recibidas --}}
+                {{-- @include('layouts.partials.mensajes') --}}
                 <div class="card">
                     <div class="card-header" data-card-widget="collapse" style="cursor: pointer">
                         <div class="row">
@@ -41,8 +42,8 @@
                                         <th>#</th>
                                         <th>F.Asiento</th>
                                         <th>F.Fact.</th>
-                                        <th>NºFact.</th>
                                         <th>Proveedor</th>
+                                        <th>NºFact.</th>
                                         <th>Concepto</th>
                                         <th class="text-right">Base 21</th>
                                         <th class="text-right">21%</th>
@@ -58,14 +59,14 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="bodyasientos">
                                     @foreach($recibidas as $recibida)
                                     <tr id="tr{{$recibida->id}}">
                                         <td>{{$recibida->id}}</td>
                                         <td>{{$recibida->fechaasiento}}</td>
                                         <td>{{$recibida->fechafactura}}</td>
+                                        <td>{{$recibida->provclis->nombre??$recibida->provcli_id}}</td>
                                         <td>{{$recibida->factura}}</td>
-                                        <td>{{$recibida->provclis->nombre??$emitida->provcli_id}}</td>
                                         <td>{{$recibida->concepto}}</td>
                                         <td class="text-right">{{$recibida->base21}}</td>
                                         <td class="text-right">{{$recibida->iva21}}</td>
@@ -116,56 +117,66 @@
                         <table class="table table-hover table-sm small table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>F.Asiento</th>
-                                    <th>F.Fact.</th>
-                                    <th>NºFact.</th>
-                                    <th>Proveedor</th>
+                                    <th width="4%">F.Asiento</th>
+                                    <th width="4%">F.Fact.</th>
+                                    <th width="10%">Proveedor</th>
+                                    <th width="8%">NºFact.</th>
                                     <th>Concepto</th>
-                                    <th>Base 21</th>
-                                    <th>21%</th>
-                                    <th>Base 10</th>
-                                    <th>10%</th>
-                                    <th>Base 4</th>
-                                    <th>4%</th>
-                                    <th>Exento</th>
-                                    <th>Base Ret</th>
-                                    <th>% Ret</th>
-                                    <th>Retención</th>
-                                    <th>Total</th>
+                                    <th width="5%">Base 21</th>
+                                    <th width="4%">21%</th>
+                                    <th width="5%">Base 10</th>
+                                    <th width="4%">10%</th>
+                                    <th width="5%">Base 4</th>
+                                    <th width="4%">4%</th>
+                                    <th width="5%">Exento</th>
+                                    <th width="5%">Base Ret</th>
+                                    <th width="3%">% Ret</th>
+                                    <th width="5%">Retención</th>
+                                    <th width="5%">Total</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- <form id="creaForm"> --}}
-                                <form id="creaForm" method="POST" action="{{route('conta.store')}}">
+                                <form id="creaForm">
+                                {{-- <form id="creaForm" method="POST" action="{{route('conta.store')}}"> --}}
+                                {{-- <form id="creaForm" method="POST" action="{{route('conta.controlfactura')}}"> --}}
                                 @csrf
+                                {{-- @method('PUT') --}}
                                     <tr>
                                         <input type="hidden" name="tipo" id="tipo" value="R"></td>
                                         <input type="hidden" name="empresa_id" id="empresa_id" value="{{$empresa->id}}"></td>
-                                        <td><input class="form-control form-control-sm" type="date" name="fechaasiento" id="fechaasiento" value="{{ old('fechaasiento', '') }}"></td>
-                                        <td><input class="form-control form-control-sm" type="date" name="fechafactura" id="fechafactura" value="{{ old('fechafactura', '') }}"></td>
-                                        <td><input class="form-control form-control-sm" type="text" name="factura" id="factura" value="{{ old('factura', '') }}"></td>
+                                        <td class="px-0"><input tabindex="1" class="focusNext form-control form-control-sm unstyled p-0 m-0" type="date" name="fechaasiento" id="fechaasiento" value="{{ old('fechaasiento', '') }}"></td>
+                                        <td class="px-0"><input tabindex="2" class="focusNext form-control form-control-sm  unstyled p-0 m-0" type="date" name="fechafactura" id="fechafactura" value="{{ old('fechafactura', '') }}"></td>
                                         <td>
-                                            <select class="form-control form-control-sm"  name="provcli_id" id="provcli_id">
+                                            <select tabindex="3" class="focusNext form-control form-control-sm"  name="provcli_id" id="provcli_id">
                                                 <option value="">-</option>
                                                 @foreach($provclis as $provcli)
                                                 <option value="{{ $provcli->id }}">{{ $provcli->nombre }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td><input class="form-control form-control-sm text-left" type="text" name="concepto" id="concepto" value="{{ old('concepto', '') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="base21" id="base21" value="{{ old('base21', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="iva21" id="iva21" value="{{ old('iva21', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="base10" id="base10" value="{{ old('base10', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="iva10" id="iva10" value="{{ old('iva10', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="base4" id="base4" value="{{ old('base4', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="iva4" id="iva4" value="{{ old('iva4', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="exento" id="exento" value="{{ old('exento', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="baseretencion" id="baseretencion" value="{{ old('baseretencion', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="porcentajeretencion" id="porcentajeretencion" value="{{ old('porcentajeretencion', '0') }}"></td>
-                                        <td><input class="form-control form-control-sm text-right" type="number" step="0.01" name="retencion" id="retencion" value="{{ old('retencion', '0') }}"></td>
-                                        <td><a href="#" title="Nuevo" onclick="addline('creaForm','{{ route('conta.store') }}')"><i class="fas fa-plus-circle fa-2x text-primary"></i></a></td>
-                                        <td><button type="submit">b</button></td>
+                                        <td class="px-0"><input tabindex="4" class="focusNext form-control form-control-sm" type="text" name="factura" id="factura" onchange="controlfactura('creaForm','{{ route('conta.controlfactura') }}')" value="{{ old('factura', '') }}"></td>
+                                        <td class="px-0"><input tabindex="5" class="focusNext form-control form-control-sm text-left" type="text" name="concepto" id="concepto" value="{{ old('concepto', '') }}"></td>
+                                        <td class="px-0"><input tabindex="6" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="base21" id="base21" value="{{ old('base21', '') }}"></td>
+                                        <td class="px-0"><input tabindex="7" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="iva21" id="iva21" value="{{ old('iva21', '') }}"></td>
+                                        <td class="px-0"><input tabindex="8" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="base10" id="base10" value="{{ old('base10', '') }}"></td>
+                                        <td class="px-0"><input tabindex="9" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="iva10" id="iva10" value="{{ old('iva10', '') }}"></td>
+                                        <td class="px-0"><input tabindex="10" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="base4" id="base4" value="{{ old('base4', '') }}"></td>
+                                        <td class="px-0"><input tabindex="11" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="iva4" id="iva4" value="{{ old('iva4', '0') }}"></td>
+                                        <td class="px-0"><input tabindex="12" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="exento" id="exento" value="{{ old('exento', '') }}"></td>
+                                        <td class="px-0"><input tabindex="13" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="baseretencion" id="baseretencion" value="{{ old('baseretencion', '0') }}"></td>
+                                        <td class="px-0">
+                                            <select tabindex="14" class="focusNext form-control form-control-sm text-right" name="porcentajeretencion" id="porcentajeretencion">
+                                                <option value="0" selected>0</option>
+                                                <option value="0.07">7</option>
+                                                <option value="0.15">14</option>
+                                                <option value="0.19">19</option>
+                                            </select>
+                                        </td>
+                                        <td class="px-0"><input tabindex="15" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="retencion" id="retencion" value="{{ old('retencion', '0') }}"></td>
+                                        <td class="px-0"><input tabindex="16" class="focusNext form-control form-control-sm text-right unstyled text-primary" type="number" step="0.01" id="totalnuevo" value="" readonly></td>
+                                        <td class="px-0"><a tabindex="16" id="btn_nuevo" class="focusNext" href="#" title="Nuevo" onclick="addline('creaForm','{{ route('conta.store') }}')"><i class="fas fa-plus-circle fa-2x text-primary"></i></a></td>
+                                        {{-- <td class="px-0"><input type="submit" value="a"></td> --}}
                                     </tr>
                                 </form>
                             </tbody>
@@ -175,10 +186,103 @@
             </div>
         </section>
     </div>
+    <!-- Modal control factura-->
+    <div class="modal fade" id="controlfactura" tabindex="-1" role="dialog" aria-labelledby="controlfactura" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="controlfactura">Factura existente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                Esta factura y existe para este proveedor.<br>
+                ¿Deseas mantenerla?
+            </div>
+            <div class="modal-footer">
+            <button type="button" id="ctrlFacturaYes"class="btn btn-primary" data-dismiss="modal">Sí</button>
+            <button type="button" id="ctrlFacturaNo"class="btn btn-danger" data-dismiss="modal">No</button>
+            </div>
+        </div>
+        </div>
+    </div>
 @endsection
 
 @push('scriptchosen')
     <script>
+        $(document).ready(function(){
+            $("#ctrlFacturaYes").click(function(){
+                $("#concepto").focus();
+            })            
+            $("#ctrlFacturaNo").click(function(){
+                $("#factura").val('');
+                $("#factura").focus();
+            })            
+            $("#fechaasiento").change(function(){
+                $('#fechafactura').val($("#fechaasiento").val());
+            });
+            $("#base21").change(function(){
+                v=$("#base21").val()*0.21;
+                (Math.round( v * 100 )/100 ).toString();
+                $('#iva21').val(v.toFixed(2));
+                $('#baseretencion').val($("#base21").val());
+                total();
+            });
+            $("#base10").change(function(){
+                v=$("#base10").val()*0.10;
+                (Math.round( v * 100 )/100 ).toString();
+                $('#iva10').val(v.toFixed(2));
+                total();
+            });
+            $("#base4").change(function(){
+                v=$("#base4").val()*0.04;
+                (Math.round( v * 100 )/100 ).toString();
+                $('#iva4').val(v.toFixed(2));
+                total();
+            });
+            $("#exento").change(function(){
+                total();
+            });
+            $("#baseretencion").change(function(){
+                v=$("#baseretencion").val()*$("#porcentajeretencion").val();
+                (Math.round( v * 100 )/100 ).toString();
+                $('#retencion').val(v.toFixed(2));
+                total();
+            });
+
+            $("#porcentajeretencion").change(function(){
+                v=$("#baseretencion").val()*$("#porcentajeretencion").val();
+                (Math.round( v * 100 )/100 ).toString();
+                $('#retencion').val(v.toFixed(2));
+                total();
+            });
+        });
+
+        function total(){
+            var base21=$("#base21").val();
+            var iva21=$("#iva21").val();
+            var base10=$("#base10").val();
+            var iva10=$("#iva10").val();
+            var base4=$("#base4").val();
+            var iva4=$("#iva4").val();
+            var exento=$("#exento").val();
+            var retencion=$("#retencion").val();
+            var total;
+            base21= base21=='' ? 0 : parseFloat(base21);
+            iva21= iva21=='' ? 0 : parseFloat(iva21);
+            base10= base10=='' ? 0 : parseFloat(base10);
+            iva10= iva10=='' ? 0 : parseFloat(iva10);
+            base4= base4=='' ? 0 : parseFloat(base4);
+            iva4= iva4=='' ? 0 : parseFloat(iva4);
+            exento= exento =='' ? 0 : parseFloat(exento);
+            retencion=retencion=='' ? 0 : parseFloat(retencion);
+            total=base21+iva21+base10+iva10+base4+iva4+exento-retencion;
+            (Math.round( total * 100 )/100 ).toString();
+            $('#totalnuevo').val(total.toFixed(2));
+        }
+ 
+ 
     </script>
 @endpush
 

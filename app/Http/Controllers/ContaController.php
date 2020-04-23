@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\{Empresa, Conta,Provcli};
+use App\Http\Requests\RecibidasRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 
 class ContaController extends Controller
@@ -51,6 +52,7 @@ class ContaController extends Controller
         ->where('empresa_id',$empresa->id)
         ->where('tipo','R')
         ->with('provclis')
+        ->orderBy('fechaasiento','desc')
         ->get();
 
         return view('empresa.conta.recibidas',compact('recibidas','empresa','provclis','busqueda')); 
@@ -72,8 +74,20 @@ class ContaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RecibidasRequest $request)
     {
+        $prov=Provcli::find($request->provcli_id);
+        if(is_null($request->concepto)){
+            if(!is_null($request->factura)){
+                $concepto='Fra.'. $request->factura .' ' . $prov->nombre;
+            }else{
+                $fecha = Carbon::parse($request->fechafactura);
+                $mfecha = $fecha->month;
+                $concepto=$prov->nombre .' '. $mfecha ;
+            }
+            $request->merge(['concepto'=>$concepto]);
+        }
+
         $conta=Conta::create($request->all());
 
         if($request->tipo=="R"){
@@ -83,7 +97,7 @@ class ContaController extends Controller
                 'fechaasiento'=>$conta->fechaasiento,
                 'fechafactura'=>$conta->fechafactura,
                 'factura'=>$conta->factura,
-                'provcli'=>$conta->provcli->nombre??'-',
+                'provcli'=>$prov->nombre,
                 'concepto'=>$conta->concepto,
                 'base21'=>$conta->base21,
                 'iva21'=>$conta->iva21,
@@ -103,8 +117,8 @@ class ContaController extends Controller
                 'id'=>$conta->id,
                 'fechaasiento'=>$conta->fechaasiento,
                 'fechafactura'=>$conta->fechafactura,
-                'factura'=>$conta->factura,
                 'provcli'=>$conta->provcli->nombre??'-',
+                'factura'=>$conta->factura,
                 'concepto'=>$cont->concepto,
                 'base21'=>$conta->base21,
                 'iva21'=>$conta->iva21,
@@ -158,7 +172,20 @@ class ContaController extends Controller
      */
     public function update(Request $request, conta $conta)
     {
-        //
+        dd('llego');
+    }
+
+    public function controlfactura(Request $request)
+    {
+        if(!is_null($request->factura) && !is_null($request->provcli_id)){
+            $existe=Conta::where('empresa_id',$request->empresa_id)
+                ->where('provcli_id',$request->provcli_id)
+                ->where('factura',$request->factura)
+                ->get();
+            return response()->json($existe->count());
+        }
+        else
+            return response()->json(0);
     }
 
     /**
@@ -169,9 +196,6 @@ class ContaController extends Controller
      */
     public function destroy($id)
     {
-        // $c=Conta::find($id);
-        // $c->delete();
-        // return response()->json(['message', 'Asiento eliminado']);
         $conta=Conta::find($id);
         $conta->destroy($id);
 

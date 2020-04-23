@@ -21,6 +21,9 @@ Route::put('conta','ContaController@update')->name('conta.update')
 Route::get('conta/{empresa}/{tipo}','ContaController@show')->name('conta.show')
 ->middleware('can:contas.show');
 
+Route::post('conta/controlfactura','ContaController@controlfactura')->name('conta.controlfactura')
+->middleware('can:contas.edit');
+
 Route::post('conta/{conta}','ContaController@destroy')->name('conta.destroy')
 ->middleware('can:contas.destroy');
 
@@ -29,4 +32,5 @@ Route::get('conta/{conta}/edit','ContaController@edit')->name('conta.edit')
 
 Route::get('conta/{conta}/go','ContaController@go')->name('conta.go')
 ->middleware('can:contas.edit');
+
 

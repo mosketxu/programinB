@@ -1,4 +1,4 @@
-
+// funcion para añadir registros o actualizar en todos los formularios menos en los de conta
 function update(formulario,ruta,limpiar) {
    var token= $('#token').val();
 
@@ -41,6 +41,7 @@ function update(formulario,ruta,limpiar) {
     });
 }
 
+// funcion para añadir registros o actualizar en todos los formularios  menos en los de conta
 function eliminar(ruta,id) {
     $confirmacion=confirm('¿Seguro que lo quieres eliminar?');
     if($confirmacion){
@@ -72,6 +73,7 @@ function eliminar(ruta,id) {
     };
 }
 
+// funcion para añadir registros solo en los de conta
 function addline(formulario,ruta) {
     var token= $('#token').val();
     $.ajaxSetup({
@@ -83,6 +85,8 @@ function addline(formulario,ruta) {
     var id='';
     var cierre='';
     var form='';
+    var i="0";
+    var clase=""
 
     $.ajax({
         type:'POST',
@@ -98,12 +102,14 @@ function addline(formulario,ruta) {
              });
              document.getElementById(formulario).reset();
              $.each(data,function(key,value){
+                 if (i>6) clase='class="text-right"';
+                 i++;
                 if(key=='id') {
                     id="'"+value+"'";
                     form='formDelete'+value;
                 };
-                if(key=='token') {token=value;};
-                 fila=fila + '<td>'+value+'</td>' ;
+                if(key=='token') token=value
+                else fila=fila + '<td '+clase+'>'+value+'</td>' ;
              });
              cierre="<td class='text-right m-0 pr-3'>"+
                     "<form  id="+form+">"+
@@ -114,7 +120,12 @@ function addline(formulario,ruta) {
                     "</form>";
 
              fila=fila+cierre+'</tr>';
-             document.getElementById("tablaasientos").insertRow(-1).innerHTML = fila;
+            //  $('#tablaasientos tr:last').before(fila);
+            // $("#tablaasientos > tbody").append(fila);
+            // $('#bodyasientos tr:last').after(fila);
+            $('#bodyasientos tr:first').before(fila);
+            $('#fechaasiento').focus();
+
          },
          error: function(data){
              var resp_e = data.responseJSON.errors;
@@ -134,8 +145,8 @@ function addline(formulario,ruta) {
      });
  }
  
-
- function eliminarfila(id) {
+// funcion para eliminar registros solo en los de conta
+function eliminarfila(id) {
      ruta = "/conta/" + id;
      
     $confirmacion=confirm('¿Seguro que lo quieres eliminar?');
@@ -167,3 +178,61 @@ function addline(formulario,ruta) {
         });
     };
 }
+
+// funcion para controlar factura repetida en conta
+function controlfactura(formulario,ruta) {
+    var token= $('#token').val();
+    $.ajaxSetup({
+        headers: { "X-CSRF-TOKEN": $('#token').val() },
+    });
+    var formElement = document.getElementById(formulario);
+    var formData = new FormData(formElement);
+
+    $.ajax({
+        type:'POST',
+         url: ruta,
+         data:formData,
+         cache:false,
+         contentType: false,
+         processData: false,
+         success: function(data) {
+             if (data>0)
+             $("#controlfactura").modal()
+         },
+     });
+ }
+
+
+// funcion para saltar de input en input con ENTER
+document.addEventListener('keypress', function(evt) {
+    // Si el evento NO es una tecla Enter
+    if (evt.key !== 'Enter') {
+        return;
+    }
+    let element = evt.target;
+    // Si el evento NO fue lanzado por un elemento con class "focusNext"
+    if (!element.classList.contains('focusNext')) {
+      return;
+    }
+    // AQUI logica para encontrar el siguiente
+    let tabIndex = element.tabIndex + 1;
+    var next = document.querySelector('[tabindex="'+tabIndex+'"]');
+    // Si encontramos un elemento
+    if (next) {
+      next.focus();
+      event.preventDefault();
+    }
+  });
+
+// Funcion para ejecutar guardar en conta sin tener que hacer clic con CTRL-S (desactiva el CTRL-S por defecto)
+$(document).keydown(function (e) {
+    e = e || event;
+    if (e.ctrlKey && String.fromCharCode(e.keyCode) == 'S')
+    {
+        e.preventDefault();
+        // document.getElementById("btn_nuevo").click();
+        $('#btn_nuevo').click();
+    }
+});
+
+

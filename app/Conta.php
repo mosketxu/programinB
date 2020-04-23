@@ -14,7 +14,7 @@ class Conta extends Model
      
     public function provclis()
     {
-        return $this->belongsTo(Provcli::class,'provcli_id');
+        return $this->belongsTo(Provcli::class,'provcli_id')->withDefault('');
     }
 
 
