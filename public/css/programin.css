@@ -24,8 +24,11 @@ button.enlace{
    width: 10px;
 }
 
+/* quitar las flechas y las x de los input number y date */
 .unstyled::-webkit-inner-spin-button,
 .unstyled::-webkit-calendar-picker-indicator {
        display: none;
        -webkit-appearance: none;
 }
+input[type="date"]::-webkit-inner-spin-button,    
+input[type="date"]::-webkit-clear-button { display: none; }

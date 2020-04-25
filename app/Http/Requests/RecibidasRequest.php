@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Provcli;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RecibidasRequest extends FormRequest
@@ -16,6 +17,35 @@ class RecibidasRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        if (is_null($this->input('factura')))
+            $this->merge(['factura'=>'']);
+        if (is_null($this->input('fechafactura')))
+            $this->merge(['fechafactura'=>$this->input('fechaasiento')]);
+        if (is_null($this->input('base21')))
+            $this->merge(['base21'=>'0']);
+        if (is_null($this->input('iva21')))
+            $this->merge(['iva21'=>'0']);
+        if (is_null($this->input('base10')))
+            $this->merge(['base10'=>'0']);
+        if (is_null($this->input('iva10')))
+            $this->merge(['iva10'=>'0']);
+        if (is_null($this->input('base4')))
+            $this->merge(['base4'=>'0']);
+        if (is_null($this->input('iva4')))
+            $this->merge(['iva4'=>'0']);
+        if (is_null($this->input('exento')))
+            $this->merge(['exento'=>'0']);
+        if (is_null($this->input('baseretencion')))
+            $this->merge(['baseretencion'=>'0']);
+        if (is_null($this->input('retencion')))
+            $this->merge(['retencion'=>'0']);
+        if ($this->input('porcentajeretencion')==0){
+            $this->merge(['baseretencion'=>'0']);
+            $this->merge(['retencion'=>'0']);
+        }
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -26,7 +56,7 @@ class RecibidasRequest extends FormRequest
             'fechaasiento'=>'required|date',
             'fechafactura'=>'nullable|date',
             'provcli_id'=>'required',
-            'base21'=>'nullable|numeric',
+            'base21'=>'nullable',
             'iva21'=>'nullable|numeric',
             'base10'=>'nullable|numeric',
             'iva10'=>'nullable|numeric',

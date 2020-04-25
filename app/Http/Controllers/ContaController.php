@@ -77,39 +77,30 @@ class ContaController extends Controller
     public function store(RecibidasRequest $request)
     {
         $prov=Provcli::find($request->provcli_id);
-        if(is_null($request->concepto)){
-            if(!is_null($request->factura)){
-                $concepto='Fra.'. $request->factura .' ' . $prov->nombre;
-            }else{
-                $fecha = Carbon::parse($request->fechafactura);
-                $mfecha = $fecha->month;
-                $concepto=$prov->nombre .' '. $mfecha ;
-            }
-            $request->merge(['concepto'=>$concepto]);
-        }
-
+        $concepto=$this->modificaconcepto($request->factura,$prov->nombre,$request->concepto,$request->fechaasiento);
+        $request->merge(['concepto'=>$concepto]);
         $conta=Conta::create($request->all());
 
-        if($request->tipo=="R"){
+        if($conta->tipo=="R"){
             $respuesta=[
                 'id'=>$conta->id,
                 'token'=>$request->_token,
                 'fechaasiento'=>$conta->fechaasiento,
                 'fechafactura'=>$conta->fechafactura,
-                'factura'=>$conta->factura,
                 'provcli'=>$prov->nombre,
+                'factura'=>$conta->factura,
                 'concepto'=>$conta->concepto,
-                'base21'=>$conta->base21,
-                'iva21'=>$conta->iva21,
-                'base10'=>$conta->base10,
-                'iva10'=>$conta->iva10,
-                'base4'=>$conta->base4,
-                'iva4'=>$conta->iva4,
-                'exento'=>$conta->exento,
-                'baseretencion'=>$conta->baseretencion,
-                'porcentajeretencion'=>$conta->porcentajeretencion,
-                'retencion'=>$conta->retencion,
-                'total'=>$conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion,
+                'base21'=>number_format($conta->base21,2),
+                'iva21'=>number_format($conta->iva21,2),
+                'base10'=>number_format($conta->base10,2),
+                'iva10'=>number_format($conta->iva10,2),
+                'base4'=>number_format($conta->base4,2),
+                'iva4'=>number_format($conta->iva4,2),
+                'exento'=>number_format($conta->exento,2),
+                'baseretencion'=>number_format($conta->baseretencion,2),
+                'porcentajeretencion'=>number_format($conta->porcentajeretencion,2),
+                'retencion'=>number_format($conta->retencion,2),
+                'total'=>number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion,2),
             ];
         }
         elseif($request->tipo=="E"){
@@ -117,7 +108,7 @@ class ContaController extends Controller
                 'id'=>$conta->id,
                 'fechaasiento'=>$conta->fechaasiento,
                 'fechafactura'=>$conta->fechafactura,
-                'provcli'=>$conta->provcli->nombre??'-',
+                'provcli'=>$prov->nombre,
                 'factura'=>$conta->factura,
                 'concepto'=>$cont->concepto,
                 'base21'=>$conta->base21,
@@ -202,4 +193,24 @@ class ContaController extends Controller
         return response()->json(['message', 'Asiento eliminado']);
 
     }
+
+
+    protected function modificaconcepto($factura,$proveedor,$concepto,$fechaasiento){
+        if(strlen($proveedor)>15)
+            $proveedor=substr($proveedor,0,15);
+        if(is_null($concepto)){
+            if(!($factura=='')){
+                $concepto='Fra.'. $factura .' ' . $proveedor;
+            }else{
+                setlocale(LC_ALL, 'es_ES');
+                $fecha = Carbon::parse($fechaasiento);
+                $mesTexto = $fecha->formatLocalized('%B');// mes en idioma español
+                //$mfecha = $fecha->format('F'); //en ingles
+                $mesNum = $fecha->month; // en numero
+                $concepto=$proveedor .' '. $mesNum .' '. $mesTexto ;
+            }
+        }
+        return $concepto;
+    }
+
 }
