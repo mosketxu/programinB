@@ -26,6 +26,11 @@ class Empresa extends Model
           return $this->hasMany(Pu::class);
       }
 
+      public function contaperiodos()
+      {
+          return $this->hasMany(ContaPeriodo::class);
+      }
+
       public function suma()
       {
           return $this->belongsTo(Suma::class);

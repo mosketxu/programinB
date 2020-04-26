@@ -23,18 +23,44 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <h3 class="card-title col">Facturas Recibidas</h3>
-                            <h6 class="col text-right"><span class="text-primary">Base Soportado: </span>:<br>{{$recibidas->sum('base21')+$recibidas->sum('base10')+$recibidas->sum('base4')+$recibidas->sum('baserecargo')}}</h6><br>
-                            <h6 class="col text-right"><span class="text-primary">IVA Soportado: </span><br>{{$recibidas->sum('iva21')+$recibidas->sum('iva10')+$recibidas->sum('iva4')+$recibidas->sum('recargo')}}</h6>
-                            <h6 class="col text-right"><span class="text-primary">Base Retención: </span><br>{{$recibidas->sum('baseretencion')}}</h6>
-                            <h6 class="col text-right"><span class="text-primary">Total Retención: </span><br>{{$recibidas->sum('retencion')}}</h6>
-                            <h6 class="col text-right"><span class="text-primary">Total Exento: </span><br>{{$recibidas->sum('exento')}}</h6>
+                            <h3 class="card-title">Facturas Recibidas</h3><br>
+                            <h6 class="col text-right"><span class="text-primary">Base Soportado: </span>:<br>{{number_format($recibidas->sum('base21')+$recibidas->sum('base10')+$recibidas->sum('base4')+$recibidas->sum('baserecargo'),2)}}</h6><br>
+                            <h6 class="col text-right"><span class="text-primary">IVA Soportado: </span><br>{{number_format($recibidas->sum('iva21')+$recibidas->sum('iva10')+$recibidas->sum('iva4')+$recibidas->sum('recargo'),2)}}</h6>
+                            <h6 class="col text-right"><span class="text-primary">Base Retención: </span><br>{{number_format($recibidas->sum('baseretencion'),2)}}</h6>
+                            <h6 class="col text-right"><span class="text-primary">Total Retención: </span><br>{{number_format($recibidas->sum('retencion'),2)}}</h6>
+                            <h6 class="col text-right"><span class="text-primary">Total Exento: </span><br>{{number_format($recibidas->sum('exento'),2)}}</h6>
                             <div class="card-tools text-right col">
                                 <button type="button" class="btn btn-tool"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body pt-0">
+                        <table>
+                            <thead>
+                                <form id="form" action="{{route('conta.recibidas',$empresa)}}" method="get">
+                                <tr>
+                                    <th>
+                                        <select name="anyo" id="anyo" class="form-control form-control-plaintext form-control-sm" onchange="form.submit()">
+                                            <option value="2019" {{$anyo=='2019'? 'selected' :''}}>2019</option>
+                                            <option value="2020" {{$anyo=='2020'? 'selected' :''}}>2020</option>
+                                            <option value="2021" {{$anyo=='2021'? 'selected' :''}}>2021</option>
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <select name="periodo" id="periodo"  class="form-control form-control-plaintext form-control-sm" onchange="form.submit()">
+                                            <option>Seleccciona un periodo</option>                                            
+                                            @foreach ($periodos as $peri)
+                                            <option value="{{$peri->id}}" {{$peri->id==$periodo ? 'selected' :''}}>{{$peri->periodo}}
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th>
+                                        <a href="#" onclick="form.submit()"><i class="fas fa-filter"></i></a>
+                                    </th>     
+                                </tr>
+                            </form>
+                            </thead>
+                        </table>
                         <div id="tablaconta" class="table-responsive p-0">
                             <table id="tablaasientos" class="table table-hover table-sm small table-head-fixed text-nowrap">
                                 <thead>
@@ -45,17 +71,17 @@
                                         <th>Proveedor</th>
                                         <th>NºFact.</th>
                                         <th>Concepto</th>
-                                        <th class="text-right">Base 21<br>{{$recibidas->sum('base21')}}</th>
-                                        <th class="text-right">21%<br>{{$recibidas->sum('iva21')}}</th>
-                                        <th class="text-right">Base 10<br>{{$recibidas->sum('base10')}}</th>
-                                        <th class="text-right">10%<br>{{$recibidas->sum('iva10')}}</th>
-                                        <th class="text-right">Base 4<br>{{$recibidas->sum('base4')}}</th>
-                                        <th class="text-right">4%<br>{{$recibidas->sum('iva4')}}</th>
-                                        <th class="text-right">Exento<br>{{$recibidas->sum('exento')}}</th>
-                                        <th class="text-right">Base Ret<br>{{$recibidas->sum('baseretencion')}}</th>
+                                        <th class="text-right">Base 21<br>{{number_format($recibidas->sum('base21'),2)}}</th>
+                                        <th class="text-right">21%<br>{{number_format($recibidas->sum('iva21'),2)}}</th>
+                                        <th class="text-right">Base 10<br>{{number_format($recibidas->sum('base10'),2)}}</th>
+                                        <th class="text-right">10%<br>{{number_format($recibidas->sum('iva10'),2)}}</th>
+                                        <th class="text-right">Base 4<br>{{number_format($recibidas->sum('base4'),2)}}</th>
+                                        <th class="text-right">4%<br>{{number_format($recibidas->sum('iva4'),2)}}</th>
+                                        <th class="text-right">Exento<br>{{number_format($recibidas->sum('exento'),2)}}</th>
+                                        <th class="text-right">Base Ret<br>{{number_format($recibidas->sum('baseretencion'),2)}}</th>
                                         <th class="text-right">% Ret</th>
-                                        <th class="text-right">Retención<br>{{$recibidas->sum('retencion')}}</th>
-                                        <th class="text-right">Total<br>{{$recibidas->sum('base21')+$recibidas->sum('iva21')+$recibidas->sum('base10')+$recibidas->sum('iva10')+$recibidas->sum('base4')+$recibidas->sum('iva4')+$recibidas->sum('exento')-+$recibidas->sum('retencion')}}</th>
+                                        <th class="text-right">Retención<br>{{number_format($recibidas->sum('retencion'),2)}}</th>
+                                        <th class="text-right">Total<br>{{number_format($recibidas->sum('base21')+$recibidas->sum('iva21')+$recibidas->sum('base10')+$recibidas->sum('iva10')+$recibidas->sum('base4')+$recibidas->sum('iva4')+$recibidas->sum('exento')-+$recibidas->sum('retencion'),2)}}</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -124,7 +150,7 @@
                                     <tr>
                                         <input type="hidden" name="tipo" id="tipo" value="R"></td>
                                         <input type="hidden" name="empresa_id" id="empresa_id" value="{{$empresa->id}}"></td>
-                                        <td class="px-0"><input tabindex="1" class="focusNext form-control form-control-sm unstyled pr-0 m-0" type="date" name="fechaasiento" id="fechaasiento" min={{"2020-01-01"}} max="2020-12-31" value="{{ old('fechaasiento', '2020-01-01') }}"></td>
+                                        <td class="px-0"><input tabindex="1" class="focusNext form-control form-control-sm unstyled pr-0 m-0" type="date" name="fechaasiento" id="fechaasiento"  value="{{ $fechaAs }}"></td>
                                         <td class="px-0"><input tabindex="2" class="focusNext form-control form-control-sm  unstyled pr-0 m-0" type="date" name="fechafactura" id="fechafactura" value="{{ old('fechafactura', '') }}"></td>
                                         <td>
                                             <select tabindex="3" class="focusNext form-control form-control-sm"  name="provcli_id" id="provcli_id" style="width: 100%;">
@@ -193,10 +219,11 @@
         $(document).ready(function(){
 
             if(screen.height>1000) 
-                $("#tablaconta").height(570);
+                $("#tablaconta").height(560);
             else 
-                $("#tablaconta").height(350);
+                $("#tablaconta").height(340);
 
+            
             $("#fechaasiento").focus();
 
 
@@ -214,6 +241,9 @@
             $("#fechaasiento").change(function(){
                 $('#fechafactura').val($("#fechaasiento").val());
             });
+
+            $("#fechaasiento").blur(controlperiodo);
+
             $("#base21").change(function(){
                 v=$("#base21").val()*0.21;
                 (Math.round( v * 100 )/100 ).toString();

@@ -76,80 +76,84 @@ function eliminar(ruta,id) {
 // funcion para añadir registros solo en los de conta
 // function addline(formulario,ruta) {
 function addline() {
-    var token= $('#token').val();
-    ruta="/conta/store";
-    formulario='creaForm';
-    $.ajaxSetup({
-        headers: { "X-CSRF-TOKEN": $('#token').val() },
-    });
-    var formElement = document.getElementById(formulario);
-    var formData = new FormData(formElement);
-    var fila="<tr>";
-    var id='';
-    var cierre='';
-    var form='';
-    var i="0";
-    var clase=""
+    let controlfecha;
+    controlfecha=controlperiodo();
+    if(controlfecha==0){
+        var token= $('#token').val();
+        ruta="/conta/store";
+        formulario='creaForm';
+        $.ajaxSetup({
+            headers: { "X-CSRF-TOKEN": $('#token').val() },
+        });
+        var formElement = document.getElementById(formulario);
+        var formData = new FormData(formElement);
+        var fila="<tr>";
+        var id='';
+        var cierre='';
+        var form='';
+        var i="0";
+        var clase=""
 
-    $.ajax({
-        type:'POST',
-         url: ruta,
-         data:formData,
-         cache:false,
-         contentType: false,
-         processData: false,
-         success: function(data) {
-             toastr.success('Asiento Añadido',{
-             'progressBar':true,
-             "positionClass":"toast-bottom-center",
-             });
-             document.getElementById(formulario).reset();
-             $("#provcli_id").val('-');
-            // $('#provcli_id').val('341');
-            // $("#provcli_id"). empty();
-            $('#provcli_id').val(null).trigger('change');
-             $.each(data,function(key,value){
-                 if (i>6) clase='class="text-right"';
-                 i++;
-                if(key=='id') {
-                    id="'"+value+"'";
-                    form='formDelete'+value;
-                };
-                if(key=='token') token=value
-                else fila=fila + '<td '+clase+'>'+value+'</td>' ;
-             });
-             cierre="<td class='text-right m-0 pr-3'>"+
-                    "<form  id="+form+">"+
-                    "<input type='hidden' name='_method' value='POST' />"+
-                    "<input type='hidden' name='_token' value="+token+" />"+
-                    "<a href='#!' class='btn-delete' title='Eliminar' " + 
-                    'onclick="eliminarfila('+id+')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>'+
-                    "</form>";
+        $.ajax({
+            type:'POST',
+            url: ruta,
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                toastr.success('Asiento Añadido',{
+                'progressBar':true,
+                "positionClass":"toast-bottom-center",
+                });
+                document.getElementById(formulario).reset();
+                $("#provcli_id").val('-');
+                // $('#provcli_id').val('341');
+                // $("#provcli_id"). empty();
+                $('#provcli_id').val(null).trigger('change');
+                $.each(data,function(key,value){
+                    if (i>6) clase='class="text-right"';
+                    i++;
+                    if(key=='id') {
+                        id="'"+value+"'";
+                        form='formDelete'+value;
+                    };
+                    if(key=='token') token=value
+                    else fila=fila + '<td '+clase+'>'+value+'</td>' ;
+                });
+                cierre="<td class='text-right m-0 pr-3'>"+
+                        "<form  id="+form+">"+
+                        "<input type='hidden' name='_method' value='POST' />"+
+                        "<input type='hidden' name='_token' value="+token+" />"+
+                        "<a href='#!' class='btn-delete' title='Eliminar' " + 
+                        'onclick="eliminarfila('+id+')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>'+
+                        "</form>";
 
-             fila=fila+cierre+'</tr>';
-            //  $('#tablaasientos tr:last').before(fila);
-            // $("#tablaasientos > tbody").append(fila);
-            // $('#bodyasientos tr:last').after(fila);
-            $('#bodyasientos tr:first').before(fila);
-            $('#fechaasiento').focus();
+                fila=fila+cierre+'</tr>';
+                //  $('#tablaasientos tr:last').before(fila);
+                // $("#tablaasientos > tbody").append(fila);
+                // $('#bodyasientos tr:last').after(fila);
+                $('#bodyasientos tr:first').before(fila);
+                $('#fechaasiento').focus();
 
-         },
-         error: function(data){
-             var resp_e = data.responseJSON.errors;
-             $.each(resp_e,function(key,value) {
-                 toastr.error(value,{
-                     "closeButton": true,
-                     "progressBar":true,
-                     "positionClass": "toast-top-center",
-                     "options.escapeHtml" : true,
-                     "showDuration": "300",
-                     "hideDuration": "1000",
-                     "timeOut": 0,
-                 });
-             });
-             console.log(data);
-            }
-     });
+            },
+            error: function(data){
+                var resp_e = data.responseJSON.errors;
+                $.each(resp_e,function(key,value) {
+                    toastr.error(value,{
+                        "closeButton": true,
+                        "progressBar":true,
+                        "positionClass": "toast-top-center",
+                        "options.escapeHtml" : true,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": 0,
+                    });
+                });
+                console.log(data);
+                }
+        });
+    }
  }
  
 // funcion para eliminar registros solo en los de conta
@@ -266,3 +270,53 @@ function number_format(amount, decimals) {
 
     return amount_parts.join('.');
 }
+
+function controlperiodo(){
+    let f=$('#fechaasiento').val();
+    var date = new Date(f);
+    let periodo=$("#periodo").val();
+    let anyo=$("#anyo").val();
+    month = date.getMonth() + 1;
+    year = date.getFullYear();
+    let mensaje="La fecha no pertenece al periodo. Corríjala.";
+    let esfechamala=0;
+
+    switch (periodo) {
+        case '13':
+            if(year!=anyo || month>3){
+                esfechamala=1;
+            }
+            break;
+        case '14':
+            if(year!=anyo || month>6 || month<4){
+                esfechamala=1;
+            }
+            break;
+        case '15':
+            if(year!=anyo || month>9 || month<7){
+                esfechamala=1;
+            }
+            break;
+        case '16':
+            if(year!=anyo || month<10){
+                esfechamala=1;
+            }
+            break;
+        default:
+            if(year!=anyo || month!=periodo){
+                esfechamala=1;
+            }
+    }
+    if (esfechamala==1){
+        toastr.error(mensaje,{
+         "closeButton": true,
+         "progressBar":true,
+         "positionClass": "toast-top-center",
+         "options.escapeHtml" : true,
+         "showDuration": "300",
+         "hideDuration": "1000",
+         "timeOut": 0,
+        });
+    }
+    return esfechamala;
+};

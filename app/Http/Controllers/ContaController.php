@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\{Empresa, Conta,Provcli};
+use App\{Empresa, Conta,Provcli,Periodo};
 use App\Http\Requests\RecibidasRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class ContaController extends Controller
@@ -47,15 +48,44 @@ class ContaController extends Controller
     public function recibidas(Empresa $empresa, Request $request)
     {
         $busqueda=($request->busca);
+        $anyo=$request->anyo;
+        $per=Periodo::find($request->periodo);
+        $perI=$per->perI??'1';
+        $perF=$per->perF??'12';
+        $periodo='';
+        $fechaAs='';
+        if(!is_null($per)){
+            $periodo=$per->id;
+            switch ($periodo) {
+                case '13':
+                    $fechaAs=$anyo.'-03-01';
+                    break;
+                case '14':
+                    $fechaAs=$anyo.'-06-01';
+                    break;
+                case '15':
+                    $fechaAs=$anyo.'-09-01';
+                    break;
+                case '16':
+                    $fechaAs=$anyo.'-12-01';
+                    break;
+                default:
+                    $fechaAs=$anyo.'-'.str_pad($perI,2,'0',STR_PAD_LEFT).'-'.'01';
+                    break;
+            }
+         }
         $provclis=Provcli::orderBy('nombre')->get();
+        $periodos=Periodo::get();
+
         $recibidas=Conta::search($request->busca)
+        ->filtro($anyo,$perI,$perF)
         ->where('empresa_id',$empresa->id)
         ->where('tipo','R')
         ->with('provclis')
         ->orderBy('fechaasiento','desc')
         ->get();
 
-        return view('empresa.conta.recibidas',compact('recibidas','empresa','provclis','busqueda')); 
+        return view('empresa.conta.recibidas',compact('recibidas','empresa','provclis','periodos','busqueda','anyo','periodo','fechaAs')); 
     }
 
     /**
