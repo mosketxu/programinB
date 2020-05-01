@@ -48,11 +48,13 @@ class ContaController extends Controller
     public function recibidas(Empresa $empresa, Request $request)
     {
         $busqueda=($request->busca);
-        $anyo=$request->anyo;
+        $anyo=$request->anyo ? $request->anyo : date("Y");
+        // $per=$request->periodo='Seleccciona un periodo' ? '' : ;
         $per=Periodo::find($request->periodo);
         $perI=$per->perI??'1';
         $perF=$per->perF??'12';
-        $periodo='';
+        $periodo= $request->periodo? $request->periodo: '17';
+
         $fechaAs='';
         if(!is_null($per)){
             $periodo=$per->id;
@@ -176,25 +178,44 @@ class ContaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\conta  $conta
-     * @return \Illuminate\Http\Response
+     * 
+     * 
      */
-    public function edit(conta $conta)
+    public function edit($conta,$anyo,$periodo)
     {
-        //
+        $anyo=$anyo ? $anyo : date("Y");
+        $per=Periodo::find($periodo);
+        $perI=$per->perI??'1';
+        $perF=$per->perF??'12';
+        $provclis=Provcli::orderBy('nombre')->get();
+        $periodos=Periodo::get();
+        $conta=Conta::find($conta);
+        $total=$conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo;
+        $empresa=Empresa::find($conta->empresa_id);
+
+        return view('empresa.conta.edit',compact('conta','empresa','provclis','periodos','anyo','periodo','total')); 
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\conta  $conta
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, conta $conta)
+    public function update(RecibidasRequest $request)
     {
-        dd('llego');
+        $prov=Provcli::find($request->provcli_id);
+        $concepto=$this->modificaconcepto($request->factura,$prov->nombre,$request->concepto,$request->fechaasiento);
+        $request->merge(['concepto'=>$concepto]);
+        $conta=Conta::find($request->id)->update($request->all());
+
+        return response()->json("Actualizado con éxito");
+        // return redirect()->back();
+
     }
+
+
+
+
 
     public function controlfactura(Request $request)
     {

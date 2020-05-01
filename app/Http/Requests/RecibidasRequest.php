@@ -45,6 +45,16 @@ class RecibidasRequest extends FormRequest
             $this->merge(['baseretencion'=>'0']);
             $this->merge(['retencion'=>'0']);
         }
+        $this->merge(['base21'=>str_replace(',','', $this->input('base21'))]);
+        $this->merge(['iva21'=>str_replace(',','', $this->input('iva21'))]);
+        $this->merge(['base10'=>str_replace(',','', $this->input('base10'))]);
+        $this->merge(['iva10'=>str_replace(',','', $this->input('iva10'))]);
+        $this->merge(['base4'=>str_replace(',','', $this->input('base4'))]);
+        $this->merge(['iva4'=>str_replace(',','', $this->input('iva4'))]);
+        $this->merge(['exento'=>str_replace(',','', $this->input('exento'))]);
+        $this->merge(['baseretencion'=>str_replace(',','', $this->input('baseretencion'))]);
+        $this->merge(['retencion'=>str_replace(',','', $this->input('retencion'))]);
+
     }
     /**
      * Get the validation rules that apply to the request.

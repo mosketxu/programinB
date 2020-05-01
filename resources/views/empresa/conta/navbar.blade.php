@@ -7,10 +7,11 @@
           <a href="{{route('conta.emitidas',$empresa) }}" class="nav-link" title="Recibidas">Emitidas</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{{route('conta.recibidas',$empresa) }}" class="nav-link" title="Recibidas">Recibidas</a>
+          <a href="{{route('conta.recibidas',[$empresa,date('Y'),'17']) }}" class="nav-link" title="Recibidas">Recibidas</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      @if(explode(".", Route::currentRouteName())[1]!='edit')
       <form class="form-inline ml-3" method="GET" action="{{route('conta.recibidas',$empresa)}}">
         <li>
           <div class="input-group input-group-sm">
@@ -22,6 +23,7 @@
           </div>
         </li>
       </form>
+      @endif
     <!-- Previous -->
       <li class="nav-link">
         <a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward"></i></a>
