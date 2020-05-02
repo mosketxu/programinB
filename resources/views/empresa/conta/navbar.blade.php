@@ -4,10 +4,10 @@
           <a href="{{route('conta.index',$empresa) }}" class="nav-link" title="Go">Go</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{{route('conta.emitidas',$empresa) }}" class="nav-link" title="Recibidas">Emitidas</a>
+          <a href="{{route('conta.contas',[$empresa,'E']) }}" class="nav-link" title="Recibidas">Emitidas</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="{{route('conta.recibidas',[$empresa,date('Y'),'17']) }}" class="nav-link" title="Recibidas">Recibidas</a>
+          <a href="{{route('conta.contas',[$empresa,'R']) }}" class="nav-link" title="Recibidas">Recibidas</a>
         </li>
     </ul>
     <ul class="navbar-nav ml-auto">

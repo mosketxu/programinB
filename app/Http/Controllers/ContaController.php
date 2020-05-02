@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Empresa, Conta,Provcli,Periodo};
-use App\Http\Requests\RecibidasRequest;
+use App\Http\Requests\ContaRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,21 +32,7 @@ class ContaController extends Controller
         return view('empresa.conta.index',compact('emitidas','recibidas','empresa','busqueda')); 
     }
 
-
-    public function emitidas(Empresa $empresa, Request $request)
-    {
-        $busqueda=($request->busca);
-        $provclis=Provcli::orderBy('nombre')->get();
-        $emitidas=Conta::search($request->busca)
-        ->where('empresa_id',$empresa->id)
-        ->where('tipo','E')
-        ->get();
-
-        return view('empresa.conta.emitidas',compact('emitidas','empresa','provclis','busqueda')); 
-    }
-
-    public function recibidas(Empresa $empresa, Request $request)
-    {
+    public function conta(Empresa $empresa, $tipo, Request $request){
         $busqueda=($request->busca);
         $anyo=$request->anyo ? $request->anyo : date("Y");
         // $per=$request->periodo='Seleccciona un periodo' ? '' : ;
@@ -54,8 +40,12 @@ class ContaController extends Controller
         $perI=$per->perI??'1';
         $perF=$per->perF??'12';
         $periodo= $request->periodo? $request->periodo: '17';
-
+        $titulo=$tipo=='E'? 'Emitidas' : 'Recibidas';
         $fechaAs='';
+        $facturanueva='';
+        if ($tipo=='E')
+            $facturanueva=$this->facturanueva($empresa->id);
+
         if(!is_null($per)){
             $periodo=$per->id;
             switch ($periodo) {
@@ -79,15 +69,16 @@ class ContaController extends Controller
         $provclis=Provcli::orderBy('nombre')->get();
         $periodos=Periodo::get();
 
-        $recibidas=Conta::search($request->busca)
+        $contas=Conta::search($request->busca)
         ->filtro($anyo,$perI,$perF)
         ->where('empresa_id',$empresa->id)
-        ->where('tipo','R')
+        ->where('tipo',$tipo)
         ->with('provclis')
         ->orderBy('fechaasiento','desc')
         ->get();
 
-        return view('empresa.conta.recibidas',compact('recibidas','empresa','provclis','periodos','busqueda','anyo','periodo','fechaAs')); 
+        
+        return view('empresa.conta.conta',compact('contas','empresa','provclis','periodos','busqueda','anyo','periodo','fechaAs','tipo','titulo','facturanueva')); 
     }
 
     /**
@@ -106,62 +97,42 @@ class ContaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RecibidasRequest $request)
+    public function store(ContaRequest $request)
     {
         $prov=Provcli::find($request->provcli_id);
         $concepto=$this->modificaconcepto($request->factura,$prov->nombre,$request->concepto,$request->fechaasiento);
         $request->merge(['concepto'=>$concepto]);
         $conta=Conta::create($request->all());
-
-        if($conta->tipo=="R"){
-            $respuesta=[
-                'id'=>$conta->id,
-                'token'=>$request->_token,
-                'fechaasiento'=>$conta->fechaasiento,
-                'fechafactura'=>$conta->fechafactura,
-                'provcli'=>$prov->nombre,
-                'factura'=>$conta->factura,
-                'concepto'=>$conta->concepto,
-                'base21'=>number_format($conta->base21,2),
-                'iva21'=>number_format($conta->iva21,2),
-                'base10'=>number_format($conta->base10,2),
-                'iva10'=>number_format($conta->iva10,2),
-                'base4'=>number_format($conta->base4,2),
-                'iva4'=>number_format($conta->iva4,2),
-                'exento'=>number_format($conta->exento,2),
-                'baseretencion'=>number_format($conta->baseretencion,2),
-                'porcentajeretencion'=>number_format($conta->porcentajeretencion,2),
-                'retencion'=>number_format($conta->retencion,2),
-                'total'=>number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion,2),
-            ];
+        $facturanueva=$conta->tipo=='E' ?  intval($conta->factura)+1 : '';
+        $respuesta=[
+            'facturanueva'=>$facturanueva,
+            'tipo'=>$conta->tipo,
+            'id'=>$conta->id,
+            'token'=>$request->_token,
+            'fechaasiento'=>$conta->fechaasiento,
+            'fechafactura'=>$conta->fechafactura,
+            'provcli'=>$prov->nombre,
+            'factura'=>$conta->factura,
+            'concepto'=>$conta->concepto,
+            'base21'=>number_format($conta->base21,2),
+            'iva21'=>number_format($conta->iva21,2),
+            'base10'=>number_format($conta->base10,2),
+            'iva10'=>number_format($conta->iva10,2),
+            'base4'=>number_format($conta->base4,2),
+            'iva4'=>number_format($conta->iva4,2),
+            'exento'=>number_format($conta->exento,2),
+            'baseretencion'=>number_format($conta->baseretencion,2),
+            'porcentajeretencion'=>number_format($conta->porcentajeretencion,2),
+            'retencion'=>number_format($conta->retencion,2),
+        ];
+        if($conta->tipo=='E'){
+            $respuesta['baserecargo']=number_format($conta->baserecargo,2);
+            $respuesta['porcentajerecargo']=number_format($conta->porcentajerecargo,2);
+            $respuesta['recargo']=number_format($conta->recargo,2);
+            $respuesta['total']=number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo,2);
         }
-        elseif($request->tipo=="E"){
-            $respuesta=[
-                'id'=>$conta->id,
-                'fechaasiento'=>$conta->fechaasiento,
-                'fechafactura'=>$conta->fechafactura,
-                'provcli'=>$prov->nombre,
-                'factura'=>$conta->factura,
-                'concepto'=>$cont->concepto,
-                'base21'=>$conta->base21,
-                'iva21'=>$conta->iva21,
-                'base10'=>$conta->base10,
-                'iva10'=>$conta->iva10,
-                'base4'=>$conta->base4,
-                'iva4'=>$conta->iva4,
-                'exento'=>$conta->exento,
-                'baseretencion'=>$conta->baseretencion,
-                'porcentajeretencion'=>$conta->porcentajeretencion,
-                'retencion'=>$conta->retencion,
-                'baserecargo'=>$conta->baserecargo,
-                'porcentajerecargo'=>$conta->porcentajerecargo,
-                'recargo'=>$conta->recargo,
-                'total'=>$conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo,
-            ];
-        }
-
+        $respuesta['total'] = number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo,2);
         return response()->json($respuesta);
-
     }
 
     /**
@@ -213,10 +184,6 @@ class ContaController extends Controller
 
     }
 
-
-
-
-
     public function controlfactura(Request $request)
     {
         if(!is_null($request->factura) && !is_null($request->provcli_id)){
@@ -262,6 +229,25 @@ class ContaController extends Controller
             }
         }
         return $concepto;
+    }
+
+    protected function facturanueva($empresaid){
+        $facturas=Conta::select('factura')
+            ->where('tipo','E')
+            ->where('empresa_id',$empresaid)
+            ->get();
+        if($facturas->count()==0){
+            $facturanueva=1;
+        }else{
+            $dataSet=[];
+            foreach ($facturas as $fra) {
+                $dataSet[]=[
+                    'fra'=>intval($fra->factura),
+                ];
+            };
+            $facturanueva=max($dataSet);
+        }
+        return $facturanueva['fra']+1;
     }
 
 }

@@ -24,7 +24,7 @@
             <a href="{{route('empresa.index') }}" class="nav-link" title="Editar empresa">Empresas</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('empresa.edit', $empresa) }}" class="nav-link" title="Editar empresa">Editar Empresa</a>
+            <a href="{{route('empresa.edit', $empresa) }}" class="nav-link" title="Editar empresa">Editar</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="{{route('empresacontacto.show', $empresa) }}" class="nav-link" title="Contacto de la empresa">Contactos</a>

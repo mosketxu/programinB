@@ -9,6 +9,9 @@ Route::get('conta/{empresa}','ContaController@index')->name('conta.index')
 Route::get('conta/{conta}/{anyo}/{periodo}/edit','ContaController@edit')->name('conta.edit')
 ->middleware('can:contas.edit');
 
+Route::get('conta/contas/{empresa}/{tipo}','ContaController@conta')->name('conta.contas')
+->middleware('can:contas.edit');
+
 Route::get('conta/recibidas/{empresa}','ContaController@recibidas')->name('conta.recibidas')
 ->middleware('can:contas.edit');
 

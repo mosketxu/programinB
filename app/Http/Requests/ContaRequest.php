@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Provcli;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RecibidasRequest extends FormRequest
+class ContaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -45,6 +45,14 @@ class RecibidasRequest extends FormRequest
             $this->merge(['baseretencion'=>'0']);
             $this->merge(['retencion'=>'0']);
         }
+        if (is_null($this->input('baserecargo')))
+            $this->merge(['baserecargo'=>'0']);
+        if (is_null($this->input('recargo')))
+            $this->merge(['recargo'=>'0']);
+        if ($this->input('porcentajerecargo')==0){
+            $this->merge(['baserecargo'=>'0']);
+            $this->merge(['recargo'=>'0']);
+        }
         $this->merge(['base21'=>str_replace(',','', $this->input('base21'))]);
         $this->merge(['iva21'=>str_replace(',','', $this->input('iva21'))]);
         $this->merge(['base10'=>str_replace(',','', $this->input('base10'))]);
@@ -54,6 +62,8 @@ class RecibidasRequest extends FormRequest
         $this->merge(['exento'=>str_replace(',','', $this->input('exento'))]);
         $this->merge(['baseretencion'=>str_replace(',','', $this->input('baseretencion'))]);
         $this->merge(['retencion'=>str_replace(',','', $this->input('retencion'))]);
+        $this->merge(['baserecargo'=>str_replace(',','', $this->input('baserecargo'))]);
+        $this->merge(['recargo'=>str_replace(',','', $this->input('recargo'))]);
 
     }
     /**
@@ -76,6 +86,9 @@ class RecibidasRequest extends FormRequest
             'baseretencion'=>'nullable|numeric',
             'porcentajeretencion'=>'nullable|numeric',
             'retencion'=>'nullable|numeric',
+            'baserecargo'=>'nullable|numeric',
+            'porcentajerecargo'=>'nullable|numeric',
+            'recargo'=>'nullable|numeric',
         ];
 
         return $rules;
@@ -87,16 +100,19 @@ class RecibidasRequest extends FormRequest
             'fechaasiento.required'=>'La fecha asiento es obligatoria',
             'fechaasiento.date'=>'La fecha asiento debe ser tipo fecha',
             'fechafactura.date'=>'La fecha factura debe ser tipo fecha',
-            'base21'=>'La base al 21 debe ser numerica',
-            'iva21'=>'El IVA al 21 debe ser numerica',
-            'base10'=>'La base al 10 debe ser numerica',
-            'iva10'=>'El IVA al 10 debe ser numerica',
-            'base4'=>'La base al 4 debe ser numerica',
-            'iva4'=>'El IVA al 4 debe ser numerica',
-            'exento'=>'El valor exento debe ser numerico',
-            'baseretencion'=>'La base de rentencion debe ser numerica',
-            'porcentajeretencion'=>'El % de retención debe ser numerico',
-            'retencion'=>'La retención debe ser numerica',
+            'base21'=>'La base al 21 debe ser numérica',
+            'iva21'=>'El IVA al 21 debe ser numérica',
+            'base10'=>'La base al 10 debe ser numérica',
+            'iva10'=>'El IVA al 10 debe ser numérica',
+            'base4'=>'La base al 4 debe ser numérica',
+            'iva4'=>'El IVA al 4 debe ser numérica',
+            'exento'=>'El valor exento debe ser numérico',
+            'baseretencion'=>'La base de retención debe ser numérica',
+            'porcentajeretencion'=>'El % de retención debe ser numérico',
+            'retencion'=>'La retención debe ser numérica',
+            'baseretencion'=>'La base de recargo debe ser numérica',
+            'porcentajeretencion'=>'El % de recargo debe ser numérico',
+            'recargo'=>'El recargo debe ser numérico',
         ];
     }
 }

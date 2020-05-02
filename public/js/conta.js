@@ -19,7 +19,7 @@ $(document).ready(function(){
     $("#baseretencion").change(function(){
         let b=$("#baseretencion").val();
         b=b.replace(',','');
-        let v=b**$("#porcentajeretencion").val();
+        let v=b*$("#porcentajeretencion").val();
         (Math.round( v * 100 )/100 ).toString();
         $('#retencion').val(v.toFixed(2));
         total();
@@ -28,9 +28,27 @@ $(document).ready(function(){
     $("#porcentajeretencion").change(function(){
         let b=$("#baseretencion").val();
         b=b.replace(',','');
-        let v=b**$("#porcentajeretencion").val();
+        let v=b*$("#porcentajeretencion").val();
         (Math.round( v * 100 )/100 ).toString();
         $('#retencion').val(v.toFixed(2));
+        total();
+    });
+
+    $("#baserecargo").change(function(){
+        let b=$("#baserecargo").val();
+        b=b.replace(',','');
+        let v=b*$("#porcentajerecargo").val();
+        (Math.round( v * 100 )/100 ).toString();
+        $('#recargo').val(v.toFixed(2));
+        total();
+    });
+
+    $("#porcentajerecargo").change(function(){
+        let b=$("#baserecargo").val();
+        b=b.replace(',','');
+        let v=b*$("#porcentajerecargo").val();
+        (Math.round( v * 100 )/100 ).toString();
+        $('#recargo').val(v.toFixed(2));
         total();
     });
 
@@ -56,6 +74,7 @@ function total(){
     var iva4=$("#iva4").val();
     var exento=$("#exento").val();
     var retencion=$("#retencion").val();
+    var recargo=$("#recargo").val();
     var total;
     base21= base21=='' ? 0 : parseFloat(base21);
     iva21= iva21=='' ? 0 : parseFloat(iva21);
@@ -65,7 +84,8 @@ function total(){
     iva4= iva4=='' ? 0 : parseFloat(iva4);
     exento= exento =='' ? 0 : parseFloat(exento);
     retencion=retencion=='' ? 0 : parseFloat(retencion);
-    total=base21+iva21+base10+iva10+base4+iva4+exento-retencion;
+    recargo=recargo=='' ? 0 : parseFloat(recargo);
+    total=base21+iva21+base10+iva10+base4+iva4+exento-retencion+recargo;
     (Math.round( total * 100 )/100 ).toString();
     $('#totalnuevo').val(total.toFixed(2));
 }
@@ -183,20 +203,21 @@ function addline() {
                 $("#provcli_id").val('-');
                 $('#provcli_id').val(null).trigger('change');
                 $.each(data,function(key,value){
-                    if (i>6) clase='class="text-right"';
+                    if (i>8) clase='class="text-right"';
                     i++;
                     if(key=='id') {
                         id="'"+value+"'";
                         form='formDelete'+value;
                     };
                     if(key=='token') token=value
-                    else fila=fila + '<td '+clase+'>'+value+'</td>' ;
+                    else if(i>2)
+                        fila=fila + '<td '+clase+'>'+value+'</td>' ;
                 });
                 cierre="<td class='text-right m-0 pr-3'>"+
                         "<form  id="+form+">"+
                         "<input type='hidden' name='_method' value='POST' />"+
                         "<input type='hidden' name='_token' value="+token+" />"+
-                        "<a href='#!' class='btn-delete' title='Eliminar' " + 
+                        "<a href='#!' class='btn-delete' title='Eliminar' " +  
                         'onclick="eliminarfila('+id+')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>'+
                         "</form>";
 
@@ -204,7 +225,11 @@ function addline() {
                 //  $('#tablaasientos tr:last').before(fila);
                 // $("#tablaasientos > tbody").append(fila);
                 // $('#bodyasientos tr:last').after(fila);
+                
                 $('#bodyasientos tr:first').before(fila);
+                if(data.tipo=='E')
+                    $("#factura").val(data.facturanueva);
+
                 $('#fechaasiento').focus();
 
             },
