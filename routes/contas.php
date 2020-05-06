@@ -12,11 +12,9 @@ Route::get('conta/{conta}/{anyo}/{periodo}/edit','ContaController@edit')->name('
 Route::get('conta/contas/{empresa}/{tipo}','ContaController@conta')->name('conta.contas')
 ->middleware('can:contas.edit');
 
-Route::get('conta/recibidas/{empresa}','ContaController@recibidas')->name('conta.recibidas')
+Route::get('conta/{empresa}/{anyo}/{periodo}/recurrente','ContaController@recurrente')->name('conta.recurrentes')
 ->middleware('can:contas.edit');
 
-Route::get('conta/emitidas/{empresa}','ContaController@emitidas')->name('conta.emitidas')
-->middleware('can:contas.edit');
 
 Route::get('conta/create','ContaController@create')->name('conta.create')
 ->middleware('can:contas.create');

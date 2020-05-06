@@ -15,14 +15,15 @@ class EmpresaController extends Controller
      */
     public function index(Request $request)
     {
-        // $busqueda=($request->busca) ? $request->busca : '';
         $busqueda=($request->busca);
+
         $empresas=Empresa::search($request->busca)
         ->where('cliente',1)
         ->with('suma')
         ->orderBy('favorito','DESC')
         ->orderBy('empresa')
         ->get();
+
         return view('empresa.index',compact('empresas','busqueda'));
     }
 
@@ -66,7 +67,7 @@ class EmpresaController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * 
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
@@ -93,7 +94,9 @@ class EmpresaController extends Controller
     public function update(EmpresaRequest $request)
     {
         Empresa::find($request->id)->update($request->all());
-        return response()->json(['message', 'Empresa Actualizada']);
+        if($request->ajax())
+            return response()->json(['message', 'Empresa Actualizada']);
+        return redirect()->back()->with(['message'=>'Actualizado']);
     }
 
     /**

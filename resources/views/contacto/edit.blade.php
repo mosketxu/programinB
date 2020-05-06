@@ -4,7 +4,7 @@
 @section('titlePag','Editar Contacto')
 @section('navbar')
 @include('layouts.partials.navbarizquierda')
-<p class="h3 pt-2 text-dark">@yield('titlePag')</p> 
+<p class="h3 pt-2 text-dark">@yield('titlePag') {{$contacto->empresa}}</p> 
 @include('contacto.navbar')
 @endsection
 
@@ -21,17 +21,10 @@
         <section class="content">
             <div class="cemontainer-fluid">
                 <div class="card">
-                    <div class="card-header">
-                    <h3 class="card-title">Editar contacto {{$contacto->empresa}}</h3>
-                        <div class="card-tools">
-                        </div>
-                      </div>
-                    </div>
                 {{-- mensajes de exito o error --}}
-                    @include('layouts.partials.mensajes')
-                {{-- fin mensajes de exito o error --}}
+                @include('layouts.partials.mensajes')
                 
-                    <form method="POST" action="{{ route("empresa.update") }}">
+                <form method="POST" action="{{ route("empresa.update") }}">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
@@ -175,5 +168,6 @@
     });
 
 </script>
+
 @endpush
 

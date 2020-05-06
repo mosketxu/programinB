@@ -13,6 +13,10 @@ class Provcli extends Model
     {
         return $this->belongsTo(Pais::class);
     }
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 
     public function provincia()
     {

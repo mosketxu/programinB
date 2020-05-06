@@ -50,9 +50,8 @@
                                             @endforeach
                                         </select>
                                     </th>
-                                    <th>
-                                        <a href="#" onclick="form.submit()"><i class="fas fa-filter"></i></a>
-                                    </th>     
+                                    <th><a href="#" onclick="form.submit()"><i class="fas fa-filter"></i></a></th>     
+                                    <th><a href="{{route('conta.recurrentes',[$empresa,$anyo,$periodo])}}">Recurrentes</a></th>     
                                 </tr>
                                 </form>
                             </thead>

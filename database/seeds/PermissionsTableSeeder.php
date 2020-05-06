@@ -79,11 +79,11 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'pus.destroy']);
 
         // provclis
-        Permission::create(['name' => 'provclis.index']);
-        Permission::create(['name' => 'provclis.edit']);
-        Permission::create(['name' => 'provclis.show']);
-        Permission::create(['name' => 'provclis.create']);
-        Permission::create(['name' => 'provclis.destroy']);
+        // Permission::create(['name' => 'provclis.index']);
+        // Permission::create(['name' => 'provclis.edit']);
+        // Permission::create(['name' => 'provclis.show']);
+        // Permission::create(['name' => 'provclis.create']);
+        // Permission::create(['name' => 'provclis.destroy']);
 
         // contas
         // Permission::create(['name' => 'contas.index']);
@@ -91,6 +91,20 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'contas.show']);
         // Permission::create(['name' => 'contas.create']);
         // Permission::create(['name' => 'contas.destroy']);
+
+        // contas recurrentes
+        // Permission::create(['name' => 'contarecurrentes.index']);
+        // Permission::create(['name' => 'contarecurrentes.edit']);
+        // Permission::create(['name' => 'contarecurrentes.show']);
+        // Permission::create(['name' => 'contarecurrentes.create']);
+        // Permission::create(['name' => 'contarecurrentes.destroy']);
+
+        // categorias
+        Permission::create(['name' => 'categorias.index']);
+        Permission::create(['name' => 'categorias.edit']);
+        Permission::create(['name' => 'categorias.show']);
+        Permission::create(['name' => 'categorias.create']);
+        Permission::create(['name' => 'categorias.destroy']);
 
         // $admin->givePermissionTo([
         //     'products.index',

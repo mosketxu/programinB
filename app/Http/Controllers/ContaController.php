@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Empresa, Conta,Provcli,Periodo};
+use App\{Categoria, Empresa, Conta, ContaRecurrente, Provcli,Periodo};
 use App\Http\Requests\ContaRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -18,18 +18,11 @@ class ContaController extends Controller
      */
     public function index(Empresa $empresa, Request $request)
     {
-        $busqueda=($request->busca);
-        $emitidas=Conta::search($request->busca)
-        ->where('empresa_id',$empresa->id)
-        ->where('tipo','E')
+        $recurrentes=ContaRecurrente::where('empresa_id',$empresa->id)
+        ->with('provcli')
         ->get();
-
-        $recibidas=Conta::search($request->busca)
-        ->where('empresa_id',$empresa->id)
-        ->where('tipo','R')
-        ->get();
-
-        return view('empresa.conta.index',compact('emitidas','recibidas','empresa','busqueda')); 
+        $provclis=Provcli::orderBy('nombre')->get();
+        return view('empresa.conta.index',compact('empresa','recurrentes','provclis')); 
     }
 
     public function conta(Empresa $empresa, $tipo, Request $request){
@@ -68,17 +61,18 @@ class ContaController extends Controller
          }
         $provclis=Provcli::orderBy('nombre')->get();
         $periodos=Periodo::get();
+        $categorias=Categoria::get();
 
         $contas=Conta::search($request->busca)
         ->filtro($anyo,$perI,$perF)
         ->where('empresa_id',$empresa->id)
         ->where('tipo',$tipo)
-        ->with('provclis')
+        ->with('provcli')
         ->orderBy('fechaasiento','desc')
         ->get();
 
         
-        return view('empresa.conta.conta',compact('contas','empresa','provclis','periodos','busqueda','anyo','periodo','fechaAs','tipo','titulo','facturanueva')); 
+        return view('empresa.conta.conta',compact('contas','empresa','provclis','periodos','categorias','busqueda','anyo','periodo','fechaAs','tipo','titulo','facturanueva')); 
     }
 
     /**
@@ -114,6 +108,7 @@ class ContaController extends Controller
             'provcli'=>$prov->nombre,
             'factura'=>$conta->factura,
             'concepto'=>$conta->concepto,
+            'categoria'=>$conta->categoria->categoria??'',
             'base21'=>number_format($conta->base21,2),
             'iva21'=>number_format($conta->iva21,2),
             'base10'=>number_format($conta->base10,2),
@@ -133,6 +128,14 @@ class ContaController extends Controller
         }
         $respuesta['total'] = number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo,2);
         return response()->json($respuesta);
+    }
+
+    public function recurrente($empresa,$anyo,$periodo)
+    {
+        $recurrente=ContaRecurrente::where('empresa_id',$empresa)
+        ->get();
+        // Conta::where()create($request->all());
+        return response()->json(['message', 'Contacto Creado']);
     }
 
     /**

@@ -30,7 +30,7 @@ class ContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() 
     {
         $paises=Pais::get();
         $provincias=Provincia::get()
@@ -49,6 +49,7 @@ class ContactoController extends Controller
         Contacto::create($request->all());
         return response()->json(['message', 'Contacto Creado']);
     }
+
 
     /**
      * Display the specified resource.
@@ -92,7 +93,10 @@ class ContactoController extends Controller
     public function update(ContactoRequest $request)
     {
         Contacto::find($request->id)->update($request->all());
-        return response()->json(['message', 'Contacto Actualizado']);
+        if($request->ajax()){
+            return response()->json(['message', 'Contacto Actualizado']);
+        }
+            return redirect()->back()->with(['message'=>'Actualizado']);
     }
 
     /**

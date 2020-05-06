@@ -52,6 +52,12 @@ $(document).ready(function(){
         total();
     });
 
+
+    $("#provcli_id").change(function() {
+        let prov=$("#provcli_id").val();
+        categoria(prov);
+    })
+
 });
 
 function baseporiva(base,iva,piva){
@@ -85,86 +91,9 @@ function total(){
     exento= exento =='' ? 0 : parseFloat(exento);
     retencion=retencion=='' ? 0 : parseFloat(retencion);
     recargo=recargo=='' ? 0 : parseFloat(recargo);
-    total=base21+iva21+base10+iva10+base4+iva4+exento-retencion+recargo;
+    total=base21+iva21+base10+iva10+base4+iva4+exento-retencion+recargo; 
     (Math.round( total * 100 )/100 ).toString();
     $('#totalnuevo').val(total.toFixed(2));
-}
-
-
-
-// funcion para añadir registros o actualizar en todos los formularios menos en los de conta
-function update(formulario,ruta,limpiar) {
-   var token= $('#token').val();
-
-   $.ajaxSetup({
-       headers: { "X-CSRF-TOKEN": $('#token').val() },
-   });
-   var formElement = document.getElementById(formulario);
-   var formData = new FormData(formElement);
-
-   $.ajax({
-       type:'POST',
-        url: ruta,
-        data:formData,
-        cache:false,
-        contentType: false,
-        processData: false,
-        success: function(data) {
-            toastr.success(data[1],{
-            'progressBar':true,
-            "positionClass":"toast-bottom-center",
-            });
-            if(limpiar==1)
-            document.getElementById(formulario).reset();
-        },
-        error: function(data){
-            var resp_e = data.responseJSON.errors;
-            $.each(resp_e,function(key,value) {
-                toastr.error(value,{
-                    "closeButton": true,
-                    "progressBar":true,
-                    "positionClass": "toast-top-center",
-                    "options.escapeHtml" : true,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": 0,
-                });
-            });
-            console.log(data);
-           }
-    });
-}
-
-// funcion para añadir registros o actualizar en todos los formularios  menos en los de conta
-function eliminar(ruta,id) {
-    $confirmacion=confirm('¿Seguro que lo quieres eliminar?');
-    if($confirmacion){
-        var row= $(this).parents('tr');
-        var form=$('#formDelete'+id);
-        var url=ruta;
-        var data=form.serialize();
-
-        $.post(url,data,function(result){
-            toastr.success(result[1],{
-                "progressBar":true,
-                "positionClass":"toast-top-left",
-                });
-            toastr.options.positionClass = 'toast-top-left';
-                $('#tr'+id).fadeOut();
-            // row.fadeOut();
-        }).fail(function(){
-            toastr.error('No se ha eliminado ',{
-                "closeButton": true,
-                "progressBar":true,
-                "positionClass":"toast-top-left",
-                "options.escapeHtml" : true,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": 0,
-            });
-            console.log(data);
-        });
-    };
 }
 
 // funcion para añadir registros solo en los de conta
@@ -200,10 +129,11 @@ function addline() {
                 "positionClass":"toast-bottom-center",
                 });
                 document.getElementById(formulario).reset();
-                $("#provcli_id").val('-');
+                // $("#provcli_id").val('-');
                 $('#provcli_id').val(null).trigger('change');
+                $('#categoria_id').val(null).trigger('change');
                 $.each(data,function(key,value){
-                    if (i>8) clase='class="text-right"';
+                    if (i>9) clase='class="text-right"';
                     i++;
                     if(key=='id') {
                         id="'"+value+"'";
@@ -362,26 +292,6 @@ function controlfactura(formulario,ruta) {
  }
 
 
-// funcion para saltar de input en input con ENTER
-document.addEventListener('keypress', function(evt) {
-    // Si el evento NO es una tecla Enter
-    if (evt.key !== 'Enter') {
-        return;
-    }
-    let element = evt.target;
-    // Si el evento NO fue lanzado por un elemento con class "focusNext"
-    if (!element.classList.contains('focusNext')) {
-      return;
-    }
-    // AQUI logica para encontrar el siguiente
-    let tabIndex = element.tabIndex + 1;
-    var next = document.querySelector('[tabindex="'+tabIndex+'"]');
-    // Si encontramos un elemento
-    if (next) {
-      next.focus();
-      event.preventDefault();
-    }
-  });
 
 // Funcion para ejecutar guardar en conta sin tener que hacer clic con CTRL-S (desactiva el CTRL-S por defecto)
 $(document).keydown(function (e) {
@@ -468,4 +378,16 @@ function controlperiodo(){
     }
     return esfechamala;
 };
+
+// funcion para recuperar la categoria de un proveedor
+function categoria(prov) {
+    ruta='/provcli/categoria/'+prov;
+    $.get(ruta,function(data){
+        if(data.id){
+            $('#categoria_id').val(data.id);
+            $('#categoria_id').val(data.id).attr('selected','selected')
+        }
+        // console.log(data);
+    })
+ }
 

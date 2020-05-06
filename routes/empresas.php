@@ -21,6 +21,6 @@ Route::delete('empresa/{empresa}','EmpresaController@destroy')->name('empresa.de
 Route::get('empresa/{empresa}/edit','EmpresaController@edit')->name('empresa.edit')
 ->middleware('can:empresas.edit');
 
-Route::get('empresa/{empresa}/go','EmpresaController@go')->name('empresa.go')
-->middleware('can:empresas.edit');
+// Route::get('empresa/{empresa}/go','EmpresaController@go')->name('empresa.go')
+// ->middleware('can:empresas.edit'); 
 

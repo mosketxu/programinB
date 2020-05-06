@@ -8,6 +8,7 @@
                <th>Proveedor</th>
                <th>NºFact.</th>
                <th>Concepto</th>
+               <th>Categoria</th>
                <th class="text-right">Base 21<br>{{number_format($contas->sum('base21'),2)}}</th>
                <th class="text-right">21%<br>{{number_format($contas->sum('iva21'),2)}}</th>
                <th class="text-right">Base 10<br>{{number_format($contas->sum('base10'),2)}}</th>
@@ -34,6 +35,7 @@
                <td>{{$conta->provclis->nombre??$conta->provcli_id}}</td>
                <td>{{$conta->factura}}</td>
                <td>{{$conta->concepto}}</td>
+               <td>{{$conta->categoria->categoria??''}}</td>
                <td class="text-right">{{number_format($conta->base21,2)}}</td>
                <td class="text-right">{{number_format($conta->iva21,2)}}</td>
                <td class="text-right">{{number_format($conta->base10,2)}}</td>

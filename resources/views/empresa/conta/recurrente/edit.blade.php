@@ -5,7 +5,7 @@
 @section('navbar')
 @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}}</p>
-@include('empresa.conta.navbar')
+@include('empresa.conta.recurrente.navbar')
 
 @endsection
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProvcliRequest;
-use App\{Provcli,Provincia,Pais};
+use App\{Categoria, Provcli,Provincia,Pais};
 use Illuminate\Http\Request;
 
 class ProvcliController extends Controller
@@ -17,6 +17,7 @@ class ProvcliController extends Controller
     {
         $busqueda=($request->busca);
         $provclis=Provcli::search($request->busca)
+        ->with('categoria')
         ->orderBy('nombre')
         ->paginate();
         return view('provcli.index',compact('provclis','busqueda'));
@@ -31,7 +32,8 @@ class ProvcliController extends Controller
     {
         $paises=Pais::get();
         $provincias=Provincia::get();
-        return view('provcli.create',compact('paises','provincias'));
+        $categorias=Categoria::get();
+        return view('provcli.create',compact('paises','provincias','categorias'));
     }
 
     /**
@@ -68,9 +70,10 @@ class ProvcliController extends Controller
     {
         $paises=Pais::get();
         $provincias=Provincia::get();
+        $categorias=Categoria::get();
         $provcli=Provcli::find($provcli->id);
       
-        return view('provcli.edit',compact('provcli','paises','provincias'));
+        return view('provcli.edit',compact('provcli','paises','provincias','categorias'));
     }
 
     /**
@@ -87,9 +90,18 @@ class ProvcliController extends Controller
             return response()->json(['message', 'Actualizado']);
         }
         else{
-            return redirect()->back()->with('message', 'Actualizado');
+            return redirect()->back()->with(['message'=>'Actualizado']);
         }
 
+    }
+
+
+    public function categoria($provcli_id)
+    {
+        $provcli=Provcli::find($provcli_id);
+        $cat=$provcli->categoria_id??'';
+        $categoria=$cat!='' ? Categoria::find($provcli->categoria_id):'';
+        return response()->json($categoria);
     }
 
     /**

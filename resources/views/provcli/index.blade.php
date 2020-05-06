@@ -49,6 +49,7 @@
                                 <tr>
                                     <th width=10px>#</th>
                                     <th>Prov-Cli</th>
+                                    <th>Categoria</th>
                                     <th>Nif</th>
                                     <th>Cod.Postal</th>
                                     <th>Localidad</th>
@@ -60,6 +61,7 @@
                                     <th>Iban1</th>
                                     <th>Banco 2</th>
                                     <th>Iban 2</th>
+                                    <th>Observaciones</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -68,8 +70,10 @@
                                     <tr>
                                         <td class="badge badge-default">{{$provcli->id}}</a></td>
                                         <td>{{$provcli->nombre}}</td>
+                                        <td>{{$provcli->categoria->categoria??''}}</td>
                                         <td>{{$provcli->nif}}</td>
                                         <td>{{$provcli->codpostal}}</td>
+                                        <td>{{$provcli->localidad}}</td>
                                         <td>{{$provcli->provincia_id}}</td>
                                         <td>{{$provcli->pais_id}}</td>
                                         <td>{{$provcli->tfno}}</td>

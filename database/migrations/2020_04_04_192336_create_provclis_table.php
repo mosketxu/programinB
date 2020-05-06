@@ -16,6 +16,7 @@ class CreateProvclisTable extends Migration
         Schema::create('provclis', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->bigInteger('categoria_id')->nullable();
             $table->string('codpostal',10)->nullable();
             $table->string('localidad',100)->nullable();
             $table->string('provincia_id')->nullable();

@@ -23,7 +23,7 @@ class CreateContasTable extends Migration
             $table->string('tipo',1)->nullable();
             $table->bigInteger('provcli_id')->nullable();
             $table->string('concepto')->nullable();
-            $table->string('categoria')->nullable();
+            $table->bigInteger('categoria_id')->nullable();
             $table->decimal('base21', 15, 2)->default(0);
             $table->decimal('iva21', 15, 2)->default(0);
             $table->decimal('base10', 15, 2)->default(0);

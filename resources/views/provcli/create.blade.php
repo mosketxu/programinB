@@ -37,6 +37,14 @@
                                     <label class="required" for="nombre">Nombre</label>
                                     <input class="form-control" type="text" name="nombre" id="nombre" value="{{ old('nombre', '') }}" required>
                                 </div>
+                                <div class="form-group col">
+                                    <select class="form-control form-control-sm select2"  name="categoria_id" id="categoria_id" style="width: 100%;">
+                                        <option value="">-</option>
+                                        @foreach($categorias as $categoria)
+                                        <option value="{{ $categoria->id }}">{{ $categoria->categoria }} - {{ $categoria->id }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
                                     <input class="form-control" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">

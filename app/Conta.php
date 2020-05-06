@@ -20,9 +20,12 @@ class Conta extends Model
         ->whereMonth('fechaasiento','<=',$perF);
     }
      
-    public function provclis()
-    {
+    public function provcli(){
         return $this->belongsTo(Provcli::class,'provcli_id')->withDefault('');
+    }
+
+    public function categoria(){
+        return $this->belongsTo(Categoria::class,'categoria_id')->withDefault('');
     }
 
 }

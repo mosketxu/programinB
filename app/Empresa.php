@@ -31,6 +31,11 @@ class Empresa extends Model
           return $this->hasMany(ContaPeriodo::class);
       }
 
+      public function contarecurrentes()
+      {
+          return $this->hasMany(ContaRecurrente::class);
+      }
+
       public function suma()
       {
           return $this->belongsTo(Suma::class);
