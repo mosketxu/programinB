@@ -182,57 +182,6 @@ function addline() {
     }
  }
 
- // funcion para actualizar registro solo en los de conta
-function updateline() {
-    let controlfecha;
-    controlfecha=controlperiodo();
-    let respuesta;
-    if (controlfecha==1){
-        respuesta=confirm('El periodo no corresponde. ¿Deseas continuar?');
-        if (respuesta===true) 
-            controlfecha=0;
-    }
-    if(controlfecha==0){
-        var token= $('#token').val();
-        ruta="/conta/update";
-        formulario='updateForm';
-        $.ajaxSetup({
-            headers: { "X-CSRF-TOKEN": $('#token').val() },
-        });
-        var formElement = document.getElementById(formulario);
-        var formData = new FormData(formElement);
-
-        $.ajax({
-            type:'POST',
-            url: ruta,
-            data:formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                toastr.success(data,{
-                'progressBar':true,
-                "positionClass":"toast-bottom-center",
-                });
-            },
-            error: function(data){
-                var resp_e = data.responseJSON.errors;
-                $.each(resp_e,function(key,value) {
-                    toastr.error(value,{
-                        "closeButton": true,
-                        "progressBar":true,
-                        "positionClass": "toast-top-center",
-                        "options.escapeHtml" : true,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": 0,
-                    });
-                });
-                console.log(data);
-                }
-        });
-    }
- }
 
 // funcion para eliminar registros solo en los de conta
 function eliminarfila(id) {
@@ -336,47 +285,35 @@ function controlperiodo(){
     let anyo=$("#anyo").val();
     month = date.getMonth() + 1;
     year = date.getFullYear();
-    let mensaje="La fecha del asiento no pertenece al periodo.";
-    let esfechamala=0;
+    let control=0;
 
     switch (periodo) {
         case '13':
             if(year!=anyo || month>3){
-                esfechamala=1;
+                control=1;
             }
             break;
         case '14':
             if(year!=anyo || month>6 || month<4){
-                esfechamala=1;
+                control=1;
             }
             break;
         case '15':
             if(year!=anyo || month>9 || month<7){
-                esfechamala=1;
+                control=1;
             }
             break;
         case '16':
             if(year!=anyo || month<10){
-                esfechamala=1;
+                control=1;
             }
             break;
         default:
             if(year!=anyo || month!=periodo){
-                esfechamala=1;
+                control=1;
             }
     }
-    if (esfechamala==1){
-        toastr.error(mensaje,{
-         "closeButton": true,
-         "progressBar":true,
-         "positionClass": "toast-top-center",
-         "options.escapeHtml" : true,
-         "showDuration": "300",
-         "hideDuration": "1000",
-         "timeOut": 0,
-        });
-    }
-    return esfechamala;
+    return control;
 };
 
 // funcion para recuperar la categoria de un proveedor

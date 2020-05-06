@@ -24,9 +24,9 @@
                   <div class="card-header">
                      <table>
                         <thead>
-                           <form id="form" action="{{route('conta.contas',$empresa)}}" method="get">
+                           <form id="form" action="{{route('conta.contas',[$empresa,$conta->tipo])}}" method="get">
                               <tr>
-                                  <th>
+                                 <th>
                                       <select name="anyo" id="anyo" class="form-control form-control-plaintext form-control-sm">
                                           <option value="2019" {{$anyo=='2019'? 'selected' :''}}>2019</option>
                                           <option value="2020" {{$anyo=='2020'? 'selected' :''}}>2020</option>
@@ -71,7 +71,7 @@
                            </div>
                            <div class="form-group"  style="width: 10%">
                               <label for="factura" class="col-form-label">Factura</label>
-                              <input tabindex="4" class="focusNext form-control form-control-sm" type="text" name="factura" id="factura" onchange="controlfactura('editForm','{{ route('conta.controlfactura') }}')" value="{{ old('factura', $conta->factura) }}">
+                              <input tabindex="4" class="focusNext form-control form-control-sm" type="text" name="factura" id="factura" value="{{ old('factura', $conta->factura) }}">
                            </div>
                            <div class="form-group col">
                               <label for="concepto" class="col-form-label">Concepto</label>
@@ -132,10 +132,11 @@
                            </div>
                         </div>
                         <div class="card-footer">
-                           <a id="btn_add" class="focusNext btn btn-primary" href="!#" role="button" onclick="updateline()">Actualizar</a>
+                           {{-- <a id="btn_add" class="focusNext btn btn-primary" href="" role="button" onclick="updateline()">Actualizar</a> --}}
+                           <a id="btn_addprueba" class="btn btn-primary" href="#" title="Actualizar">Actualizar</a>
                            {{-- <button class="btn btn-primary" type="submit">Submit</button> --}}
                         </form>
-                        <button type="submit" form="form" class="btn btn-default">Volver</button>
+                        <a class="btn btn-default" href="#" onclick="form.submit()" title="Ir la página anterior">Volver</a>
                      </div>
                   </div>
                </div>
@@ -147,5 +148,26 @@
 @push('scriptchosen')
     <script src="{{ asset('js/conta.js')}}"></script>
     <script>
+      $("#btn_addprueba").click(function(){
+         controlfecha=controlperiodo();
+         respuesta=true;
+         if(controlfecha!=0){
+            respuesta=confirm('El periodo no corresponde. ¿Deseas continuar?');
+         }
+         if (respuesta==true)
+            $("#updateForm").submit();
+      })    
+
+      $("#factura").change(function(){
+         empresa_id=$("#empresa_id").val();
+         prov_id=$("#provcli_id").val();
+         factura=$("#factura").val();
+         ruta='/conta/controlfactura/'+empresa_id+'/'+prov_id+'/'+factura;
+         $.get(ruta,function(data){
+            if(data>0)
+               alert('Esta factura ya existe para este proveedor. Verifíquela. ');
+            // console.log(data);
+        });
+      })      
     </script>
 @endpush

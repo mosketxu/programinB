@@ -9,12 +9,11 @@ Route::get('conta/{empresa}','ContaController@index')->name('conta.index')
 Route::get('conta/{conta}/{anyo}/{periodo}/edit','ContaController@edit')->name('conta.edit')
 ->middleware('can:contas.edit');
 
+Route::get('conta/controlfactura/{empresa}/{provcli}/{factura}','ContaController@controlfactura2')->name('conta.controlfactura2')
+->middleware('can:contas.edit');
+
 Route::get('conta/contas/{empresa}/{tipo}','ContaController@conta')->name('conta.contas')
 ->middleware('can:contas.edit');
-
-Route::get('conta/{empresa}/{anyo}/{periodo}/recurrente','ContaController@recurrente')->name('conta.recurrentes')
-->middleware('can:contas.edit');
-
 
 Route::get('conta/create','ContaController@create')->name('conta.create')
 ->middleware('can:contas.create');

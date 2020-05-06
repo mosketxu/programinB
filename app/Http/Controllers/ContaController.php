@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Categoria, Empresa, Conta, ContaRecurrente, Provcli,Periodo};
+use App\Http\Requests\ContactoRequest;
 use App\Http\Requests\ContaRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -130,14 +131,6 @@ class ContaController extends Controller
         return response()->json($respuesta);
     }
 
-    public function recurrente($empresa,$anyo,$periodo)
-    {
-        $recurrente=ContaRecurrente::where('empresa_id',$empresa)
-        ->get();
-        // Conta::where()create($request->all());
-        return response()->json(['message', 'Contacto Creado']);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -175,15 +168,16 @@ class ContaController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(RecibidasRequest $request)
+    public function update(ContaRequest $request)
     {
+        // dd($request);
         $prov=Provcli::find($request->provcli_id);
         $concepto=$this->modificaconcepto($request->factura,$prov->nombre,$request->concepto,$request->fechaasiento);
         $request->merge(['concepto'=>$concepto]);
         $conta=Conta::find($request->id)->update($request->all());
 
-        return response()->json("Actualizado con éxito");
-        // return redirect()->back();
+        return redirect()->back()->with(['message'=>'Actualizado']);
+        // return redirect()->route('conta.contas',[$request->empresa_id,$request->tipo])->with(['message'=>'Actualizado']);
 
     }
 
@@ -193,6 +187,19 @@ class ContaController extends Controller
             $existe=Conta::where('empresa_id',$request->empresa_id)
                 ->where('provcli_id',$request->provcli_id)
                 ->where('factura',$request->factura)
+                ->get();
+            return response()->json($existe->count());
+        }
+        else
+            return response()->json(0);
+    }
+
+    public function controlfactura2($empresa_id,$provcli_id,$factura)
+    {
+        if(!is_null($factura) && !is_null($provcli_id)){
+            $existe=Conta::where('empresa_id',$empresa_id)
+                ->where('provcli_id',$provcli_id)
+                ->where('factura',$factura)
                 ->get();
             return response()->json($existe->count());
         }

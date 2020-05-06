@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Empresa,ContaRecurrente,Provcli};
+use App\{Empresa,Conta, ContaRecurrente, Periodo, Provcli};
 use Illuminate\Http\Request;
 
 class ContaRecurrenteController extends Controller
@@ -27,9 +27,27 @@ class ContaRecurrenteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($empresa,$anyo,$periodo,$tipo)
     {
-        //
+        // dd($empresa,$anyo,$periodo,$tipo);
+        $recurrentes=ContaRecurrente::where('empresa_id',$empresa)
+            ->where('tipo',$tipo)
+            ->get();
+        $per=Periodo::find($periodo);
+        $fecha=$anyo.'-'.$per->perI.'-01';
+        // dd($fecha);
+        foreach ($recurrentes as $recurrente) {
+            Conta::create([
+                'empresa_id' => $empresa,
+                'fechaasiento' => $fecha,
+                'fechafactura' => $fecha,
+                'tipo'=>$tipo,
+                'provcli_id'=>$recurrente->provcli_id,
+                'concepto'=>$recurrente->provcli->nombre . ' ' . $per->periodo,
+                'categoria_id'=>$recurrente->categoria_id,
+            ]);
+        }
+        return redirect()->back()->with(['message'=> 'Recurrentes Creadas']);
     }
 
     /**

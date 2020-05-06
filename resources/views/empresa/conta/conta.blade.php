@@ -18,8 +18,7 @@
         {{-- main content  --}}
         <section class="content">
             <div class="container-fluid"> 
-                {{-- Recibidas --}}
-                {{-- @include('layouts.partials.mensajes') --}}
+                @include('layouts.partials.mensajes')
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -51,7 +50,7 @@
                                         </select>
                                     </th>
                                     <th><a href="#" onclick="form.submit()"><i class="fas fa-filter"></i></a></th>     
-                                    <th><a href="{{route('conta.recurrentes',[$empresa,$anyo,$periodo])}}">Recurrentes</a></th>     
+                                    <th><a href="{{route('contarecurrente.create',[$empresa,$anyo,$periodo,$tipo])}}">Recurrentes</a></th>      
                                 </tr>
                                 </form>
                             </thead>

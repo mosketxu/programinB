@@ -32,7 +32,7 @@
                <td>{{$conta->id}}</td>
                <td>{{$conta->fechaasiento}}</td>
                <td>{{$conta->fechafactura}}</td>
-               <td>{{$conta->provclis->nombre??$conta->provcli_id}}</td>
+               <td>{{$conta->provcli->nombre??$conta->provcli_id}}</td>
                <td>{{$conta->factura}}</td>
                <td>{{$conta->concepto}}</td>
                <td>{{$conta->categoria->categoria??''}}</td>
@@ -55,7 +55,7 @@
                    <form  id="formDelete{{$conta->id}}">
                     @method('POST')
                     @csrf
-                        <a href="{{route('conta.edit',[$conta,$anyo,$periodo?? '17'])}}"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
+                        <a href="{{route('conta.edit',[$conta,$anyo,$periodo?? '17'])}}" title="Editar"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
                         <a href="#!" class="btn-delete " title="Eliminar" onclick="eliminarfila('{{$conta->id}}')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>
                     </form>
                </td>

@@ -18,6 +18,7 @@ class CreateContaRecurrentesTable extends Migration
             $table->foreignId('empresa_id')->constrained();
             $table->unsignedBigInteger('provcli_id')->nullable();
             $table->string('concepto',145);
+            $table->string('tipo',1);
         });
     }
 
