@@ -5,8 +5,7 @@
 @section('navbar')
 @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') {{$empresa->empresa}} <span class="small text-secondary font-weight-light"><sub>{{$empresa->nif}}</sub></span></p>
-@include('empresa.conta.navbar')
-
+    @include('empresa.conta.navbar')
 @endsection
 
 @section('content')

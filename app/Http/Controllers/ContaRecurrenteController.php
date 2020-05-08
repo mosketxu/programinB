@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{Empresa,Conta, ContaRecurrente, Periodo, Provcli};
+use App\Http\Requests\RecurrenteRequest;
 use Illuminate\Http\Request;
 
 class ContaRecurrenteController extends Controller
@@ -29,13 +30,11 @@ class ContaRecurrenteController extends Controller
      */
     public function create($empresa,$anyo,$periodo,$tipo)
     {
-        // dd($empresa,$anyo,$periodo,$tipo);
         $recurrentes=ContaRecurrente::where('empresa_id',$empresa)
             ->where('tipo',$tipo)
             ->get();
         $per=Periodo::find($periodo);
         $fecha=$anyo.'-'.$per->perI.'-01';
-        // dd($fecha);
         foreach ($recurrentes as $recurrente) {
             Conta::create([
                 'empresa_id' => $empresa,
@@ -43,7 +42,7 @@ class ContaRecurrenteController extends Controller
                 'fechafactura' => $fecha,
                 'tipo'=>$tipo,
                 'provcli_id'=>$recurrente->provcli_id,
-                'concepto'=>$recurrente->provcli->nombre . ' ' . $per->periodo,
+                'concepto'=>$recurrente->provcli->nombre,
                 'categoria_id'=>$recurrente->categoria_id,
             ]);
         }
@@ -56,9 +55,9 @@ class ContaRecurrenteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RecurrenteRequest $request)
     {
-        ContaRecurrente::create($request->all());
+        $d=ContaRecurrente::create($request->all());
         return redirect()->back()->with(['message'=>'Actualizado']);
     }
 
@@ -76,14 +75,14 @@ class ContaRecurrenteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ContaRecurrente  $contaRecurrente
      * @return \Illuminate\Http\Response
      */
-    public function edit(ContaRecurrente $contaRecurrente)
+    public function edit($contaRecurrente)
     {
-        $recurrente=ContaRecurrente::find($contaRecurrente->id);
+        $recurrente=ContaRecurrente::find($contaRecurrente);
+        $provcli=Provcli::find($recurrente->provcli_id);
         $provclis=Provcli::orderBy('nombre')->get();
-        return view('empresa.conta.recurrente.edit',compact('empresa','recurrente','provclis')); 
+        return view('empresa.conta.recurrente.edit',compact('provcli','recurrente','provclis')); 
     }
 
     /**
@@ -93,9 +92,9 @@ class ContaRecurrenteController extends Controller
      * @param  \App\ContaRecurrente  $contaRecurrente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ContaRecurrente $contaRecurrente)
+    public function update(Request $request)
     {
-        ContaRecurrente::where('id',$request->id)->update($request->all());
+        ContaRecurrente::find($request->id)->update($request->all());
         return redirect()->back()->with(['message'=>'Actualizado']);
     }
 
@@ -105,10 +104,10 @@ class ContaRecurrenteController extends Controller
      * @param  \App\ContaRecurrente  $contaRecurrente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContaRecurrente $contaRecurrente)
+    public function destroy(Request $request)
     {
-        $recurrente=ContaRecurrente::find($contaRecurrente->id);
-        $recurrente->destroy($id);
+        $recurrente=ContaRecurrente::find($request->id);
+        $recurrente->destroy($request->id);
 
         return redirect()->back()->with(['message'=>'Eliminado']);
     }

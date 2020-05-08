@@ -20,9 +20,13 @@ class ContaController extends Controller
     public function index(Empresa $empresa, Request $request)
     {
         $recurrentes=ContaRecurrente::where('empresa_id',$empresa->id)
-        ->with('provcli')
+        ->join('provclis','provclis.id','conta_recurrentes.provcli_id')
+        ->select('conta_recurrentes.id','empresa_id','tipo','concepto','nombre')
+        ->orderBy('tipo')
+        ->orderby('nombre')
         ->get();
         $provclis=Provcli::orderBy('nombre')->get();
+        dd($provclis);
         return view('empresa.conta.index',compact('empresa','recurrentes','provclis')); 
     }
 

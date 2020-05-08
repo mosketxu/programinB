@@ -90,6 +90,10 @@ function total(){
     iva4= iva4=='' ? 0 : parseFloat(iva4);
     exento= exento =='' ? 0 : parseFloat(exento);
     retencion=retencion=='' ? 0 : parseFloat(retencion);
+    if(recargo)
+        alert('recargo si');
+    else
+        recargo=0;
     recargo=recargo=='' ? 0 : parseFloat(recargo);
     total=base21+iva21+base10+iva10+base4+iva4+exento-retencion+recargo; 
     (Math.round( total * 100 )/100 ).toString();
@@ -245,11 +249,20 @@ function controlfactura(formulario,ruta) {
 // Funcion para ejecutar guardar en conta sin tener que hacer clic con CTRL-S (desactiva el CTRL-S por defecto)
 $(document).keydown(function (e) {
     e = e || event;
-    if (e.ctrlKey && String.fromCharCode(e.keyCode) == 'S')
+    if (e.ctrlKey && e.shiftKey && String.fromCharCode(e.keyCode) == 'S')
     {
         e.preventDefault();
         // document.getElementById("btn_nuevo").click();
         $('#btn_add').click();
+    }
+});
+
+$(document).keydown(function (e) {
+    e = e || event;
+    if (e.ctrlKey && e.shiftKey && String.fromCharCode(e.keyCode) == 'V')
+    {
+        e.preventDefault();
+        $('#btn_volver').click();
     }
 });
 

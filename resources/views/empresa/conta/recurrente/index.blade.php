@@ -10,26 +10,29 @@
                     <tr>
                         <th>#</th>
                         <th>Proveedor</th>
+                        <th>Tipo</th>
                         <th>Concepto</th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($recurrentes as $recurrente)
-                    <tr>
-                        <td>{{$recurrente->id}}</td>
-                        <td>{{$recurrente->provcli->nombre??$recurrente->provcli_id}}</td>
-                        <td>{{$recurrente->concepto}}</td>
-                        <td  class="text-right m-0 pr-3">
-                            <form>
-                                @method('POST')
-                                @csrf
-                                    <a href="{{route('contarecurrente.edit',$recurrente)}}"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
-                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></button>
-                                </form>
-                        </td>
-                    </tr>
+                    <form action="{{route('contarecurrente.destroy')}}" method="POST">
+                    {{-- @method('DELETE') --}}
+                    @csrf
+                        <tr>
+                            <input type="hidden" name="id" value="{{$recurrente->id}}">
+                            <td>{{$recurrente->id}}</td>
+                            {{-- <td>{{$recurrente->provcli->nombre??$recurrente->provcli_id}}</td> --}}
+                            <td>{{$recurrente->nombre}}</td>
+                            <td>{{$recurrente->tipo}}</td>
+                            <td>{{$recurrente->concepto}}</td>
+                            <td  class="text-right m-0 pr-3">
+                                <a href="{{route('contarecurrente.edit',$recurrente)}}"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
+                                <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></button>
+                            </td>
+                        </tr>
+                    </form>
                     @endforeach
                 </tbody>
             </table>
@@ -40,8 +43,9 @@
         <table class="table table-hover table-sm small table-head-fixed text-nowrap">
             <thead>
                 <tr>
-                        <th width="45%">Proveedor</th>
-                        <th width="50%">Concepto</th>
+                        <th width="40%">Proveedor</th>
+                        <th width="15%">Tipo</th>
+                        <th width="40%">Concepto</th>
                         <th  width="5%"></th>
                 </tr>
             </thead>
@@ -56,6 +60,13 @@
                                 @foreach($provclis as $provcli)
                                 <option value="{{ $provcli->id }}">{{ $provcli->nombre }} - {{ $provcli->id }}</option>
                                 @endforeach
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control form-control-sm"  name="tipo" id="tipo" style="width: 100%;">
+                                <option value="">-</option>
+                                <option value="E">Emitidas</option>
+                                <option value="R">Recibidas</option>
                             </select>
                         </td>
                         <td><input class="form-control form-control-sm" type="text" name="concepto" id="concepto" value=""></td>

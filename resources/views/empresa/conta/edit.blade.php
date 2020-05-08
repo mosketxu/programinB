@@ -54,16 +54,16 @@
                            <input type="hidden" name="tipo" id="tipo" value={{$conta->tipo}}></td>
                            <input type="hidden" name="empresa_id" id="empresa_id" value="{{$empresa->id}}"></td>
                            <div class="form-group" style="width: 10%">
-                              <label for="fechaasiento" class="col-form-label">Fecha Asiento</label>
+                              <label for="fechaasiento" class="col-form-label">F.Asiento</label>
                               <input tabindex="1" class="focusNext form-control form-control-sm unstyled pr-0 m-0" type="date" name="fechaasiento" id="fechaasiento"  value="{{ old('fechaasiento',$conta->fechaasiento) }}">
                            </div>
                            <div class="form-group" style="width: 10%">
-                              <label for="fechafactura" class="col-form-label">Fecha Factura</label>
+                              <label for="fechafactura" class="col-form-label">F.Factura</label>
                               <input tabindex="2" class="focusNext form-control form-control-sm  unstyled pr-0 m-0" type="date" name="fechafactura" id="fechafactura" value="{{ old('fechafactura', $conta->fechafactura) }}">
                            </div>
                            <div class="form-group col">
                               <label for="provcli_id" class="col-form-label">Proveedor</label>
-                              <select tabindex="3" class="focusNext form-control form-control-sm select2"  name="provcli_id" id="provcli_id" style="width: 100%;">
+                              <select tabindex="3" class="focusNext form-control form-control-sm"  name="provcli_id" id="provcli_id" style="width: 100%;">
                                  @foreach($provclis as $provcli)
                                  <option value="{{ $provcli->id }}" {{$provcli->id== $conta->provcli_id ? 'selected':''}}>{{ $provcli->nombre }} - {{ $provcli->id }}</option>
                                  @endforeach
@@ -75,13 +75,13 @@
                            </div>
                            <div class="form-group col">
                               <label for="concepto" class="col-form-label">Concepto</label>
-                              <input class="form-control form-control-sm text-left" type="text" name="concepto" id="concepto" value="{{ old('concepto',  $conta->concepto) }}">
+                              <input tabindex="5" class="focusNext form-control form-control-sm text-left" type="text" name="concepto" id="concepto" value="{{ old('concepto',  $conta->concepto) }}">
                            </div>
                         </div>
                         <div class="row">
                            <div class="form-group" style="width: 10%">
                               <label for="base21" class="col-form-label">Base 21%</label>
-                              <input tabindex="5" class="focusNext form-control form-control-sm text-right unstyled" type="text"  name="base21" id="base21" onblur="baseporiva('#base21','#iva21','0.21');" value="{{ old('base21',  number_format($conta->base21,2)) }}">
+                              <input tabindex="6" class="focusNext form-control form-control-sm text-right unstyled" type="text"  name="base21" id="base21" onblur="baseporiva('#base21','#iva21','0.21');" value="{{ old('base21',  number_format($conta->base21,2)) }}">
                            </div>
                            <div class="form-group col">
                               <label for="iva21" class="col-form-label">IVA 21%</label>
@@ -89,7 +89,7 @@
                            </div>
                            <div class="form-group" style="width: 10%">
                            <label for="base10" class="col-form-label">Base 10% </label>
-                              <input tabindex="6" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="base10" id="base10" onblur="baseporiva('#base10','#iva10','0.10');" value="{{ old('base10',  number_format($conta->base10,2)) }}">
+                              <input tabindex="7" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="base10" id="base10" onblur="baseporiva('#base10','#iva10','0.10');" value="{{ old('base10',  number_format($conta->base10,2)) }}">
                            </div>
                            <div class="form-group col">
                               <label for="iva10" class="col-form-label">IVA 10%</label>
@@ -97,7 +97,7 @@
                            </div>
                            <div class="form-group" style="width: 10%">
                               <label for="base4" class="col-form-label">Base 4%</label>
-                              <input tabindex="7" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="base4" id="base4" onblur="baseporiva('#base4','#iva4','0.04');" value="{{ old('base4', number_format($conta->base4,2)) }}">
+                              <input tabindex="8" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="base4" id="base4" onblur="baseporiva('#base4','#iva4','0.04');" value="{{ old('base4', number_format($conta->base4,2)) }}">
                            </div>
                            <div class="form-group col">
                               <label for="iva4" class="col-form-label">IVA 4%</label>
@@ -105,15 +105,15 @@
                            </div>
                            <div class="form-group"  style="width: 10%">
                               <label for="exento" class="col-form-label">Exento</label>
-                              <input tabindex="8" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="exento" onblur="total();" id="exento" value="{{ old('exento', number_format($conta->exento,2)) }}">
+                              <input tabindex="9" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="exento" onblur="total();" id="exento" value="{{ old('exento', number_format($conta->exento,2)) }}">
                            </div>
                            <div class="form-group"  style="width: 10%">
-                              <label for="baseretencion" class="col-form-label">Base retención</label>
-                              <input tabindex="9" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="baseretencion" id="baseretencion" value="{{ old('baseretencion', number_format($conta->baseretencion,2)) }}">
+                              <label for="baseretencion" class="col-form-label">B.Retención</label>
+                              <input tabindex="10" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="baseretencion" id="baseretencion" value="{{ old('baseretencion', number_format($conta->baseretencion,2)) }}">
                            </div>
                            <div class="form-group" style="width:6%">
                               <label for="porcentajeretencion" class="col-form-label">% Ret. </label>
-                              <select tabindex="10" class="focusNext form-control form-control-sm text-right" name="porcentajeretencion" id="porcentajeretencion">
+                              <select tabindex="11" class="focusNext form-control form-control-sm text-right" name="porcentajeretencion" id="porcentajeretencion">
                                  <option value="0" {{$conta->porcentajeretencion=="0"? 'selected' : ''}}>0%</option>
                                  <option value="0.07" {{$conta->porcentajeretencion=="0.07"? 'selected' : ''}}>7%</option>
                                  <option value="0.15" {{$conta->porcentajeretencion=="0.15"? 'selected' : ''}}>15%</option>
@@ -122,7 +122,7 @@
                            </div>
                            <div class="form-group col">
                               <label for="retencion" class="col-form-label">Retención</label>
-                              <input tabindex="11" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="retencion" id="retencion" value="{{ old('retencion', number_format($conta->retencion,2)) }}">
+                              <input tabindex="12" class="focusNext form-control form-control-sm text-right unstyled" type="text" name="retencion" id="retencion" value="{{ old('retencion', number_format($conta->retencion,2)) }}">
                            </div>
                         </div>
                         <div class="row">
@@ -132,11 +132,10 @@
                            </div>
                         </div>
                         <div class="card-footer">
-                           {{-- <a id="btn_add" class="focusNext btn btn-primary" href="" role="button" onclick="updateline()">Actualizar</a> --}}
-                           <a id="btn_addprueba" class="btn btn-primary" href="#" title="Actualizar">Actualizar</a>
+                           <a id="btn_add" class="btn btn-primary" href="#" title="Actualizar">Actualizar</a>
                            {{-- <button class="btn btn-primary" type="submit">Submit</button> --}}
                         </form>
-                        <a class="btn btn-default" href="#" onclick="form.submit()" title="Ir la página anterior">Volver</a>
+                        <a id="btn_volver" class="btn btn-default" href="#" onclick="form.submit()" title="Ir la página anterior">Volver</a>
                      </div>
                   </div>
                </div>
@@ -148,7 +147,7 @@
 @push('scriptchosen')
     <script src="{{ asset('js/conta.js')}}"></script>
     <script>
-      $("#btn_addprueba").click(function(){
+      $("#btn_add").click(function(){
          controlfecha=controlperiodo();
          respuesta=true;
          if(controlfecha!=0){
@@ -168,6 +167,6 @@
                alert('Esta factura ya existe para este proveedor. Verifíquela. ');
             // console.log(data);
         });
-      })      
+      })  
     </script>
 @endpush

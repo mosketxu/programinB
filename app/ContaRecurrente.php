@@ -8,7 +8,7 @@ class ContaRecurrente extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['empresa_id','provcli_id','concepto'];
+    protected $fillable = ['empresa_id','provcli_id','concepto','tipo'];
 
     public function empresa(){
         return $this->belongsTo(Empresa::class,'empresa_id');

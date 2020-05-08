@@ -31,7 +31,7 @@ class Empresa extends Model
           return $this->hasMany(ContaPeriodo::class);
       }
 
-      public function contarecurrentes()
+      public function recurrentes()
       {
           return $this->hasMany(ContaRecurrente::class);
       }

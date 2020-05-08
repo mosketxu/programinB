@@ -27,7 +27,7 @@
       @endif
     <!-- Previous -->
       <li class="nav-link">
-        <a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward"></i></a>
+        <a href="{{url()->previous()}}" title="Volver atrás"><i class="fas fa-backward fa-2x"></i></a>
       </li>
     </ul>
   </nav>

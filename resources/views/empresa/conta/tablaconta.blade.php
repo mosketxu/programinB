@@ -3,6 +3,7 @@
        <thead>
            <tr>
                <th>#</th>
+               <th></th>
                <th>F.Asiento</th>
                <th>F.Fact.</th>
                <th>Proveedor</th>
@@ -29,38 +30,38 @@
        <tbody id="bodyasientos">
            @foreach($contas as $conta)
            <tr id="tr{{$conta->id}}">
-               <td>{{$conta->id}}</td>
-               <td>{{$conta->fechaasiento}}</td>
-               <td>{{$conta->fechafactura}}</td>
-               <td>{{$conta->provcli->nombre??$conta->provcli_id}}</td>
-               <td>{{$conta->factura}}</td>
-               <td>{{$conta->concepto}}</td>
-               <td>{{$conta->categoria->categoria??''}}</td>
-               <td class="text-right">{{number_format($conta->base21,2)}}</td>
-               <td class="text-right">{{number_format($conta->iva21,2)}}</td>
-               <td class="text-right">{{number_format($conta->base10,2)}}</td>
-               <td class="text-right">{{number_format($conta->iva10,2)}}</td>
-               <td class="text-right">{{number_format($conta->base4,2)}}</td>
-               <td class="text-right">{{number_format($conta->iva4,2)}}</td>
-               <td class="text-right">{{number_format($conta->exento,2)}}</td>
-               <td class="text-right">{{number_format($conta->baseretencion,2)}}</td>
-               <td class="text-right">{{number_format($conta->porcentajeretencion,2)}}</td>
-               <td class="text-right">{{number_format($conta->retencion,2)}}</td>
-               <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->baserecargo,2)}}</td>
-               <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->porcentajerecargo,2)}}</td>
-               <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->recargo,2)}}</td>
-               <td class="text-right">{{number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4
-               +$conta->exento-$conta->retencion+$conta->recargo,2)}}</td>
-               <td  class="text-right m-0 pr-3">
-                   <form  id="formDelete{{$conta->id}}">
+                <td>{{$conta->id}}</td>
+                <td><a href="{{route('conta.edit',[$conta,$anyo,$periodo?? '17'])}}" title="Editar"><i class="far fa-edit text-primary fa-lg ml-2"></i></a></td>
+                <td>{{$conta->fechaasiento}}</td>
+                <td>{{$conta->fechafactura}}</td>
+                <td>{{$conta->provcli->nombre??$conta->provcli_id}}</td>
+                <td>{{$conta->factura}}</td>
+                <td>{{$conta->concepto}}</td>
+                <td>{{$conta->categoria->categoria??''}}</td>
+                <td class="text-right">{{number_format($conta->base21,2)}}</td>
+                <td class="text-right">{{number_format($conta->iva21,2)}}</td>
+                <td class="text-right">{{number_format($conta->base10,2)}}</td>
+                <td class="text-right">{{number_format($conta->iva10,2)}}</td>
+                <td class="text-right">{{number_format($conta->base4,2)}}</td>
+                <td class="text-right">{{number_format($conta->iva4,2)}}</td>
+                <td class="text-right">{{number_format($conta->exento,2)}}</td>
+                <td class="text-right">{{number_format($conta->baseretencion,2)}}</td>
+                <td class="text-right">{{number_format($conta->porcentajeretencion,2)}}</td>
+                <td class="text-right">{{number_format($conta->retencion,2)}}</td>
+                <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->baserecargo,2)}}</td>
+                <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->porcentajerecargo,2)}}</td>
+                <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->recargo,2)}}</td>
+                <td class="text-right">{{number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4
+                +$conta->exento-$conta->retencion+$conta->recargo,2)}}</td>
+                <td  class="text-right m-0 pr-3">
+                    <form  id="formDelete{{$conta->id}}">
                     @method('POST')
                     @csrf
-                        <a href="{{route('conta.edit',[$conta,$anyo,$periodo?? '17'])}}" title="Editar"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
                         <a href="#!" class="btn-delete " title="Eliminar" onclick="eliminarfila('{{$conta->id}}')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>
                     </form>
-               </td>
-           </tr>
-           @endforeach
-       </tbody>
-   </table>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>

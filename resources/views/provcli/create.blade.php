@@ -5,8 +5,9 @@
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
-    @include('layouts.partials.navbarderecha')
-@endsection
+    &nbsp;&nbsp; <a href="{{route('provcli.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+    @include('provcli.navbar')
+@endsection 
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -35,9 +36,10 @@
                             <div class="row">
                                 <div class="form-group col">
                                     <label class="required" for="nombre">Nombre</label>
-                                    <input class="form-control" type="text" name="nombre" id="nombre" value="{{ old('nombre', '') }}" required>
+                                    <input class="form-control form-control-sm" type="text" name="nombre" id="nombre" value="{{ old('nombre', '') }}" required>
                                 </div>
                                 <div class="form-group col">
+                                    <label for="categoria_id">Categoria</label>
                                     <select class="form-control form-control-sm select2"  name="categoria_id" id="categoria_id" style="width: 100%;">
                                         <option value="">-</option>
                                         @foreach($categorias as $categoria)
@@ -47,21 +49,21 @@
                                 </div>
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
-                                    <input class="form-control" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">
                                 </div>
                                 <div class="form-group col-1">
                                     <label for="codpostal">Código Postal</label>
-                                    <input class="form-control" type="text" name="codpostal" id="codpostal" value="{{ old('codpostal', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="codpostal" id="codpostal" value="{{ old('codpostal', '') }}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="localidad">Localidad</label>
-                                    <input class="form-control" type="text" name="localidad" id="localidad" value="{{ old('localidad', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="localidad" id="localidad" value="{{ old('localidad', '') }}">
                                 </div>
                                 <div class="form-group col-2">
                                     <label for="provincia_id">Provincia</label>
-                                    <select class="form-control" name="provincia_id" id="provincia_id">
+                                    <select class="form-control form-control-sm" name="provincia_id" id="provincia_id">
                                         <option value="08">Barcelona</option>
                                         @foreach($provincias as $provincia)
                                             <option value="{{ $provincia->id }}">{{ $provincia->provincia }}</option>
@@ -70,7 +72,7 @@
                                 </div>
                                 <div class="form-group col-2">
                                     <label for="pais_id">País</label>
-                                    <select class="form-control" name="pais_id" id="pais_id">
+                                    <select class="form-control form-control-sm" name="pais_id" id="pais_id">
                                         <option value="ES" >España</option>
                                         @foreach($paises as $pais)
                                             <option value="{{ $pais->id }}" >{{ $pais->pais }}</option>
@@ -79,33 +81,33 @@
                                 </div>
                                 <div class="form-group col">
                                     <label for="tfno">Teléfono</label>
-                                    <input class="form-control" type="text" name="tfno" id="tfno" value="{{ old('tfno', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="tfno" id="tfno" value="{{ old('tfno', '') }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="email">@</label>
-                                    <input class="form-control" type="text" name="email" id="emailgral" value="{{ old('email', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="email" id="emailgral" value="{{ old('email', '') }}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="banco1">Banco 1</label>
-                                    <input class="form-control" type="text" name="banco1" id="banco1" value="{{ old('banco1', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="banco1" id="banco1" value="{{ old('banco1', '') }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="iban1">Iban 1</label>
-                                    <input class="form-control" type="text" name="iban1" id="iban1" value="{{ old('iban1', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="iban1" id="iban1" value="{{ old('iban1', '') }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="banco2">Banco 2</label>
-                                    <input class="form-control" type="text" name="banco2" id="banco2" value="{{ old('banco2', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="banco2" id="banco2" value="{{ old('banco2', '') }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="iban2">Iban 2</label>
-                                    <input class="form-control" type="text" name="iban2" id="iban2" value="{{ old('iban2', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="iban2" id="iban2" value="{{ old('iban2', '') }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="observaciones">Observaciones</label>
-                                    <input class="form-control" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', '') }}">
                                 </div>
                             </div>
                         </div>

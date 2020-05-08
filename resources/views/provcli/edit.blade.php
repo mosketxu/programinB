@@ -2,30 +2,24 @@
 
 @section('title','Programin-Editar Prov/Cli')
 @section('titlePag','Editar Prov/Cli')
+{{-- @section('navbar')
+    @include('layouts.partials.navbarizquierda')
+    @include('layouts.partials.navbarderecha')
+@endsection --}}
+
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
+    <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
     @include('provcli.navbar')
-    @include('layouts.partials.navbarderecha')
-@endsection
+@endsection 
+
+
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         {{-- content header --}}
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="row">
-                    {{-- <div class="col-sm-3 text-left pl-2"> --}}
-                    <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag') {{$provcli->nombre}}</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
-            </div>
         </div>
         {{-- - /.content-header --}}
         {{-- main content  --}}

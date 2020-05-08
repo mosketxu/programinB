@@ -5,10 +5,8 @@
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
     <p class="h3 pt-2 text-dark">@yield('titlePag') </p>
-    @can('empresas.create')
-    &nbsp;&nbsp; <a href="{{route('empresa.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
-    @endcan
-    @include('empresa.navbar')
+    &nbsp;&nbsp; <a href="{{route('provcli.create')}}"><i class="fas fa-plus-circle fa-2x text-primary mt-2"></i></a>
+    @include('provcli.navbar')
 @endsection
 
 @section('content')
@@ -88,8 +86,8 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="_tokenCampaign" value="{{ csrf_token()}}" id="token">    
-                                                    <a href="{{route('provcli.edit', $provcli) }}" title="Editar prov-cli"><i class="far fa-edit text-primary fa-2x ml-3"></i></a>
-                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-2x ml-1"></i></button>
+                                                    <a href="{{route('provcli.edit', $provcli) }}" title="Editar prov-cli"><i class="far fa-edit text-primary fa-lg ml-3"></i></a>
+                                                    <button type="submit" class="enlace"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></button>
                                             </form>
                                         </td>
                                     </tr>
