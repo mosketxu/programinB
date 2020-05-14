@@ -93,23 +93,23 @@ class EmpresaContactoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($empresa_id)
+    public function show($empresa_id,Request $request)
     {
         $empresa=Empresa::find($empresa_id);
-        $empresacontactos=EmpresaContacto::where('empresa_id',$empresa_id)
+        $busqueda=($request->busca);
+        $empresacontactos=EmpresaContacto::search($request->busca) 
+        ->where('empresa_id',$empresa_id)
         ->join('empresas','empresas.id','contacto_id')
         ->select('empresa_contacto.id as id','empresa_id','contacto_id','empresa','departamento','tfno','emailgral','emailadm','empresas.observaciones')
         ->orderBy('empresa')
         ->get();
-
-        // dd($empresacontactos);
-        
+       
         $departamentos=Departamento::get();
         $contactos = Empresa::whereNotIn('id', function ($query) use ($empresa_id) {
             $query->select('contacto_id')->from('empresa_contacto')->where('empresa_id', $empresa_id);
             })
             ->get();
-        return view('empresacontacto.index',compact('empresacontactos','empresa','departamentos','contactos'));
+        return view('empresacontacto.index',compact('empresacontactos','empresa','departamentos','contactos','busqueda'));
 
     }
 

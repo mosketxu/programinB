@@ -88,7 +88,10 @@
 
     <!-- programins -->
     <script src="{{ asset('js/programin.js')}}"></script>
-    
+    <!-- para ordernar tablas en JS -->
+    <script src="{{ asset('js/sorttable.js')}}"></script>
+
+
     @yield('script')
     @stack('scriptchosen')
 

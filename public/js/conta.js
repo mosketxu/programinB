@@ -55,7 +55,7 @@ $(document).ready(function(){
 
     $("#provcli_id").change(function() {
         let prov=$("#provcli_id").val();
-        categoria(prov);
+        categoriairpf(prov);
     })
 
 });
@@ -66,8 +66,14 @@ function baseporiva(base,iva,piva){
     let v=b*piva;
     (Math.round( v * 100 )/100 ).toString();
     $(iva).val(v.toFixed(2));
-    if(base=="#base21")
+    if(base=="#base21"){
         $('#baseretencion').val($("#base21").val());
+        var br=$('#baseretencion').val();
+        var pr=$('#porcentajeretencion').val();
+        let r=br*pr;
+        (Math.round( r * 100 )/100 ).toString();
+        $('#retencion').val(r.toFixed(2));
+    }
     total();
 }
 
@@ -113,7 +119,7 @@ function addline() {
         });
         var formElement = document.getElementById(formulario);
         var formData = new FormData(formElement);
-        var fila="<tr>";
+        var fila="";
         var id='';
         var cierre='';
         var form='';
@@ -136,6 +142,7 @@ function addline() {
                 // $("#provcli_id").val('-');
                 $('#provcli_id').val(null).trigger('change');
                 $('#categoria_id').val(null).trigger('change');
+                fila="<tr id='tr"+data.id+"'><td><a href='#' title='Editar' disabled><i class='far fa-edit text-muted fa-lg ml-2'></i></a></td>"
                 $.each(data,function(key,value){
                     if (i>9) clase='class="text-right"';
                     i++;
@@ -330,14 +337,16 @@ function controlperiodo(){
 };
 
 // funcion para recuperar la categoria de un proveedor
-function categoria(prov) {
-    ruta='/provcli/categoria/'+prov;
+function categoriairpf(prov) {
+    ruta='/provcli/categoriairpf/'+prov;
     $.get(ruta,function(data){
+        console.log(data);
         if(data.id){
             $('#categoria_id').val(data.id);
             $('#categoria_id').val(data.id).attr('selected','selected')
         }
-        // console.log(data);
+        $('#porcentajeretencion').val(data.irpf);
+        $('#porcentajeretencion').val(data.irpf).attr('selected','selected')
     })
  }
 

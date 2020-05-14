@@ -47,6 +47,15 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group col-1">
+                                    <label for="irpf">IRPF</label>
+                                    <select class="form-control form-control-sm" name="irpf" id="irpf">
+                                        <option value="0" selected>0</option>
+                                        <option value="0.07">7%</option>
+                                        <option value="0.15">15%</option>
+                                        <option value="0.19">19%</option>
+                                    </select>
+                                </div>
                                 <div class="form-group col-2">
                                     <label for="nif">Nif</label>
                                     <input class="form-control form-control-sm" type="text" name="nif" id="nif" value="{{ old('nif', '') }}">

@@ -6,7 +6,7 @@ Route::post('provcli/store','ProvcliController@store')->name('provcli.store')
 Route::get('provcli','ProvcliController@index')->name('provcli.index')
 ->middleware('can:provclis.index');
 
-Route::get('provcli/categoria/{prov_id}','ProvcliController@categoria')->name('provcli.categoria')
+Route::get('provcli/categoriairpf/{prov_id}','ProvcliController@categoriairpf')->name('provcli.categoriairpf')
 ->middleware('can:provclis.index');
 
 Route::get('provcli/create','ProvcliController@create')->name('provcli.create')

@@ -59,6 +59,7 @@
                                     <th>Iban1</th>
                                     <th>Banco 2</th>
                                     <th>Iban 2</th>
+                                    <th class="text-right">IRPF</th>
                                     <th>Observaciones</th>
                                     <th></th>
                                 </tr>
@@ -80,6 +81,7 @@
                                         <td>{{$provcli->iban1}}</td>
                                         <td>{{$provcli->banco2}}</td>
                                         <td>{{$provcli->iban2}}</td>
+                                        <td class="text-right">{{$provcli->irpf * 100}} %</td>
                                         <td>{{$provcli->observaciones}}</td>
                                         <td  class="text-right m-0 p-0">
                                             <form  action="{{route('provcli.destroy',$provcli->id)}}" method="post">

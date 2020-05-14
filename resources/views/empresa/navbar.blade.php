@@ -9,7 +9,7 @@
               <button class="btn btn-navbar" type="submit"> 
                 <i class="fas fa-search"></i>
                 </button>
-              </div>
+              </div>s
           </div>
         </form>
       </li>

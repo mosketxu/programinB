@@ -96,12 +96,14 @@ class ProvcliController extends Controller
     }
 
 
-    public function categoria($provcli_id)
+    public function categoriairpf($provcli_id)
     {
         $provcli=Provcli::find($provcli_id);
         $cat=$provcli->categoria_id??'';
         $categoria=$cat!='' ? Categoria::find($provcli->categoria_id):'';
-        return response()->json($categoria);
+        $irpf=$provcli->irpf;
+        return response()->json(['categoria'=>$categoria,'irpf'=>$irpf]);
+        // return response()->json($categoria);
     }
 
     /**

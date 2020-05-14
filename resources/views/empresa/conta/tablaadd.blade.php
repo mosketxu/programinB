@@ -62,7 +62,7 @@
                <td class="px-0"><input tabindex="10" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="baseretencion" id="baseretencion" value="{{ old('baseretencion', '0') }}"></td>
                <td class="px-0">
                    <select tabindex="11" class="focusNext form-control form-control-sm text-right" name="porcentajeretencion" id="porcentajeretencion">
-                       <option value="0" selected>0</option>
+                       <option value="0.00" selected>0</option>
                        <option value="0.07">7</option>
                        <option value="0.15">15</option>
                        <option value="0.19">19</option>
@@ -72,7 +72,7 @@
                <td class={{$tipo=='R'? "d-none px-0":"px-0"}}><input tabindex="12" class="focusNext form-control form-control-sm text-right unstyled" type="number" step="0.01" name="baserecargo" id="baserecargo" value="{{ old('baserecargo', '0') }}"></td>
                <td class={{$tipo=='R'? "d-none px-0":"px-0"}}>
                    <select tabindex="13" class="focusNext form-control form-control-sm text-right" name="porcentajerecargo" id="porcentajerecargo">
-                       <option value="0" selected>0</option>
+                       <option value="0.00" selected>0</option>
                        <option value="0.052">5.2</option>
                        <option value="0.014">1.4</option>
                        <option value="0.005">0.5</option>

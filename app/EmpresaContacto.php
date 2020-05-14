@@ -15,7 +15,11 @@ class EmpresaContacto extends Model
 
     public function contacto()
     {
-        return $this->belongsTo(Contacto::class,'contacto_id')->orderBy('empresa');
+        return $this->belongsTo(Contacto::class,'contacto_id')->orderBy('empresa'); 
     }
 
+    public function scopeSearch($query, $busca){
+        return $query->where('empresa', 'LIKE', "%$busca%")
+        ->orWhere('nif', 'LIKE', "%$busca%");
+    }
 }

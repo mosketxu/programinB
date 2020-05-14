@@ -26,7 +26,7 @@ class ContaController extends Controller
         ->orderby('nombre')
         ->get();
         $provclis=Provcli::orderBy('nombre')->get();
-        dd($provclis);
+        // dd($provclis);
         return view('empresa.conta.index',compact('empresa','recurrentes','provclis')); 
     }
 

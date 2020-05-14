@@ -35,6 +35,7 @@
                             <thead>
                                 <form id="form" action="{{route('conta.contas',[$empresa,$tipo])}}" method="get">
                                 <tr>
+                                    <th><a href="#" onclick="form.submit()"><i class="fas fa-filter"></i></a></th>
                                     <th>
                                         <select name="anyo" id="anyo" class="form-control form-control-plaintext form-control-sm" onchange="form.submit()">
                                             <option value="2019" {{$anyo=='2019'? 'selected' :''}}>2019</option>
@@ -49,8 +50,10 @@
                                             @endforeach
                                         </select>
                                     </th>
-                                    <th><a href="#" onclick="form.submit()"><i class="fas fa-filter"></i></a></th>     
-                                    <th><a href="{{route('contarecurrente.create',[$empresa,$anyo,$periodo,$tipo])}}">Recurrentes</a></th>      
+                                    <th> &nbsp;&nbsp;</th>
+                                    <th><a href="{{route('contarecurrente.create',[$empresa,$anyo,$periodo,$tipo])}}"><i class="fas fa-redo text-info"></i><span class="text-info"> Recurrentes</span></a></th>
+                                    <th> &nbsp;&nbsp;</th>
+                                    <th><a href="{{route('provcli.create')}}"><i class="fas fa-plus-circle text-success"></i> <span class="text-success">Nuevo Proveedor</span></a></th>
                                 </tr>
                                 </form>
                             </thead>

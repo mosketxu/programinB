@@ -32,3 +32,8 @@ button.enlace{
 }
 input[type="date"]::-webkit-inner-spin-button,    
 input[type="date"]::-webkit-clear-button { display: none; }
+
+/* muestra flechas para ordenar tablas sorttable.js */
+/* table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+   content: " \25B4\25BE" 
+} */

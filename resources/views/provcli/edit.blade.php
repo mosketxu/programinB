@@ -53,6 +53,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-1">
+                                    <label for="irpf">IRPF</label>
+                                    <select class="form-control form-control-sm" name="irpf" id="irpf">
+                                        <option value="0" {{$provcli->irpf=='0'?'selected':''}}>0</option>
+                                        <option value="0.07" {{$provcli->irpf=='0.07'?'selected':''}}>7%</option>
+                                        <option value="0.15" {{$provcli->irpf=='0.15'?'selected':''}}>15%</option>
+                                        <option value="0.19" {{$provcli->irpf=='0.19'?'selected':''}}>19%</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-1">
                                     <label for="nif">Nif</label>
                                     <input class="form-control form-control-sm" type="text" name="nif" id="nif" value="{{ old('nif', $provcli->nif) }}" maxlength="12">
                                 </div>

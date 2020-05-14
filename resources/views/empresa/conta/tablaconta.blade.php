@@ -1,5 +1,5 @@
 <div id="tablaconta" class="table-responsive p-0 alturatabla">
-   <table id="tablaasientos" class="table table-hover table-sm small table-head-fixed text-nowrap">
+   <table id="tablaasientos" class="table table-hover table-sm small table-head-fixed text-nowrap sortable">
        <thead>
            <tr>
                <th>#</th>
@@ -30,8 +30,8 @@
        <tbody id="bodyasientos">
            @foreach($contas as $conta)
            <tr id="tr{{$conta->id}}">
-                <td>{{$conta->id}}</td>
                 <td><a href="{{route('conta.edit',[$conta,$anyo,$periodo?? '17'])}}" title="Editar"><i class="far fa-edit text-primary fa-lg ml-2"></i></a></td>
+                <td>{{$conta->id}}</td>
                 <td>{{$conta->fechaasiento}}</td>
                 <td>{{$conta->fechafactura}}</td>
                 <td>{{$conta->provcli->nombre??$conta->provcli_id}}</td>
