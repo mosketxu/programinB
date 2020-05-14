@@ -170,6 +170,16 @@
                                                 <input class="form-control form-control-sm" type="text" name="tfno" id="tfno" value="{{ old('tfno', $empresa->tfno) }}" maxlength="15">
                                             </div>
                                             <div class="form-group col">
+                                                <label for="porcentajemarta">% M</label>
+                                                <input class="form-control form-control-sm" type="number" name="porcentajemarta" id="porcentajemarta" value="{{ old('porcentajemarta', $empresa->porcentajemarta) }}">
+                                            </div>
+                                            <div class="form-group col">
+                                                <label for="porcentajesusana">% S</label>
+                                                <input class="form-control form-control-sm" type="number" name="porcentajesusana" id="porcentajesusana" value="{{ old('porcentajesusana', $empresa->porcentajesusana) }}">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col">
                                                 <label for="emailgral">@ General</label>
                                                 <input class="form-control form-control-sm" type="text" name="emailgral" id="emailgral" value="{{ old('emailgral', $empresa->emailgral) }}" maxlength="100">
                                             </div>
@@ -177,23 +187,16 @@
                                                 <label for="emailadm">@ Adm.</label>
                                                 <input class="form-control form-control-sm" type="text" name="emailadm" id="emailadm" value="{{ old('emailadm', $empresa->emailadm) }}" maxlength="100">
                                             </div>
+
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col">
+                                            <div class="form-group col-4">
                                                 <label for="banco">Banco</label>
                                                 <input class="form-control form-control-sm" type="text" name="banco" id="banco" value="{{ old('banco', $empresa->banco) }}" maxlength="100">
                                             </div>
                                             <div class="form-group col">
                                                 <label for="iban">Iban</label>
                                                 <input class="form-control form-control-sm" type="text" name="iban" id="iban" value="{{ old('iban', $empresa->iban) }}" maxlength="50">
-                                            </div>
-                                            <div class="form-group col-2">
-                                                <label for="porcentajemarta">% Marta</label>
-                                                <input class="form-control form-control-sm" type="number" name="porcentajemarta" id="porcentajemarta" value="{{ old('porcentajemarta', $empresa->porcentajemarta) }}">
-                                            </div>
-                                            <div class="form-group col-2">
-                                                <label for="porcentajesusana">% Susana</label>
-                                                <input class="form-control form-control-sm" type="number" name="porcentajesusana" id="porcentajesusana" value="{{ old('porcentajesusana', $empresa->porcentajesusana) }}">
                                             </div>
                                         </div>
                                     </div>
@@ -248,17 +251,15 @@
                                                 <input class="form-control form-control-sm" type="number" step="0.01" name="importefacturacionsecundario" id="importefacturacionsecundario" value="{{ old('importefacturacionsecundario', $empresa->importefacturacionsecundario) }}">
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="form-group col">
+                                                <label for="observaciones">Observaciones</label>
+                                                <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $empresa->observaciones) }}" maxlength="255">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>    
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group col">
-                                        <label for="observaciones">Observaciones</label>
-                                        <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', $empresa->observaciones) }}" maxlength="255">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="form-group">

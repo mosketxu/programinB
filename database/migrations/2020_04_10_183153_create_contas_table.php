@@ -38,6 +38,7 @@ class CreateContasTable extends Migration
             $table->decimal('porcentajerecargo', 15, 2)->default(0);
             $table->decimal('recargo', 15, 2)->default(0);
             $table->boolean('bloqueado')->default(0);
+            $table->string('observaciones')->nullable();
             $table->timestamps();
         });
     }

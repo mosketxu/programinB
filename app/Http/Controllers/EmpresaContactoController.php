@@ -97,7 +97,13 @@ class EmpresaContactoController extends Controller
     {
         $empresa=Empresa::find($empresa_id);
         $empresacontactos=EmpresaContacto::where('empresa_id',$empresa_id)
+        ->join('empresas','empresas.id','contacto_id')
+        ->select('empresa_contacto.id as id','empresa_id','contacto_id','empresa','departamento','tfno','emailgral','emailadm','empresas.observaciones')
+        ->orderBy('empresa')
         ->get();
+
+        // dd($empresacontactos);
+        
         $departamentos=Departamento::get();
         $contactos = Empresa::whereNotIn('id', function ($query) use ($empresa_id) {
             $query->select('contacto_id')->from('empresa_contacto')->where('empresa_id', $empresa_id);

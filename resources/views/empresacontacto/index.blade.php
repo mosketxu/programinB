@@ -24,10 +24,10 @@
                     </div> --}}
                     <!-- card-body -->
                     <div class="card-body">
-{{-- mensajes de exito o error --}}
-@include('layouts.partials.mensajes')
-{{-- fin mensajes de exito o error --}}
-                        <div class="table-responsive p-0" style="height: 380px">
+                        {{-- mensajes de exito o error --}}
+                        @include('layouts.partials.mensajes')
+                        {{-- fin mensajes de exito o error --}}
+                        <div class="table-responsive p-0 alturatabla">
                             <table class="table table-hover table-sm small table-head-fixed ">
                                 <thead>
                                 <tr>
@@ -45,7 +45,7 @@
                                     @foreach($empresacontactos as $empresacontacto)
                                     <tr id="tr{{$empresacontacto->id}}">
                                         <td class="badge badge-default">{{$empresacontacto->id}}-{{$empresacontacto->empresa_id}}-{{$empresacontacto->contacto_id}}</a></td>
-                                        <td>{{$empresacontacto->contacto->empresa ?? '-'}}</td>
+                                        <td>{{$empresacontacto->empresa}}</td>
                                         <form id="form{{$empresacontacto->id}}">
                                             @method('PUT')
                                             @csrf
@@ -58,10 +58,10 @@
                                             </select>
                                             </td>
                                         </form>
-                                        <td>{{$empresacontacto->contacto->tfno ?? '-'}}</td>
-                                        <td>{{$empresacontacto->contacto->emailgral ?? '-'}}</td>
-                                        <td>{{$empresacontacto->contacto->emailadm ?? '-'}}</td>
-                                        <td>{{$empresacontacto->contacto->observaciones??'-'}}</td>
+                                        <td>{{$empresacontacto->tfno}}</td>
+                                        <td>{{$empresacontacto->emailgral}}</td>
+                                        <td>{{$empresacontacto->emailadm}}</td>
+                                        <td>{{$empresacontacto->observaciones}}</td>
                                         <td class="text-right m-0 pr-3">
                                             <form  id="formDelete{{$empresacontacto->id}}">
                                                 <a href="{{route('contacto.edit', $empresacontacto->contacto_id) }}" title="Editar contacto"><i class="far fa-edit text-primary fa-lg ml-3"></i></a>

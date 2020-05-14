@@ -9,14 +9,13 @@ class EmpresaContacto extends Model
     protected $table = 'empresa_contacto';
     protected $fillable = ['empresa_id','contacto_id','departamento','observaciones'];
 
-    public function empresa()
-    {
-        return $this->belongsTo(Empresa::class);
+    public function empresa(){
+        return $this->belongsTo(Empresa::class,'empresa_id');
     }
 
     public function contacto()
     {
-        return $this->belongsTo(Contacto::class);
+        return $this->belongsTo(Contacto::class,'contacto_id')->orderBy('empresa');
     }
 
 }
