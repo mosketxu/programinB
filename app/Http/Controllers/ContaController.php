@@ -33,7 +33,6 @@ class ContaController extends Controller
     public function conta(Empresa $empresa, $tipo, Request $request){
         $busqueda=($request->busca);
         $anyo=$request->anyo ? $request->anyo : date("Y");
-        // $per=$request->periodo='Seleccciona un periodo' ? '' : ;
         $per=Periodo::find($request->periodo);
         $perI=$per->perI??'1';
         $perF=$per->perF??'12';
@@ -174,14 +173,24 @@ class ContaController extends Controller
      */
     public function update(ContaRequest $request)
     {
-        // dd($request);
         $prov=Provcli::find($request->provcli_id);
         $concepto=$this->modificaconcepto($request->factura,$prov->nombre,$request->concepto,$request->fechaasiento);
         $request->merge(['concepto'=>$concepto]);
         $conta=Conta::find($request->id)->update($request->all());
 
         return redirect()->back()->with(['message'=>'Actualizado']);
-        // return redirect()->route('conta.contas',[$request->empresa_id,$request->tipo])->with(['message'=>'Actualizado']);
+
+    }
+
+    public function updateon(ContaRequest $request)
+    {
+        $prov=Provcli::where('nombre',$request->provcli_id)
+            ->first();
+        $request->merge(['provcli_id'=>$prov->id]);
+        $conta=Conta::find($request->id)->update($request->all());
+
+        
+        return redirect()->back()->with(['message'=>'Actualizado']);
 
     }
 
@@ -228,6 +237,7 @@ class ContaController extends Controller
 
 
     protected function modificaconcepto($factura,$proveedor,$concepto,$fechaasiento){
+        dd('l');
         if(strlen($proveedor)>15)
             $proveedor=substr($proveedor,0,15);
         if(is_null($concepto)){

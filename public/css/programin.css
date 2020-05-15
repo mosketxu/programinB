@@ -19,10 +19,23 @@ button.enlace{
    background-color: rgb(68, 233, 18);
    }
 
-
 .maximoancho{
    width: 10px;
 }
+
+.form-control-xs {
+   height: calc(1.8rem + 2px);
+   padding: 0.25rem 0.5rem;
+   font-size: 0.8rem;
+   line-height: 1.5;
+   border-radius: 0.2rem;
+   /* height: calc(1.8125rem + 2px);
+   padding: 0.25rem 0.5rem;
+   font-size: 0.875rem;
+   line-height: 1.5;
+   border-radius: 0.2rem; */
+ }
+ 
 
 /* quitar las flechas y las x de los input number y date */
 .unstyled::-webkit-inner-spin-button,

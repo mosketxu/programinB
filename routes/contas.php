@@ -21,6 +21,9 @@ Route::get('conta/create','ContaController@create')->name('conta.create')
 Route::post('conta/update','ContaController@update')->name('conta.update')
 ->middleware('can:contas.edit');
 
+Route::post('conta/updateon','ContaController@updateon')->name('conta.updateon')
+->middleware('can:contas.edit');
+
 Route::get('conta/{empresa}/{tipo}','ContaController@show')->name('conta.show')
 ->middleware('can:contas.show');
 

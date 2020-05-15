@@ -2,14 +2,14 @@
    <table id="tablaasientos" class="table table-hover table-sm small table-head-fixed text-nowrap sortable">
        <thead>
            <tr>
-               <th>#</th>
                <th></th>
+               <th width="3%">#</th>
                <th>F.Asiento</th>
                <th>F.Fact.</th>
                <th>Proveedor</th>
-               <th>NºFact.</th>
+               <th width="8%">NºFact.</th>
                <th>Concepto</th>
-               <th>Categoria</th>
+               <th width="7%">Categoria</th>
                <th class="text-right">Base 21<br>{{number_format($contas->sum('base21'),2)}}</th>
                <th class="text-right">21%<br>{{number_format($contas->sum('iva21'),2)}}</th>
                <th class="text-right">Base 10<br>{{number_format($contas->sum('base10'),2)}}</th>
@@ -30,29 +30,42 @@
        <tbody id="bodyasientos">
            @foreach($contas as $conta)
            <tr id="tr{{$conta->id}}">
-                <td><a href="{{route('conta.edit',[$conta,$anyo,$periodo?? '17'])}}" title="Editar"><i class="far fa-edit text-primary fa-lg ml-2"></i></a></td>
-                <td>{{$conta->id}}</td>
-                <td>{{$conta->fechaasiento}}</td>
-                <td>{{$conta->fechafactura}}</td>
-                <td>{{$conta->provcli->nombre??$conta->provcli_id}}</td>
-                <td>{{$conta->factura}}</td>
-                <td>{{$conta->concepto}}</td>
-                <td>{{$conta->categoria->categoria??''}}</td>
-                <td class="text-right">{{number_format($conta->base21,2)}}</td>
-                <td class="text-right">{{number_format($conta->iva21,2)}}</td>
-                <td class="text-right">{{number_format($conta->base10,2)}}</td>
-                <td class="text-right">{{number_format($conta->iva10,2)}}</td>
-                <td class="text-right">{{number_format($conta->base4,2)}}</td>
-                <td class="text-right">{{number_format($conta->iva4,2)}}</td>
-                <td class="text-right">{{number_format($conta->exento,2)}}</td>
-                <td class="text-right">{{number_format($conta->baseretencion,2)}}</td>
-                <td class="text-right">{{number_format($conta->porcentajeretencion,2)}}</td>
-                <td class="text-right">{{number_format($conta->retencion,2)}}</td>
-                <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->baserecargo,2)}}</td>
-                <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->porcentajerecargo,2)}}</td>
-                <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->recargo,2)}}</td>
-                <td class="text-right">{{number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4
-                +$conta->exento-$conta->retencion+$conta->recargo,2)}}</td>
+                <form id="form{{$conta->id}}" action="{{route('conta.updateon')}}" method="POST">
+                    @csrf
+                    <td>
+                        <a href="{{route('conta.edit',[$conta,$anyo,$periodo?? '17'])}}" title="Editar"><i class="far fa-edit text-primary fa-lg ml-2"></i></a>
+                        {{-- <a href="#" title="Editar" onclick="form{{$conta->id}}.submit()"><i class="fas fa-check-circle text-success fa-lg ml-2"></i></a> --}}
+                        <a href="#" title="Actualizar" onclick="updateon('form{{$conta->id}}')"><i class="fas fa-check-circle text-success fa-lg ml-2"></i></a>
+                    </td>
+                    <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="id" id="id" value="{{$conta->id}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled pr-0 m-0" name="fechaasiento" id="fechaasiento" value="{{$conta->fechaasiento}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled pr-0 m-0" name="fechafactura" id="fechafactura" value="{{$conta->fechafactura}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="provcli_id" id="provcli_id" value="{{$conta->provcli->nombre??$conta->provcli_id}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="factura" id="factura" value="{{$conta->factura}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="concepto" id="concepto" value="{{$conta->concepto}}" readonly></td>
+                    <td class="my-0 py-0 ">
+                        <select class="form-control form-control-xs selectsinborde" name="categoria_id" id="categoria_id" style="width: 100%;>
+                            @foreach($categorias as $categoria)
+                            <option value="{{ $categoria->id }}" {{$categoria->id==$conta->categoria_id? 'selected' :''}}>{{ $categoria->categoria }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+                    <td class="text-right">{{number_format($conta->base21,2)}}</td>
+                    <td class="text-right">{{number_format($conta->iva21,2)}}</td>
+                    <td class="text-right">{{number_format($conta->base10,2)}}</td>
+                    <td class="text-right">{{number_format($conta->iva10,2)}}</td>
+                    <td class="text-right">{{number_format($conta->base4,2)}}</td>
+                    <td class="text-right">{{number_format($conta->iva4,2)}}</td>
+                    <td class="text-right">{{number_format($conta->exento,2)}}</td>
+                    <td class="text-right">{{number_format($conta->baseretencion,2)}}</td>
+                    <td class="text-right">{{number_format($conta->porcentajeretencion,2)}}</td>
+                    <td class="text-right">{{number_format($conta->retencion,2)}}</td>
+                    <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->baserecargo,2)}}</td>
+                    <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->porcentajerecargo,2)}}</td>
+                    <td class={{$tipo=='R'? "d-none":"text-right"}}>{{number_format($conta->recargo,2)}}</td>
+                    <td class="text-right">{{number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4
+                    +$conta->exento-$conta->retencion+$conta->recargo,2)}}</td>
+                </form>
                 <td  class="text-right m-0 pr-3">
                     <form  id="formDelete{{$conta->id}}">
                     @method('POST')

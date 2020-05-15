@@ -142,7 +142,8 @@ function addline() {
                 // $("#provcli_id").val('-');
                 $('#provcli_id').val(null).trigger('change');
                 $('#categoria_id').val(null).trigger('change');
-                fila="<tr id='tr"+data.id+"'><td><a href='#' title='Editar' disabled><i class='far fa-edit text-muted fa-lg ml-2'></i></a></td>"
+                fila="<tr id='tr"+data.id+"'><td><a href='#' title='Editar' disabled><i class='far fa-edit text-muted fa-lg ml-2'></i></a></td>"+
+                    "<a href='#' title='Actualizar' disabled><i class='fas fa-check-circle text-muted fa-lg ml-2'></i></a>";
                 $.each(data,function(key,value){
                     if (i>9) clase='class="text-right"';
                     i++;
@@ -193,6 +194,44 @@ function addline() {
     }
  }
 
+// funcion para añadir registros solo en los de conta
+function updateon(form) {
+    var token= $('#token').val();
+    ruta="/conta/updateon";
+    formulario=form;
+    $.ajaxSetup({
+        headers: { "X-CSRF-TOKEN": $('#token').val() },
+    });
+    var formElement = document.getElementById(formulario);
+    var formData = new FormData(formElement);
+    $.ajax({
+        type:'POST',
+        url: ruta,
+        data:formData,
+        cache:false,
+        contentType: false,
+        processData: false,
+        success: function(data) {
+            toastr.success('Asiento Actualizado');
+            $('#fechaasiento').focus();
+        },
+        error: function(data){
+            var resp_e = data.responseJSON.errors;
+            $.each(resp_e,function(key,value) {
+                toastr.error(value,{
+                    "closeButton": true,
+                    "progressBar":true,
+                    "positionClass": "toast-top-center",
+                    "options.escapeHtml" : true,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": 0,
+                });
+            });
+            console.log(data);
+            }
+    });
+}
 
 // funcion para eliminar registros solo en los de conta
 function eliminarfila(id) {
