@@ -50,6 +50,13 @@
                                             @endforeach
                                         </select>
                                     </th>
+                                    <th>
+                                        <select name="provcli" id="provcli"  class="form-control form-control-plaintext form-control-sm" onchange="form.submit()">
+                                            {{-- @foreach ($provclis as $provcli)
+                                            <option value="{{$provcli->id}}" {{$provcli->id==$provcli ? 'selected' :''}}>{{$provcli->nombre}}
+                                            @endforeach --}}
+                                        </select>
+                                    </th>
                                     <th> &nbsp;&nbsp;</th>
                                     <th><a href="{{route('contarecurrente.create',[$empresa,$anyo,$periodo,$tipo])}}"><i class="fas fa-redo text-info"></i><span class="text-info"> Recurrentes</span></a></th>
                                     <th> &nbsp;&nbsp;</th>

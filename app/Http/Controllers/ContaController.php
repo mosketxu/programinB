@@ -26,7 +26,6 @@ class ContaController extends Controller
         ->orderby('nombre')
         ->get();
         $provclis=Provcli::orderBy('nombre')->get();
-        // dd($provclis);
         return view('empresa.conta.index',compact('empresa','recurrentes','provclis')); 
     }
 
@@ -69,13 +68,16 @@ class ContaController extends Controller
 
         $contas=Conta::search($request->busca)
         ->filtro($anyo,$perI,$perF)
+        ->join('provclis','provclis.id','provcli_id')
+        ->select('contas.*','provclis.nombre')
         ->where('empresa_id',$empresa->id)
         ->where('tipo',$tipo)
         ->with('provcli')
-        ->orderBy('fechaasiento','desc')
+        ->orderBy('categoria_id','asc')
+        ->orderBy('nombre','asc')
+        ->orderBy('fechaasiento','asc')
         ->get();
 
-        
         return view('empresa.conta.conta',compact('contas','empresa','provclis','periodos','categorias','busqueda','anyo','periodo','fechaAs','tipo','titulo','facturanueva')); 
     }
 
@@ -159,11 +161,12 @@ class ContaController extends Controller
         $perF=$per->perF??'12';
         $provclis=Provcli::orderBy('nombre')->get();
         $periodos=Periodo::get();
+        $categorias=Categoria::get();
         $conta=Conta::find($conta);
         $total=$conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo;
         $empresa=Empresa::find($conta->empresa_id);
 
-        return view('empresa.conta.edit',compact('conta','empresa','provclis','periodos','anyo','periodo','total')); 
+        return view('empresa.conta.edit',compact('conta','empresa','provclis','periodos','categorias','anyo','periodo','total')); 
 
     }
 
@@ -178,8 +181,8 @@ class ContaController extends Controller
         $request->merge(['concepto'=>$concepto]);
         $conta=Conta::find($request->id)->update($request->all());
 
-        return redirect()->back()->with(['message'=>'Actualizado']);
-
+        // return redirect()->back()->with(['message'=>'Actualizado']);
+        return redirect()->route('conta.contas',[$request->empresa_id,$request->tipo])->with(['message'=>'Actualizado']);
     }
 
     public function updateon(ContaRequest $request)
@@ -237,7 +240,6 @@ class ContaController extends Controller
 
 
     protected function modificaconcepto($factura,$proveedor,$concepto,$fechaasiento){
-        dd('l');
         if(strlen($proveedor)>15)
             $proveedor=substr($proveedor,0,15);
         if(is_null($concepto)){

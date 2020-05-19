@@ -95,6 +95,14 @@
                                         <option value="CA" {{ old('idioma') == "CA" ? 'selected' : '' }}>CA</option>
                                     </select>
                                 </div>
+                                <div class="form-group col-2">
+                                    <label for="banco">Banco</label>
+                                    <input class="form-control form-control-sm" type="text" name="banco" id="banco" value="{{ old('banco', $contacto->banco) }}">
+                                </div>
+                                <div class="form-group col">
+                                    <label for="iban">Iban</label>
+                                    <input class="form-control form-control-sm" type="text" name="iban" id="iban" value="{{ old('iban', $contacto->iban) }}">
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">

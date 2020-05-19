@@ -58,6 +58,11 @@ $(document).ready(function(){
         categoriairpf(prov);
     })
 
+
+    // $("#tablaasientos").tablesorter();
+    
+    // $("#tablaasientos").tablesorter( {sortList: [[4,0]]} );
+
 });
 
 function baseporiva(base,iva,piva){
@@ -67,12 +72,15 @@ function baseporiva(base,iva,piva){
     (Math.round( v * 100 )/100 ).toString();
     $(iva).val(v.toFixed(2));
     if(base=="#base21"){
-        $('#baseretencion').val($("#base21").val());
-        var br=$('#baseretencion').val();
+        var br=0;
         var pr=$('#porcentajeretencion').val();
-        let r=br*pr;
-        (Math.round( r * 100 )/100 ).toString();
-        $('#retencion').val(r.toFixed(2));
+        if(pr>0){
+            br=$("#base21").val();
+            $('#baseretencion').val(br);
+            let r=br*pr;
+            (Math.round( r * 100 )/100 ).toString();
+            $('#retencion').val(r.toFixed(2));
+        }
     }
     total();
 }

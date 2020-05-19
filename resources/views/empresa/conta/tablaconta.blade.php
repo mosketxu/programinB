@@ -3,9 +3,9 @@
        <thead>
            <tr>
                <th></th>
-               <th width="3%">#</th>
-               <th>F.Asiento</th>
-               <th>F.Fact.</th>
+               {{-- <th width="4%">#</th> --}}
+               <th width="20px">F.Asiento</th>
+               <th  width="20px">F.Fact.</th>
                <th>Proveedor</th>
                <th width="8%">NºFact.</th>
                <th>Concepto</th>
@@ -37,14 +37,16 @@
                         {{-- <a href="#" title="Editar" onclick="form{{$conta->id}}.submit()"><i class="fas fa-check-circle text-success fa-lg ml-2"></i></a> --}}
                         <a href="#" title="Actualizar" onclick="updateon('form{{$conta->id}}')"><i class="fas fa-check-circle text-success fa-lg ml-2"></i></a>
                     </td>
-                    <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="id" id="id" value="{{$conta->id}}" readonly></td>
-                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled pr-0 m-0" name="fechaasiento" id="fechaasiento" value="{{$conta->fechaasiento}}" readonly></td>
-                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled pr-0 m-0" name="fechafactura" id="fechafactura" value="{{$conta->fechafactura}}" readonly></td>
-                    <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="provcli_id" id="provcli_id" value="{{$conta->provcli->nombre??$conta->provcli_id}}" readonly></td>
+                    {{-- <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext text-left mx-0 px-0" name="id" id="id" value="{{$conta->id}}" readonly></td> --}}
+                    <input type="hidden" class="form-control-xs form-control-plaintext text-left mx-0 px-0" name="id" id="id" value="{{$conta->id}}">
+                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled px-0 m-0" name="fechaasiento" id="fechaasiento" value="{{$conta->fechaasiento}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled px-0 m-0" name="fechafactura" id="fechafactura" value="{{$conta->fechafactura}}" readonly></td>
+                    {{-- <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="provcli_id" id="provcli_id" value="{{$conta->provcli->nombre??$conta->provcli_id}}" readonly></td> --}}
+                    <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="provcli_id" id="provcli_id" value="{{$conta->nombre}}" readonly></td>
                     <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="factura" id="factura" value="{{$conta->factura}}" readonly></td>
                     <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="concepto" id="concepto" value="{{$conta->concepto}}" readonly></td>
                     <td class="my-0 py-0 ">
-                        <select class="form-control form-control-xs selectsinborde" name="categoria_id" id="categoria_id" style="width: 100%;>
+                        <select class="form-control form-control-xs selectsinborde" name="categoria_id" id="categoria_id" style="width: 100%;">
                             @foreach($categorias as $categoria)
                             <option value="{{ $categoria->id }}" {{$categoria->id==$conta->categoria_id? 'selected' :''}}>{{ $categoria->categoria }}</option>
                             @endforeach

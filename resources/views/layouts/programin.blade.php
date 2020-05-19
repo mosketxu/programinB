@@ -90,6 +90,10 @@
     <script src="{{ asset('js/programin.js')}}"></script>
     <!-- para ordernar tablas en JS -->
     <script src="{{ asset('js/sorttable.js')}}"></script>
+    {{-- <script>sorttable.sort_alpha = function(a,b) { return a[0].localeCompare(b[0]); }</script> --}}
+    <script>sorttable.sort_alpha = function(a,b) { return a[0].localeCompare(b[0], 'es'); }</script>
+    {{-- <script src="{{ asset('js/jquery.tablesorter.js')}}"></script> --}}
+
 
 
     @yield('script')

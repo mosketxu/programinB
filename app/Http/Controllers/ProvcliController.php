@@ -20,7 +20,8 @@ class ProvcliController extends Controller
         ->with('categoria')
         ->orderBy('nombre')
         ->paginate();
-        return view('provcli.index',compact('provclis','busqueda'));
+        $categorias=Categoria::get();
+        return view('provcli.index',compact('provclis','busqueda','categorias'));
     }
 
     /**
@@ -45,7 +46,10 @@ class ProvcliController extends Controller
     public function store(ProvcliRequest $request)
     {
         Provcli::create($request->all());
-        return redirect()->back()->with('message', 'Creado con exito');
+        if($request->ajax()){
+            return response()->json(['message', 'Creado con éxito']);
+        }
+            return redirect()->back()->with('message', 'Creado con exito');
 
     }
 

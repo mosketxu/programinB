@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     protected $fillable = ['categoria'];
+    public $autoincrement = false;
 
     public function contas(){
         return $this->hasMany(Conta::class,'categoria_id')->withDefault('');

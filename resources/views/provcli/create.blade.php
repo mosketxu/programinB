@@ -30,7 +30,7 @@
                     {{-- fin mensajes de exito o error --}}
 
 
-                    <form method="POST" action="{{ route("provcli.store") }}">
+                    <form id="creaForm" method="POST" action="{{ route("provcli.store") }}">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -122,10 +122,11 @@
                         </div>
                         <div class="card-footer">
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
-                                <a class="btn btn-default" href="{{route('provcli.index')}}" title="Ir la página anterior">Volver</a>
+                                {{-- <button class="btn btn-primary" type="submit">Guardar</button> --}}
+                                <a class="btn btn-primary" href="#" title="actualizar" onclick="update('creaForm','{{ route('provcli.store') }}',1)">Guardar</a>
+                                {{-- <a class="btn btn-default" href="{{route('provcli.index')}}" title="Ir la página anterior">Volver</a> --}}
+                                <a class="btn btn-default" href="{{url()->previous()}}" title="Ir la página anterior">Volver</a>
                             </div>
-                
                         </div>
                     </form>
                 </div>

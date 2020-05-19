@@ -12,13 +12,18 @@ class CategoriaSeeder extends Seeder
      */
     public function run()
     {
-        Categoria::create(['categoria' => 'Alquiler']);
-        Categoria::create(['categoria' => 'Desplazamiento']);
-        Categoria::create(['categoria' => 'Dietas']);
-        Categoria::create(['categoria' => 'Gastos Negocio']);
-        Categoria::create(['categoria' => 'Nominas']);
-        Categoria::create(['categoria' => 'Otros Gastos']);
-        Categoria::create(['categoria' => 'Profesionales']);
-        Categoria::create(['categoria' => 'Suministros']);
+        Categoria::create(['id'=>'1','categoria' => 'Contabilidad']);
+        Categoria::create(['id'=>'3','categoria' => 'Amortización']);
+        Categoria::create(['id'=>'10','categoria' => 'Alquiler']);
+        Categoria::create(['id'=>'12','categoria' => 'Profesionales']);
+        Categoria::create(['id'=>'14','categoria' => 'Nominas']);
+        Categoria::create(['id'=>'16','categoria' => 'Autónomos']);
+        Categoria::create(['id'=>'20','categoria' => 'Suministros']);
+        Categoria::create(['id'=>'22','categoria' => 'Leasing']);
+        Categoria::create(['id'=>'30','categoria' => 'Gastos Negocio']);
+        Categoria::create(['id'=>'35','categoria' => 'Otros Gastos']);
+        Categoria::create(['id'=>'40','categoria' => 'Desplazamiento']);
+        Categoria::create(['id'=>'45','categoria' => 'Dietas']);
+        Categoria::create(['id'=>'100','categoria' => 'Ventas']);
     }
 }

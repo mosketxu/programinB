@@ -32,6 +32,8 @@
            <tr>
                <input type="hidden" name="tipo" id="tipo" value={{$tipo}}></td>
                <input type="hidden" name="empresa_id" id="empresa_id" value="{{$empresa->id}}"></td>
+               <input type="hidden" name="anyo"  value="{{$anyo}}"></td>
+               <input type="hidden" name="periodo" value="{{$periodo}}"></td>
                <td class="px-0"><input tabindex="1" class="focusNext form-control form-control-sm unstyled pr-0 m-0" type="date" name="fechaasiento" id="fechaasiento"  value="{{ $fechaAs }}"></td>
                <td class="px-0"><input class="form-control form-control-sm  unstyled pr-0 m-0" type="date" name="fechafactura" id="fechafactura" value="{{ old('fechafactura', '') }}"></td>
                <td>

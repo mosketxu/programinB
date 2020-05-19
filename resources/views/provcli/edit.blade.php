@@ -34,7 +34,7 @@
                     {{-- fin mensajes de exito o error --}}
 
 
-                    <form method="POST" action="{{ route("provcli.update") }}">
+                    <form method="POST" id="form" action="{{ route("provcli.update") }}">
                         @csrf
                         @method('PUT')
                         <div class="card-body">
@@ -133,10 +133,12 @@
                         </div>
                         <div class="card-footer">
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Actualizar</button>
-                                <a class="btn btn-default" href="{{route('provcli.index')}}" title="Ir la página anterior">Volver</a>
+                                {{-- <button class="btn btn-primary" type="submit">Actualizar</button> --}}
+                                <a class="btn btn-primary" href="#" title="actualizar" onclick="update('form','{{ route('provcli.update') }}')">Actualizar</a>
+                                <a class="btn btn-default" href="{{url()->previous()}}" title="Ir la página anterior">Volver</a>
+                                {{-- <a class="btn btn-default" href="{{route('provcli.index')}}" title="Ir la página anterior">Volver</a> --}}
+                                
                             </div>
-                
                         </div>
                     </form>
                 </div>

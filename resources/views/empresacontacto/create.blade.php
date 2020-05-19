@@ -51,7 +51,7 @@
                                 <input class="form-control form-control-sm" type="text" name="direccion" id="direccion" value="{{ old('direccion', '') }}">
                             </div>
                             <div class="form-group col-1">
-                                <label for="codpostal">Código Postal</label>
+                                <label for="codpostal">C.Postal</label>
                                 <input class="form-control form-control-sm" type="text" name="codpostal" id="codpostal" value="{{ old('codpostal', '') }}">
                             </div>
                             <div class="form-group col">
@@ -101,6 +101,14 @@
                                     <option value="CA" {{ old('idioma') == "CA" ? 'selected' : '' }}>CA</option>
                                 </select>
                             </div>
+                            <div class="form-group col-2">
+                                <label for="banco">Banco</label>
+                                <input class="form-control form-control-sm" type="text" name="banco" id="banco" value="{{ old('banco') }}">
+                            </div>
+                            <div class="form-group col">
+                                <label for="iban">Iban</label>
+                                <input class="form-control form-control-sm" type="text" name="iban" id="iban" value="{{ old('iban') }}">
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col">
@@ -112,7 +120,8 @@
                     <div class="card-footer">
                         <div class="form-group">
                             <a class="btn btn-primary" href="#" title="actualizar" onclick="update('creaForm','{{ route('empresacontacto.storecontacto',$empresa->id) }}',1)">Guardar</a>
-                            <a class="btn btn-default" href="{{route('empresacontacto.show',$empresa->id)}}" title="Ir la página anterior">Volver</a>
+                            {{-- <a class="btn btn-default" href="{{route('empresacontacto.show',$empresa->id)}}" title="Ir la página anterior">Volver</a> --}}
+                            <a class="btn btn-default" href="{{url()->previous()}}" title="Ir la página anterior">Volver</a>
                         </div>
                     </div>
                     </form>
