@@ -9,12 +9,12 @@ $(document).ready(function(){
         $("#factura").val('');
         $("#factura").focus();
     })            
-
-    $("#fechaasiento").blur(function(){
-        let ff=$('#fechafactura').val();
-        if (ff==='')
-            $('#fechafactura').val($("#fechaasiento").val());
-    });
+ 
+    // $("#fechaasiento").change(function(){
+    //     let ff=$('#fechafactura').val();
+    //     if (ff==='')
+    //         $('#fechafactura').val($("#fechaasiento").val());
+    // });
 
     $("#baseretencion").change(function(){
         let b=$("#baseretencion").val();
@@ -150,8 +150,8 @@ function addline() {
                 // $("#provcli_id").val('-');
                 $('#provcli_id').val(null).trigger('change');
                 $('#categoria_id').val(null).trigger('change');
-                fila="<tr id='tr"+data.id+"'><td><a href='#' title='Editar' disabled><i class='far fa-edit text-muted fa-lg ml-2'></i></a></td>"+
-                    "<a href='#' title='Actualizar' disabled><i class='fas fa-check-circle text-muted fa-lg ml-2'></i></a>";
+                fila="<tr id='tr"+data.id+"'><td><a href='#' title='Editar' disabled><i class='far fa-edit text-muted fa-lg ml-2'></i></a>"+
+                    "<a href='#' title='Actualizar' disabled><i class='fas fa-check-circle text-muted fa-lg ml-2'></i></a></td>";
                 $.each(data,function(key,value){
                     if (i>9) clase='class="text-right"';
                     i++;

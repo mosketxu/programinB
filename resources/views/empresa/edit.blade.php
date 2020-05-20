@@ -15,16 +15,6 @@
         {{-- content header --}}
         <div class="content-header">
             {{-- <div class="container-fluid">
-                <div class="row">
-                    <div class="col-auto">
-                        <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
-                    </div>
-                    <div class="col-auto mr-auto">
-                    </div>
-                    <div class="col-sm-3 text-right pr-2">
-                    <a href="{{url()->previous()}}">Volver</a>
-                    </div>
-                </div>
             </div> --}}
         </div>
         {{-- - /.content-header --}}
@@ -68,7 +58,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group col-1">
+                                                <div class="form-group col-2">
                                                     <label for="codpostal">CP</label>
                                                     <input class="form-control form-control-sm" type="text" name="codpostal" id="codpostal" value="{{ old('codpostal', $empresa->codpostal) }}" maxlength="10">
                                                 </div>
@@ -76,7 +66,7 @@
                                                     <label for="localidad">Localidad</label>
                                                     <input class="form-control form-control-sm" type="text" name="localidad" id="localidad" value="{{ old('localidad', $empresa->localidad) }}" maxlength="100">
                                                 </div>
-                                                <div class="form-group col-2">
+                                                <div class="form-group col-3">
                                                     <label for="provincia_id">Provincia</label>
                                                     <select class="form-control form-control-sm" name="provincia_id" id="provincia_id">
                                                         @if(!$empresa->provincia_id)
@@ -129,7 +119,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col">
-                                                    <label for="cuentacontable">Cta Contable</label>
+                                                    <label for="cuentacontable">Cta.Cont</label>
                                                     <input class="form-control form-control-sm" type="text" name="cuentacontable" id="cuentacontable" value="{{ old('cuentacontable', $empresa->cuentacontable) }}" maxlength="10">
                                                 </div>
                                                 <div class="form-group col">
@@ -158,7 +148,7 @@
                                     <div class="card-body border border-primary rounded">
                                         <div class="row">
                                             <div class="form-group col">
-                                                <label for="contactosuma">Rpble. Suma</label>
+                                                <label for="contactosuma">Resp.Suma</label>
                                                 <select class="form-control form-control-sm" name="suma_id" id="suma_id" aria-placeholder="tipo">
                                                     @foreach($sumas as $suma)
                                                         <option value="{{ $suma->id }}" {{$suma->id==$empresa->suma_id ? 'selected' : ''}}>{{ $suma->nombre }}</option>
@@ -221,7 +211,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col">
-                                                <label for="diafactura">Dia Factura</label>
+                                                <label for="diafactura">Dia Fact.</label>
                                                 <input class="form-control form-control-sm" type="number" name="diafactura" id="diafactura" value="{{ old('diafactura', $empresa->diafactura) }}" maxlength="2">
                                             </div>
                                             <div class="form-group col">
@@ -229,7 +219,7 @@
                                                 <input class="form-control form-control-sm" type="number" name="diavencimiento" id="diavencimiento" value="{{ old('diavencimiento', $empresa->diavencimiento) }}" maxlength="2">
                                             </div>
                                             <div class="form-group col">
-                                                <label for="referenciacliente">Ref. Cliente</label>
+                                                <label for="referenciacliente">Ref.Cliente</label>
                                                 <input class="form-control form-control-sm" type="text" name="referenciacliente" id="referenciacliente" value="{{ old('referenciacliente', $empresa->referenciacliente) }}" maxlength="30">
                                             </div>
                                         </div>

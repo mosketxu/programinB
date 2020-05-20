@@ -39,8 +39,8 @@
                     </td>
                     {{-- <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext text-left mx-0 px-0" name="id" id="id" value="{{$conta->id}}" readonly></td> --}}
                     <input type="hidden" class="form-control-xs form-control-plaintext text-left mx-0 px-0" name="id" id="id" value="{{$conta->id}}">
-                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled px-0 m-0" name="fechaasiento" id="fechaasiento" value="{{$conta->fechaasiento}}" readonly></td>
-                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled px-0 m-0" name="fechafactura" id="fechafactura" value="{{$conta->fechafactura}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled px-0 m-0" name="fechaasiento" value="{{$conta->fechaasiento}}" readonly></td>
+                    <td class="my-0 py-0 "><input type="date" class="form-control-xs form-control-plaintext unstyled px-0 m-0" name="fechafactura" value="{{$conta->fechafactura}}" readonly></td>
                     {{-- <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="provcli_id" id="provcli_id" value="{{$conta->provcli->nombre??$conta->provcli_id}}" readonly></td> --}}
                     <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="provcli_id" id="provcli_id" value="{{$conta->nombre}}" readonly></td>
                     <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="factura" id="factura" value="{{$conta->factura}}" readonly></td>
