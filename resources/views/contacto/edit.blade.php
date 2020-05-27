@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-group col-1">
+                            <div class="form-group col-2">
                                 <label for="tfno">Teléfono</label>
                                 <input class="form-control form-control-sm" type="text" name="tfno" id="tfno" value="{{ old('tfno', $contacto->tfno) }}">
                             </div>
@@ -121,7 +121,7 @@
                                 <label for="web">Web</label>
                                 <input class="form-control form-control-sm" type="text" name="web" id="web" value="{{ old('web', $contacto->web) }}">
                             </div>
-                            <div class="form-group col-2">
+                            <div class="form-group col-1">
                                 <label for="banco">Banco</label>
                                 <input class="form-control form-control-sm" type="text" name="banco" id="banco" value="{{ old('banco', $contacto->banco) }}">
                             </div>
