@@ -102,7 +102,8 @@ class ContaController extends Controller
         $prov=Provcli::find($request->provcli_id);
         $concepto=$this->modificaconcepto($request->factura,$prov->nombre,$request->concepto,$request->fechaasiento);
         $request->merge(['concepto'=>$concepto]);
-        $conta=Conta::create($request->all());
+        // $conta=Conta::create($request->all());
+        $conta=Conta::create($request->except(['periodo','anyo']));
         $facturanueva=$conta->tipo=='E' ?  intval($conta->factura)+1 : '';
         $respuesta=[
             'facturanueva'=>$facturanueva,
@@ -133,7 +134,12 @@ class ContaController extends Controller
             $respuesta['total']=number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo,2);
         }
         $respuesta['total'] = number_format($conta->base21+$conta->iva21+$conta->base10+$conta->iva10+$conta->base4+$conta->iva4+$conta->exento-$conta->retencion+$conta->recargo,2);
-        return response()->json($respuesta);
+        
+        if($request->ajax()){
+            return response()->json($respuesta);
+        }
+            return redirect()->back()->with(['message'=>'Añadido']);
+
     }
 
     /**

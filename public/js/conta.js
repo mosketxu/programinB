@@ -119,86 +119,84 @@ function addline() {
     let controlfecha;
     controlfecha=controlperiodo();
     if(controlfecha==0){
-        var token= $('#token').val();
-        ruta="/conta/store";
-        formulario='creaForm';
-        $.ajaxSetup({
-            headers: { "X-CSRF-TOKEN": $('#token').val() },
-        });
-        var formElement = document.getElementById(formulario);
-        var formData = new FormData(formElement);
-        var fila="";
-        var id='';
-        var cierre='';
-        var form='';
-        var i="0";
-        var clase=""
 
-        $.ajax({
-            type:'POST',
-            url: ruta,
-            data:formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                toastr.success('Asiento Añadido',{
-                'progressBar':true,
-                "positionClass":"toast-bottom-center",
-                });
-                document.getElementById(formulario).reset();
-                // $("#provcli_id").val('-');
-                $('#provcli_id').val(null).trigger('change');
-                $('#categoria_id').val(null).trigger('change');
-                fila="<tr id='tr"+data.id+"'><td><a href='#' title='Editar' disabled><i class='far fa-edit text-muted fa-lg ml-2'></i></a>"+
-                    "<a href='#' title='Actualizar' disabled><i class='fas fa-check-circle text-muted fa-lg ml-2'></i></a></td>";
-                $.each(data,function(key,value){
-                    if (i>9) clase='class="text-right"';
-                    i++;
-                    if(key=='id') {
-                        id="'"+value+"'";
-                        form='formDelete'+value;
-                    };
-                    if(key=='token') token=value
-                    else if(i>2)
-                        fila=fila + '<td '+clase+'>'+value+'</td>' ;
-                });
-                cierre="<td class='text-right m-0 pr-3'>"+
-                        "<form  id="+form+">"+
-                        "<input type='hidden' name='_method' value='POST' />"+
-                        "<input type='hidden' name='_token' value="+token+" />"+
-                        "<a href='#!' class='btn-delete' title='Eliminar' " +  
-                        'onclick="eliminarfila('+id+')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>'+
-                        "</form>";
+        $("#creaForm").submit();
+        // var token= $('#token').val();
+        // ruta="/conta/store";
+        // formulario='creaForm';
+        // $.ajaxSetup({
+        //     headers: { "X-CSRF-TOKEN": $('#token').val() },
+        // });
+        // var formElement = document.getElementById(formulario);
+        // var formData = new FormData(formElement);
+        // var fila="";
+        // var id='';
+        // var cierre='';
+        // var form='';
+        // var i="0";
+        // var clase=""
 
-                fila=fila+cierre+'</tr>';
-                //  $('#tablaasientos tr:last').before(fila);
-                // $("#tablaasientos > tbody").append(fila);
-                // $('#bodyasientos tr:last').after(fila);
+        // $.ajax({
+        //     type:'POST',
+        //     url: ruta,
+        //     data:formData,
+        //     cache:false,
+        //     contentType: false,
+        //     processData: false,
+        //     success: function(data) {
+        //         toastr.success('Asiento Añadido',{
+        //         'progressBar':true,
+        //         "positionClass":"toast-bottom-center",
+        //         });
+        //         document.getElementById(formulario).reset();
+        //         $('#provcli_id').val(null).trigger('change');
+        //         $('#categoria_id').val(null).trigger('change');
+        //         fila="<tr id='tr"+data.id+"'><td><a href='#' title='Editar' disabled><i class='far fa-edit text-muted fa-lg ml-2'></i></a>"+
+        //             "<a href='#' title='Actualizar' disabled><i class='fas fa-check-circle text-muted fa-lg ml-2'></i></a></td>";
+        //         $.each(data,function(key,value){
+        //             if (i>9) clase='class="text-right"';
+        //             i++;
+        //             if(key=='id') {
+        //                 id="'"+value+"'";
+        //                 form='formDelete'+value;
+        //             };
+        //             if(key=='token') token=value
+        //             else if(i>2)
+        //                 fila=fila + '<td '+clase+'>'+value+'</td>' ;
+        //         });
+        //         cierre="<td class='text-right m-0 pr-3'>"+
+        //                 "<form  id="+form+">"+
+        //                 "<input type='hidden' name='_method' value='POST' />"+
+        //                 "<input type='hidden' name='_token' value="+token+" />"+
+        //                 "<a href='#!' class='btn-delete' title='Eliminar' " +  
+        //                 'onclick="eliminarfila('+id+')"><i class="far fa-trash-alt text-danger fa-lg ml-1"></i></a>'+
+        //                 "</form>";
+
+        //         fila=fila+cierre+'</tr>';
                 
-                $('#bodyasientos tr:first').before(fila);
-                if(data.tipo=='E')
-                    $("#factura").val(data.facturanueva);
+        //         $('#bodyasientos tr:first').before(fila);
+        //         if(data.tipo=='E')
+        //             $("#factura").val(data.facturanueva);
 
-                $('#fechaasiento').focus();
+        //         $('#fechaasiento').focus();
 
-            },
-            error: function(data){
-                var resp_e = data.responseJSON.errors;
-                $.each(resp_e,function(key,value) {
-                    toastr.error(value,{
-                        "closeButton": true,
-                        "progressBar":true,
-                        "positionClass": "toast-top-center",
-                        "options.escapeHtml" : true,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": 0,
-                    });
-                });
-                console.log(data);
-                }
-        });
+        //     },
+        //     error: function(data){
+        //         var resp_e = data.responseJSON.errors;
+        //         $.each(resp_e,function(key,value) {
+        //             toastr.error(value,{
+        //                 "closeButton": true,
+        //                 "progressBar":true,
+        //                 "positionClass": "toast-top-center",
+        //                 "options.escapeHtml" : true,
+        //                 "showDuration": "300",
+        //                 "hideDuration": "1000",
+        //                 "timeOut": 0,
+        //             });
+        //         });
+        //         console.log(data);
+        //         }
+        // });
     }
  }
 
@@ -379,6 +377,13 @@ function controlperiodo(){
             if(year!=anyo || month!=periodo){
                 control=1;
             }
+    }
+    if (control!=0){
+        var opcion;
+        opcion=confirm("La fecha no corresponde al periodo. ¿Deseas continuar?");
+        if (opcion == true) {
+            control = 0;
+        } 
     }
     return control;
 };
