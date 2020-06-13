@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\{Categoria, Empresa, Conta, ContaRecurrente, Provcli,Periodo};
-use App\Http\Requests\ContactoRequest;
+use App\Exports\ContaExport;
 use App\Http\Requests\ContaRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContaController extends Controller
 {
@@ -64,7 +63,7 @@ class ContaController extends Controller
          }
         $provclis=Provcli::orderBy('nombre')->get();
         $periodos=Periodo::get();
-        $categorias=Categoria::get();
+        $categorias=Categoria::orderBy('categoria')->get();
 
         $contas=Conta::search($request->busca)
         ->filtro($anyo,$perI,$perF)
@@ -261,6 +260,12 @@ class ContaController extends Controller
             }
         }
         return $concepto;
+    }
+
+    public function export($empresa,$periodo,$anyo)
+    {
+        // dd($empresa.'-'.$periodo);
+        return Excel::download(new ContaExport($empresa,$periodo,$anyo), 'conta.xlsx');
     }
 
     protected function facturanueva($empresaid){

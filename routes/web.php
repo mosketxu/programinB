@@ -44,6 +44,10 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/contas.php';
     //Conta Recurrente
     require __DIR__ .'/contarecurrentes.php';
+
+    // Route::get('export','ContaController@export')->name('conta.export')
+    //     ->middleware('can:contas.index');
+
 });
 
 use App\Jobs\UserEmailWelcome;

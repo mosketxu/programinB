@@ -9,6 +9,10 @@ Route::get('conta/{empresa}','ContaController@index')->name('conta.index')
 Route::get('conta/{conta}/{anyo}/{periodo}/edit','ContaController@edit')->name('conta.edit')
 ->middleware('can:contas.edit');
 
+Route::get('conta/{empresa}/{periodo}/{anyo}/export','ContaController@export')->name('conta.export')
+->middleware('can:contas.index');
+
+
 Route::get('conta/controlfactura/{empresa}/{provcli}/{factura}','ContaController@controlfactura2')->name('conta.controlfactura2')
 ->middleware('can:contas.edit');
 

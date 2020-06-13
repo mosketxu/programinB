@@ -60,7 +60,9 @@
                                     <th> &nbsp;&nbsp;</th>
                                     <th><a href="{{route('contarecurrente.create',[$empresa,$anyo,$periodo,$tipo])}}"><i class="fas fa-redo text-info"></i><span class="text-info"> Recurrentes</span></a></th>
                                     <th> &nbsp;&nbsp;</th>
-                                    <th><a href="{{route('provcli.create')}}"><i class="fas fa-plus-circle text-success"></i> <span class="text-success">Nuevo Proveedor</span></a></th>
+                                    <th><a href="{{route('provcli.create')}}"><i class="fas fa-plus-circle text-warning"></i> <span class="text-warning">Nuevo Proveedor</span></a></th>
+                                    <th> &nbsp;&nbsp;</th>
+                                    <th><a href="{{route('conta.export',[$empresa,$periodo,$anyo])}}"><i class="far fa fa-file-excel text-success fa-lg mx-1"></i><span class="text-success">Exportar</span></a></th>
                                 </tr>
                                 </form>
                             </thead>
