@@ -28,6 +28,7 @@
                             <input type="hidden" name="tipoempresa" id="tipoempresa" value="Contacto">
                             <input type="hidden" name="estado" id="estado" value="1">
                             <input type="hidden" name="cliente" id="cliente" value="0">
+                            <input type="hidden" name="periodoimpuesto_id" id="periodoimpuesto_id" value="0">
                             <input type="hidden" name="periodofacturacion_id" id="periodofacturacion_id" value="0">
                             <div class="row">
                                 <div class="form-group col">

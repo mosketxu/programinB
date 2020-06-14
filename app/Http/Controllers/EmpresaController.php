@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{CondicionPago, Empresa,Pais, PeriodoFacturacion, Provincia, Suma, TipoEmpresa};
+use App\{CondicionPago, Empresa,Pais, Ciclo, Provincia, Suma, TipoEmpresa};
 use App\Http\Requests\EmpresaRequest;
 use Illuminate\Http\Request;
 
@@ -24,7 +24,9 @@ class EmpresaController extends Controller
         ->orderBy('empresa')
         ->get();
 
-        return view('empresa.index',compact('empresas','busqueda'));
+        $ciclos=Ciclo::all();
+        // dd($empresas);
+        return view('empresa.index',compact('empresas','ciclos','busqueda'));
     }
 
     /**
@@ -78,10 +80,10 @@ class EmpresaController extends Controller
         $paises=Pais::get();
         $provincias=Provincia::get();
         $condpagos=CondicionPago::get();
-        $periodos=PeriodoFacturacion::get();
+        $ciclos=Ciclo::get();
         $empresa=Empresa::find($empresa->id);
       
-        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','periodos','sumas'));
+        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','ciclos','sumas'));
     }
 
     /**

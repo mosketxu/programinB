@@ -39,6 +39,8 @@
                                     <th>Provincia</th>
                                     <th>Cliente</th>
                                     <th>Tipo</th>
+                                    <th>Impuestos</th>
+                                    <th>Facturacion</th>
                                     <th>Tfno</th>
                                     <th>Email</th>
                                     <th>Suma</th>
@@ -62,13 +64,27 @@
                                             <input type="hidden" name="empresa" value="{{$empresa->empresa}}" >
                                             <input type="hidden" name="tipoempresa" value="{{$empresa->tipoempresa}}" >
                                             <td>
-                                            <select class="selectsinborde" name="cliente" id="cliente{{$empresa->id}}" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
+                                                <select class="selectsinborde" name="cliente" id="cliente{{$empresa->id}}" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
                                                     <option value="{{old('cliente','0')}}" {{$empresa->cliente=='0' ? 'selected' : '' }}>No</option>
                                                     <option value="{{old('cliente','1')}}"  {{$empresa->cliente=='1' ? 'selected' : ''}}>Sí</option>
                                                 </select>
                                             </td>
-                                        </form>
                                         <td>{{$empresa->tipoempresa}}</td>
+                                        <td>
+                                            <select class="selectsinborde" name="periodoimpuesto_id" id="periodoimpuesto_id{{$empresa->id}}" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
+                                                @foreach($ciclos as $ciclo)
+                                                    <option value="{{$ciclo->id}}" {{$empresa->periodoimpuesto_id==$ciclo->id ? 'selected' : '' }}>{{$ciclo->ciclo}}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="selectsinborde" name="periodofacturacion_id" id="periodofacturacion_id{{$empresa->id}}" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="cliente">
+                                                @foreach($ciclos as $ciclo)
+                                                    <option value="{{$ciclo->id}}" {{$empresa->periodofacturacion_id==$ciclo->id ? 'selected' : '' }}>{{$ciclo->ciclo}}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+                                        </form>
                                         <td>{{$empresa->tfno}}</td>
                                         <td>{{$empresa->emailgral}}</td>
                                         <td>{{$empresa->suma->nombre}}</td>

@@ -48,6 +48,8 @@ class ContaExport implements FromCollection,WithHeadings
             '% R.eq.',
             'R.eq.',
             'Observaciones',
+            'Creado',
+            'Actualizado',
         ];
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeriodoFacturacionesTable extends Migration
+class CreateCiclosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreatePeriodoFacturacionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('periodo_facturaciones', function (Blueprint $table) {
+        Schema::create('ciclos', function (Blueprint $table) {
             $table->id();
-            $table->string('periodofacturacion',100);
-            $table->integer('periodo')->default(0);
-            $table->timestamps();
+            $table->ciclo()->default(0);
         });
     }
 
@@ -28,6 +26,6 @@ class CreatePeriodoFacturacionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periodo_facturacions');
+        Schema::dropIfExists('ciclos');
     }
 }

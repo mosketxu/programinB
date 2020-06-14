@@ -40,7 +40,7 @@
                     <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="factura" id="factura" value="{{$conta->factura}}" readonly></td>
                     <td class="my-0 py-0 "><input type="text" class="form-control-xs form-control-plaintext " name="concepto" id="concepto" value="{{$conta->concepto}}" readonly></td>
                     <td class="my-0 py-0 ">
-                        <select class="form-control form-control-xs selectsinborde" name="categoria_id" id="categoria_id" style="width: 100%;">
+                        <select class="form-control form-control-xs selectsinborde" name="categoria_id" id="categoria_id" onchange="updateon('form{{$conta->id}}')" style="width: 100%;">
                             @foreach($categorias as $categoria)
                             <option value="{{ $categoria->id }}" {{$categoria->id==$conta->categoria_id? 'selected' :''}}>{{ $categoria->categoria }}</option>
                             @endforeach

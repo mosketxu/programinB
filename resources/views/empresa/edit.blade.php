@@ -94,6 +94,14 @@
                                         <div class="card-body  border border-primary rounded">
                                             <div class="row">
                                                 <div class="form-group col">
+                                                    <label for="periodoimpuesto_id">Impuestos</label>
+                                                    <select class="form-control form-control-sm" name="periodoimpuesto_id" id="periodoimpuesto_id"> 
+                                                        @foreach($ciclos as $ciclo)
+                                                            <option value="{{old('periodoimpuesto_id',$ciclo->id)}}"  {{ $ciclo->ciclo == ($empresa->ciclo->ciclo??'-') ? 'selected' : '' }}>{{ $ciclo->ciclo }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
                                                     <label class="required" for="cliente">Cliente</label>
                                                     <select class="form-control form-control-sm" name="cliente" id="cliente" required aria-placeholder="cliente">
                                                         <option value="{{old('cliente','0')}}" {{$empresa->cliente=='0' ? 'selected' : '' }}>No</option>
@@ -177,7 +185,6 @@
                                                 <label for="emailadm">@ Adm.</label>
                                                 <input class="form-control form-control-sm" type="text" name="emailadm" id="emailadm" value="{{ old('emailadm', $empresa->emailadm) }}" maxlength="100">
                                             </div>
-
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-4">
@@ -203,10 +210,10 @@
                                                 </select>
                                             </div>
                                             <div class="form-group col">
-                                            <label for="periodofacturacion_id">Per.Fact</label>
+                                                <label for="periodofacturacion_id">Per.Fact</label>
                                                 <select class="form-control form-control-sm" name="periodofacturacion_id" id="periodofacturacion_id"> 
-                                                    @foreach($periodos as $periodo)
-                                                        <option value="{{old('periodofacturacion_id',$periodo->id)}}"  {{ $periodo->periodofacturacion == ($empresa->periodofacturacion->periodofacturacion??'-') ? 'selected' : '' }}>{{ $periodo->periodofacturacion }}</option>
+                                                    @foreach($ciclos as $ciclo)
+                                                        <option value="{{old('periodofacturacion_id',$ciclo->id)}}"  {{ $ciclo->ciclo == ($empresa->ciclo->ciclo??'-') ? 'selected' : '' }}>{{ $ciclo->ciclo }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
