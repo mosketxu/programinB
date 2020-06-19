@@ -15,7 +15,7 @@ Route::get('empresacontacto/','EmpresaContactoController@index')->name('empresac
 Route::get('empresacontacto/create/{empresa}','EmpresaContactoController@create')->name('empresacontacto.create')
 ->middleware('can:empresacontactos.create');
 
-Route::put('empresacontacto','EmpresaContactoController@update')->name('empresacontacto.update')
+Route::put('empresacontacto/update','EmpresaContactoController@update')->name('empresacontacto.update')
 ->middleware('can:empresacontactos.edit');
 
 Route::get('empresacontacto/{empresa_id}','EmpresaContactoController@show')->name('empresacontacto.show')

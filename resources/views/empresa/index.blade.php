@@ -27,7 +27,8 @@
                     </div> --}}
                     <!-- card-body -->
                     <div class="card-body">
-                        <div class="table-responsive p-0" style="height: 450px">
+                        {{-- <div class="table-responsive p-0" style="height: 450px"> --}}
+                        <div id="tablaempresa" class="table-responsive p-0 alturatabla2">
                             <table class="table table-hover table-sm small table-head-fixed text-nowrap">
                                 <thead>
                                 <tr>
@@ -36,13 +37,13 @@
                                     <th></th>
                                     <th>Empresa</th>
                                     <th>Nif</th>
+                                    <th>Tfno</th>
+                                    <th>Email</th>
                                     <th>Provincia</th>
                                     <th>Cliente</th>
                                     <th>Tipo</th>
                                     <th>Impuestos</th>
                                     <th>Facturacion</th>
-                                    <th>Tfno</th>
-                                    <th>Email</th>
                                     <th>Suma</th>
                                     <th width="20px">Estado</th>
                                     <th width=100px></th>
@@ -56,6 +57,8 @@
                                         <td class="mt-1 pt-1 {{($empresa->favorito==1) ? "text-warning" : "text-grey"}}"><i class="{{($empresa->favorito==1) ? "fas fa-star" : "far fa-star"}}"></i></td>
                                         <td>{{$empresa->empresa}}</td>
                                         <td>{{$empresa->nif}}</td>
+                                        <td>{{$empresa->tfno}}</td>
+                                        <td>{{$empresa->emailgral}}</td>
                                         <td>{{$empresa->provincia_id}}</td>
                                         <form id="form{{$empresa->id}}">
                                             @method('PUT')
@@ -84,10 +87,15 @@
                                                 @endforeach
                                             </select>
                                         </td>
+                                        <td>
+                                            <select class="selectsinborde" name="suma_id" id="suma_id{{$empresa->id}}" onchange="update('form{{$empresa->id}}','{{ route('empresa.update') }}')" required aria-placeholder="suma_id">
+                                                @foreach($sumas as $suma)
+                                                    <option value="{{ $suma->id }}" {{$suma->id==$empresa->suma_id ? 'selected' : ''}}>{{ $suma->nombre }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
                                         </form>
-                                        <td>{{$empresa->tfno}}</td>
-                                        <td>{{$empresa->emailgral}}</td>
-                                        <td>{{$empresa->suma->nombre}}</td>
+
                                         <td class="mt-1 pt-1 badge {{($empresa->estado==0) ? "badge-danger" : "badge-success"}}">{{($empresa->estado==0) ? "Baja" : "Activo"}}</td>
                                         <td  class="text-right m-0 pr-3">
                                             <form  id="formDelete{{$empresa->id}}">

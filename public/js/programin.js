@@ -1,9 +1,12 @@
 $(document).ready(function(){
-
-    if(screen.height>1000) 
+    if(screen.height>1000) {
         $(".alturatabla").height(560);
-    else 
+        $(".alturatabla2").height(760);
+    }
+    else {
         $(".alturatabla").height(340);
+        $(".alturatabla2").height(520);
+    }
 
     $(".select2").select2({
         allowClear:true

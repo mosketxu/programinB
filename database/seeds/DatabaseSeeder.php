@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(SumaSeeder::class);
         // $this->call(PeriodosSeeder::class);
         // $this->call(CategoriaSeeder::class);
+        $this->call(ImpuestoSeeder::class);
 
     }
 }

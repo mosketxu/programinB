@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/contactos.php';
     //EmpresaContactos
     require __DIR__ .'/empresacontactos.php';
+    //EmpresaImpuestos
+    require __DIR__ .'/empresaimpuestos.php';
     //Pus
     require __DIR__ .'/pus.php';
     //Prov-cli
@@ -45,8 +47,6 @@ Route::group(['middleware' => ['auth']], function () {
     //Conta Recurrente
     require __DIR__ .'/contarecurrentes.php';
 
-    // Route::get('export','ContaController@export')->name('conta.export')
-    //     ->middleware('can:contas.index');
 
 });
 

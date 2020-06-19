@@ -17,31 +17,33 @@
         {{-- main content  --}}
         <section class="content">
             <div class="container-fluid"> 
-                <div class="row">
-                    @include('empresa.conta.recurrente.index')
-                    <div class="card col-6">
-                        <div class="card-header" data-card-widget="collapse" style="cursor: pointer">
-                            <div class="row">
-                                <h3 class="card-title col">Impuestos/Obligaciones</h3>
-                                <div class="card-tools text-right col">
-                                    <button type="button" class="btn btn-tool"><i class="fas fa-plus"></i></button>
-                                </div>
+                <div class="col-6">
+                    @include('empresa.conta.recurrente.index')        
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-6">
+                    <div class="card-header" data-card-widget="collapse" style="cursor: pointer">
+                        <div class="row">
+                            <h3 class="card-title col">Impuestos/Obligaciones</h3>
+                            <div class="card-tools text-right col">
+                                <button type="button" class="btn btn-tool"><i class="fas fa-plus"></i></button>
                             </div>
                         </div>
-                        <div class="card-body">
-                        </div>
+                    </div>
+                    <div class="card-body">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="card col-4">
-                        Estado impuestos
-                    </div>
-                    <div class="card col-4">
-                        Notas cliente
-                    </div>
-                    <div class="card col-4">
-                        Ficha cliente
-                    </div>
+            </div>
+            <div class="row">
+                <div class="card col-4">
+                    Estado impuestos
+                </div>
+                <div class="card col-4">
+                    Notas cliente
+                </div>
+                <div class="card col-4">
+                    Ficha cliente
                 </div>
             </div>
         </section>

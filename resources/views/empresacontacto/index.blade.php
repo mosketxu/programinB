@@ -51,11 +51,13 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{$empresacontacto->id}}" >
                                             <td>
-                                            <select class="selectsinborde" name="departamento" id="departamento" onchange="update('form{{$empresacontacto->id}}','{{ route('empresacontacto.update') }}')" required aria-placeholder="departamento">
+                                                {{$empresacontacto->departamento}}
+                                            {{--NO FUNCIONA BIEN 
+                                                <select class="selectsinborde" name="departamento" id="departamento" onchange="update('form{{$empresacontacto->id}}','{{ route('empresacontacto.update') }}')" required aria-placeholder="departamento">
                                                 @foreach($departamentos as $departamento)
                                                     <option value="{{old('departamento',$departamento->departamento)}}"  {{ $departamento->departamento == $empresacontacto->departamento ? 'selected' : '' }}>{{ $departamento->departamento }}</option>
                                                 @endforeach
-                                            </select>
+                                            </select> --}}
                                             </td>
                                         </form>
                                         <td>{{$empresacontacto->tfno}}</td>

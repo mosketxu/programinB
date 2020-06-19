@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCiclosTable extends Migration
+class CreateImpuestosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateCiclosTable extends Migration
      */
     public function up()
     {
-        Schema::create('ciclos', function (Blueprint $table) {
+        Schema::create('impuestos', function (Blueprint $table) {
             $table->id();
-            $table->string('ciclo',50);
+            $table->string('modelo',20);
+            $table->string('impuesto',255);
+            $table->integer('periodo_id');
+            $table->string('observaciones')->nullable();
         });
     }
 
@@ -26,6 +29,6 @@ class CreateCiclosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ciclos');
+        Schema::dropIfExists('impuestos');
     }
 }

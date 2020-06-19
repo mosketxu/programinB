@@ -6,7 +6,7 @@ use App\{Departamento, Empresa,EmpresaContacto, Pais, Provincia,Contacto};
 use App\Http\Requests\ContactoRequest;
 use Illuminate\Http\Request;
 
-class EmpresaContactoController extends Controller
+class EmpresaContactoController extends Controller 
 {
     /**
      * Display a listing of the resource.
@@ -134,6 +134,7 @@ class EmpresaContactoController extends Controller
     // public function update(Request $request, EmpresaContacto $empresaContacto)
     public function update(Request $request)
     {
+        dd('llego');
         EmpresaContacto::find($request->id)->update($request->all());
             return response()->json(['message', 'Departamento Actualizado']);
     }

@@ -25,8 +25,9 @@ class EmpresaController extends Controller
         ->get();
 
         $ciclos=Ciclo::all();
+        $sumas=Suma::all();
         // dd($empresas);
-        return view('empresa.index',compact('empresas','ciclos','busqueda'));
+        return view('empresa.index',compact('empresas','ciclos','sumas','busqueda'));
     }
 
     /**

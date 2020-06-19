@@ -98,17 +98,17 @@
                                 </div>
                                 <div class="form-group col-2">
                                     <label for="banco">Banco</label>
-                                    <input class="form-control form-control-sm" type="text" name="banco" id="banco" value="{{ old('banco', $contacto->banco) }}">
+                                    <input class="form-control form-control-sm" type="text" name="banco" id="banco" value="{{ old('banco') }}">
                                 </div>
                                 <div class="form-group col">
                                     <label for="iban">Iban</label>
-                                    <input class="form-control form-control-sm" type="text" name="iban" id="iban" value="{{ old('iban', $contacto->iban) }}">
+                                    <input class="form-control form-control-sm" type="text" name="iban" id="iban" value="{{ old('iban') }}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="observaciones">Observaciones</label>
-                                    <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', '') }}">
+                                    <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones') }}">
                                 </div>
                             </div>
                         </div>

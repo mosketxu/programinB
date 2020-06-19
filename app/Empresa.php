@@ -21,6 +21,11 @@ class Empresa extends Model
           return $this->hasMany(EmpresaContacto::class);
       }
 
+      public function impuestos()
+      {
+          return $this->hasMany(EmpresaImpuesto::class);
+      }
+
       public function pus()
       {
           return $this->hasMany(Pu::class);
