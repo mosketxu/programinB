@@ -41,7 +41,7 @@ class CreateEmpresasTable extends Migration
             $table->string('conceptofacturacionsecundario',200)->nullable();
             $table->float('importefacturacionsecundario')->default(0);
             $table->float('tipoiva')->default(0.21);
-            $table->float('porcentajemarta')->default(1);
+            $table->float('porcentajemarta')->default(100);
             $table->float('porcentajesusana')->default(0);
             $table->string('cuentacontable',10)->nullable();
             $table->string('banco')->nullable();

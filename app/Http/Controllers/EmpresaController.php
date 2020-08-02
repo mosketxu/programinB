@@ -53,6 +53,7 @@ class EmpresaController extends Controller
      */
     public function store(EmpresaRequest $request)
     {
+        // dd($request->all());
         Empresa::create($request->all());
         return response()->json(['message', 'Empresa Creada']);
     }

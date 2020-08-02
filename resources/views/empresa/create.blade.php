@@ -22,7 +22,8 @@
             <div class="container-fluid">
                 <div class="card">
                     <!-- card-body -->
-                    <form id="creaForm">
+                    {{-- <form id="creaForm"> --}}
+                    <form id="creaForm" action="{{route('empresa.store')}}" method="post">
                         @csrf
                         <div class="card-body small">
                             <div class="row">
@@ -40,6 +41,13 @@
                                         @foreach($tipoempresas as $tipoempresa)
                                         <option value="{{ $tipoempresa->tipoempresa }}">{{ $tipoempresa->tipoempresa }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group col-2">
+                                    <label for="estado">Estado</label>
+                                    <select class="form-control form-control-sm" name="estado" id="estado" required aria-placeholder="estado">
+                                        <option value="{{old('estado','1')}}" selected >Activo</option>
+                                        <option value="{{old('estado','0')}}" >Baja</option>
                                     </select>
                                 </div>
                                 <div class="form-group col">
@@ -112,12 +120,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-1">
-                                    <label for="estado">Estado</label>
-                                    <select class="form-control form-control-sm" name="estado" id="estado">
-                                        <option value="0" {{ old('estado') == "Activo" ? 'selected' : '' }}>Activo</option>
-                                        <option value="1" {{ old('estado') == "Baja" ? 'selected' : '' }}>Baja</option>
-                                    </select>
+                                    <label for="porcentajemarta">% M</label>
+                                    <input class="form-control form-control-sm" type="number" name="porcentajemarta" id="porcentajemarta" value="{{ old('porcentajemarta',100) }}">
                                 </div>
+                                <div class="form-group col-1">
+                                    <label for="porcentajesusana">% S</label>
+                                    <input class="form-control form-control-sm" type="number" name="porcentajesusana" id="porcentajesusana" value="{{ old('porcentajesusana',0) }}">
+                                </div>
+                            </div>
                                 <div class="form-group col">
                                     <label for="observaciones">Observaciones</label>
                                     <input class="form-control form-control-sm" type="text" name="observaciones" id="observaciones" value="{{ old('observaciones', '') }}">
@@ -128,6 +138,7 @@
                             <div class="form-group">
                                 <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
                                 <a class="btn btn-primary" href="#" title="Actualizar" onclick="update('creaForm','{{ route('empresa.store') }}',1)">Guardar</a>
+                                {{-- <button type="submit">submit</button> --}}
                             </div>
                         </div>
                     </form>
