@@ -63,6 +63,14 @@
             <p> Prov/Cli</p>
           </a>
         </li>
+        {{-- Facturacion --}}
+        <li class="nav-item">
+            <a href="{{route('facturacion.index')}}" class="nav-link {{(request()->segment(1)=='facturacion') ? 'active' : ''}}">
+                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                <p> Facturacion</p>
+            </a>
+            </li>
+
      </nav>
      <!-- /.sidebar-menu -->
    </div>

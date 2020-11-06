@@ -50,6 +50,8 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/contas.php';
     //Conta Recurrente
     require __DIR__ .'/contarecurrentes.php';
+    //Facturacions
+    require __DIR__ .'/facturaciones.php';
 
 
 });
