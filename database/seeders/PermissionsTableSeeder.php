@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -26,7 +28,7 @@ class PermissionsTableSeeder extends Seeder
         // $guest->givePermissionTo(Permission::all());
         // $user = User::find(2); //guest
         // $user->assignRole('Guest');
-        
+
         //Permission list
 
         // user
@@ -121,7 +123,7 @@ class PermissionsTableSeeder extends Seeder
         //     'products.destroy'
         // ]);
         //$admin->givePermissionTo('products.index');
-       
+
 
         // $guest->givePermissionTo([
         //     'products.index',

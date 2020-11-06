@@ -1,14 +1,14 @@
 <?php
 
     Route::post('user/store','UserController@store')->name('user.store')
-        ->middleware('can:users.create'); 
+        ->middleware('can:users.create');
 
     Route::get('user','UserController@index')->name('user.index')
         ->middleware('can:users.index');
 
     Route::get('user/create','UserController@create')->name('user.create')
         ->middleware('can:users.create');
-        
+
     Route::put('user/{user}','UserController@update')->name('user.update')
         ->middleware('can:users.show');
 
@@ -20,4 +20,4 @@
 
     Route::get('user/{user}/edit','UserController@edit')->name('user.edit')
         ->middleware('can:users.edit');
-        
+

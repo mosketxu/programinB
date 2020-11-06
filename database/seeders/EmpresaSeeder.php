@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class EmpresaSeeder extends Seeder
@@ -192,7 +194,7 @@ class EmpresaSeeder extends Seeder
             Mobil: +46 735 10 60 30"'],
             ['id'=>'2209','empresa'=>'AC AgenciaCasa SL','alias'=>'AC AgenciaCasa SL','tipoempresa'=>'Pyme','direccion'=>'C/Comte de Urgell 97, 51','codpostal'=>'08011','localidad'=>'Barcelona','provincia_id'=>'08','pais_id'=>'ES','nif'=>'B67236786','tfno'=>'','emailgral'=>'marta.ruiz@sumaempresa.com','emailadm'=>'','web'=>'','idioma'=>'2','condicionpago_id'=>'2','periodofacturacion_id'=>'3','diafactura'=>'1','diavencimiento'=>'10','referenciacliente'=>'','conceptofacturacionprincipal'=>'','importefacturacionprincipal'=>'0','conceptofacturacionsecundario'=>'','importefacturacionsecundario'=>'0','tipoiva'=>'0.21','porcentajemarta'=>'100','porcentajesusana'=>'0','cuentacontable'=>'430113','banco'=>'BS','iban'=>'" ES18 0081 0312 2200 0146 0157"','estado'=>'0','observaciones'=>'"ES73 0081 0093 4300 0192 1399"'],
             ['id'=>'2211','empresa'=>'Westerlund Capital SL','alias'=>'Westerlund Capital','tipoempresa'=>'Pyme','direccion'=>'C/Comte de Urgell 97, 51','codpostal'=>'08011','localidad'=>'Barcelona','provincia_id'=>'08','pais_id'=>'ES','nif'=>'B67016550','tfno'=>'','emailgral'=>'marta.ruiz@sumaempresa.com','emailadm'=>'','web'=>'','idioma'=>'2','condicionpago_id'=>'2','periodofacturacion_id'=>'1','diafactura'=>'1','diavencimiento'=>'10','referenciacliente'=>'','conceptofacturacionprincipal'=>'','importefacturacionprincipal'=>'0','conceptofacturacionsecundario'=>'','importefacturacionsecundario'=>'0','tipoiva'=>'0.21','porcentajemarta'=>'100','porcentajesusana'=>'0','cuentacontable'=>'430115','banco'=>'BS hay dos ctas','iban'=>'ES83 0081 0312 2900 0143 9147','estado'=>'1','observaciones'=>'" ES45 0081 0093 4100 0196 0801
-            
+
             ES83 0081 0312 2900 0143 9147 impuestos"'],
             ['id'=>'2213','empresa'=>'Property Agency Nordic State Spain SL','alias'=>'Nordic State','tipoempresa'=>'Pyme','direccion'=>'Gran Via de Les Corts Catalanes','codpostal'=>'08011','localidad'=>'Barcelona','provincia_id'=>'08','pais_id'=>'ES','nif'=>'B67513002','tfno'=>'','emailgral'=>'patrick@nordicestate.es','emailadm'=>'patrick@nordicestate.es','web'=>'','idioma'=>'','condicionpago_id'=>'2','periodofacturacion_id'=>'1','diafactura'=>'1','diavencimiento'=>'10','referenciacliente'=>'','conceptofacturacionprincipal'=>'Monthly Services Fee','importefacturacionprincipal'=>'275','conceptofacturacionsecundario'=>'','importefacturacionsecundario'=>'0','tipoiva'=>'0.21','porcentajemarta'=>'100','porcentajesusana'=>'0','cuentacontable'=>'430116','banco'=>'Bsabadell','iban'=>'ES85 0081 0093 4500 0196 2698','estado'=>'0','observaciones'=>'"ES85
             0081 0093 4500 0196 2698 para impuestos"'],

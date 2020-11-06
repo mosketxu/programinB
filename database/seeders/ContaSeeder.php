@@ -1,8 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
-class ProveedorSeeder extends Seeder
+class ContaSeeder extends Seeder
 {
     /**
      * Run the database seeds.

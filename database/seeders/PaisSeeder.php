@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class PaisSeeder extends Seeder
@@ -263,6 +265,6 @@ class PaisSeeder extends Seeder
             ['id'=>'WS','pais'=>'Samoa','c3' => 'WSM'],
             ['id'=>'YE','pais'=>'Yemen','c3' => 'YEM'],
             ['id'=>'ZM','pais'=>'Zambia','c3' => 'ZMB']
-        ]);            
+        ]);
     }
 }

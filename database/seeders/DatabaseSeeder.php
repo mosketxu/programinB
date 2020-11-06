@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\CondicionPago;
 use App\PeriodoFacturacion;
 use Illuminate\Database\Seeder;
