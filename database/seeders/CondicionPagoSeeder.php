@@ -14,9 +14,9 @@ class CondicionPagoSeeder extends Seeder
      */
     public function run()
     {
-        CondicionPago::create(['condicionpago' => 'Transferencia IBAN: ES50 0081 0033 0000 0166 6572',]);
-        CondicionPago::create(['condicionpago' => 'Recibo Domiciliado']);
-        CondicionPago::create(['condicionpago' => 'No Definida']);
-        CondicionPago::create(['condicionpago' => 'No Aplica']);
+        CondicionPago::create(['condicionpago' => 'Transferencia IBAN: ES50 0081 0033 0000 0166 6572','condpagocorto'=>'Transferencia']);
+        CondicionPago::create(['condicionpago' => 'Recibo Domiciliado','condpagocorto'=>'Recibo']);
+        CondicionPago::create(['condicionpago' => 'No Definida','condpagocorto'=>'No.Def']);
+        CondicionPago::create(['condicionpago' => 'No Aplica','condpagocorto'=>'No Aplica']);
     }
 }

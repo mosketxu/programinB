@@ -116,11 +116,18 @@ class PermissionsTableSeeder extends Seeder
         // Permission::create(['name' => 'empresaimpuestos.destroy']);
 
         // facturaciones
-        Permission::create(['name' => 'facturaciones.index']);
-        Permission::create(['name' => 'facturaciones.edit']);
-        Permission::create(['name' => 'facturaciones.show']);
-        Permission::create(['name' => 'facturaciones.create']);
-        Permission::create(['name' => 'facturaciones.destroy']);
+        // Permission::create(['name' => 'facturaciones.index']);
+        // Permission::create(['name' => 'facturaciones.edit']);
+        // Permission::create(['name' => 'facturaciones.show']);
+        // Permission::create(['name' => 'facturaciones.create']);
+        // Permission::create(['name' => 'facturaciones.destroy']);
+
+        // facturaciondetallees
+        Permission::create(['name' => 'facturaciondetalles.index']);
+        Permission::create(['name' => 'facturaciondetalles.edit']);
+        Permission::create(['name' => 'facturaciondetalles.show']);
+        Permission::create(['name' => 'facturaciondetalles.create']);
+        Permission::create(['name' => 'facturaciondetalles.destroy']);
 
         // $admin->givePermissionTo([
         //     'products.index',

@@ -16,6 +16,7 @@ class CreateCondicionPagosTable extends Migration
         Schema::create('condicion_pagos', function (Blueprint $table) {
             $table->id();
             $table->string('condicionpago');
+            $table->string('condpagocorto',100)->nullable()->after('condicionpago');
             $table->timestamps();
         });
     }

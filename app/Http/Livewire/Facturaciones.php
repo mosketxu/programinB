@@ -14,6 +14,7 @@ class Facturaciones extends Component
     public $filtroAnyo;
     public $filtroMes;
     public $empresas;
+    public $filtroConta;
 
     use WithPagination;
 
@@ -23,9 +24,10 @@ class Facturaciones extends Component
     {
         // $this->facturaciones=Facturacion::all();
         $this->filtroEmpresa='';
-        $this->filtroAnyo='';
+        $this->filtroAnyo='2020';
         $this->filtroMes='';
-        $this->empresas=Empresa::all();
+        $this->filtroConta='';
+        // $this->empresas=Empresa::all();
 
     }
 
@@ -35,9 +37,10 @@ class Facturaciones extends Component
             ->when($this->filtroAnyo != '',function ($query){
                 $query->whereYear('fechafactura',$this->filtroAnyo);
                 })
-            ->when($this->filtroMes != '',function ($query){
+            ->when($this->filtroMes != '' ,function ($query){
                 $query->whereMonth('fechafactura',$this->filtroMes);
                 })
+            ->where('contabilizado',$this->filtroConta)
             ->when($this->filtroEmpresa !='', function($query){
                 $query->whereHas('empresa',function($query2){
                     $query2->where('empresa','like','%'.$this->filtroEmpresa.'%');

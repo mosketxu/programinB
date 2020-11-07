@@ -15,16 +15,18 @@ class CreateFacturacionsTable extends Migration
     {
         Schema::create('facturacions', function (Blueprint $table) {
             $table->id();
-            $table->string('factura',8)->unique()->index()->nullable();
+            $table->string('factura',9)->index()->nullable();
             $table->date('fechafactura')->nullable();
-            $table->date('fechavto')->nullable();
-            $table->date('fechaexport')->nullable();
             $table->foreignId('empresa_id')->constrained('empresas');
+            $table->date('fechavto')->nullable();
             $table->foreignId('condpago_id')->constrained('condicion_pagos');
+            $table->date('fechacontabilizado')->nullable();
+            $table->boolean('contabilizado')->default('0');
+            $table->string('emailconta')->nullable();
+            $table->boolean('enviarmail')->default(1);
             $table->boolean('mailenviado')->default(0);
             $table->boolean('pagada')->default(0);
             $table->string('refcliente',50)-> nullable();
-            $table->string('email')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
