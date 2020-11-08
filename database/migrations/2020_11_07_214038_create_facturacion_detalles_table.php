@@ -21,7 +21,6 @@ class CreateFacturacionDetallesTable extends Migration
             $table->float('coste',15,2)->default(0);
             $table->decimal('iva',15,2)->default(0);
             $table->integer('subcuenta')->default('705000');
-            $table->string('email',200)->nullable();
             $table->boolean('suplido')->default(0);
             $table->integer('pagadopor')->default(0);
             $table->timestamps();

@@ -15,6 +15,10 @@ class Facturaciones extends Component
     public $filtroMes;
     public $empresas;
     public $filtroConta;
+    public $filtroFactura;
+    public $filtroEnviado;
+    public $filtroPagado;
+    public $muestraDetalle;
 
     use WithPagination;
 
@@ -24,16 +28,24 @@ class Facturaciones extends Component
     {
         // $this->facturaciones=Facturacion::all();
         $this->filtroEmpresa='';
-        $this->filtroAnyo='2020';
+        $this->filtroAnyo=date('Y');
         $this->filtroMes='';
         $this->filtroConta='';
+        $this->filtroFactura='';
+        $this->filtroEnviado='';
+        $this->filtroPagado='';
         // $this->empresas=Empresa::all();
 
     }
 
     public function render()
     {
-        $facturaciones=Facturacion::with('empresa')->with('condpago')
+        $facturaciones=Facturacion::with('empresa')
+            ->with('condpago')
+            ->with('facturaciondetalle')
+            ->when($this->filtroFactura !='',function ($query){
+                $query->where('factura','like','%'.$this->filtroFactura.'%');
+                })
             ->when($this->filtroAnyo != '',function ($query){
                 $query->whereYear('fechafactura',$this->filtroAnyo);
                 })
@@ -41,16 +53,25 @@ class Facturaciones extends Component
                 $query->whereMonth('fechafactura',$this->filtroMes);
                 })
             ->where('contabilizado',$this->filtroConta)
+            ->when($this->filtroEnviado != '' ,function ($query){
+                $query->where('mailenviado',$this->filtroEnviado);
+                })
+            ->when($this->filtroPagado != '' ,function ($query){
+                $query->where('pagada',$this->filtroPagado);
+                })
             ->when($this->filtroEmpresa !='', function($query){
                 $query->whereHas('empresa',function($query2){
                     $query2->where('empresa','like','%'.$this->filtroEmpresa.'%');
                 });
             })
-            ->paginate();
+            ->paginate(10);
+            // ->first();
+            // dd($facturaciones);
+            // dd($facturaciones->facturaciondetalle);
+        // dd($facturaciones);
         // ->when($this->searchCategory != '',function ($query){
         //     $query->where('category_id','like',$this->searchCategory);
         // })
-        // ->paginate(10);
 
         // dd($facturaciones);
 
