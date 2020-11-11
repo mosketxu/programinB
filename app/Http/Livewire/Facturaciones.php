@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use App\{Facturacion,Empresa};
+use App\{Facturacion};
 use Livewire\Component;
 use Livewire\WithPagination;
+
 
 class Facturaciones extends Component
 {
@@ -19,6 +20,8 @@ class Facturaciones extends Component
     public $filtroEnviado;
     public $filtroPagado;
     public $muestraDetalle;
+
+    public Facturacion $factura;
 
     use WithPagination;
 
@@ -42,7 +45,7 @@ class Facturaciones extends Component
     {
         $facturaciones=Facturacion::with('empresa')
             ->with('condpago')
-            ->with('facturaciondetalle')
+            ->with('facturaciondetalles')
             ->when($this->filtroFactura !='',function ($query){
                 $query->where('factura','like','%'.$this->filtroFactura.'%');
                 })
@@ -64,21 +67,7 @@ class Facturaciones extends Component
                     $query2->where('empresa','like','%'.$this->filtroEmpresa.'%');
                 });
             })
-            ->paginate(10);
-            // ->first();
-            // dd($facturaciones);
-            // dd($facturaciones->facturaciondetalle);
-        // dd($facturaciones);
-        // ->when($this->searchCategory != '',function ($query){
-        //     $query->where('category_id','like',$this->searchCategory);
-        // })
-
-        // dd($facturaciones);
-
-
-//         $q->whereDay('created_at', '=', date('d'));
-// $q->whereMonth('created_at', '=', date('m'));
-// $q->whereYear('created_at', '=', date('Y'));
+            ->paginate(20);
 
         return view('livewire.facturaciones',[
             'facturaciones'=>$facturaciones

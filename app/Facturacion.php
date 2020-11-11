@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+
 
 class Facturacion extends Model
 {
@@ -15,12 +17,18 @@ class Facturacion extends Model
     {
         return $this->belongsTo(Empresa::class);
     }
-    public function facturaciondetalle()
+    public function facturaciondetalles()
     {
         return $this->hasMany(FacturacionDetalle::class);
     }
     public function condpago()
     {
         return $this->belongsTo(CondicionPago::class);
+    }
+
+    public function getTotal()
+    {
+        return number_format($this->facturacionDetalles()->sum(DB::raw('unidades * coste * (1+iva)')),2);
+
     }
 }

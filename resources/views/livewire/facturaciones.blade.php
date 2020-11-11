@@ -4,59 +4,63 @@
             <div class="card-header">
                 <form>
                     <div class="form-row align-items-center">
-                      <div class="col-sm-3">
-                        <div class="input-group input-group-sm">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text input-group-text-sm">Empresa</div>
-                          </div>
-                          <input wire:model="filtroEmpresa" type="text" class="form-control form-control-sm"  placeholder="Empresa">
+                        <div class="col-sm-3">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text input-group-text-sm">Empresa</div>
+                                </div>
+                                <input wire:model="filtroEmpresa" type="text" class="form-control form-control-sm"  placeholder="Empresa">
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-sm-1">
-                        <div class="input-group input-group-sm">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text input-group-text-sm">Año</div>
-                          </div>
-                          <input wire:model="filtroAnyo" type="text" class="form-control form-control-sm"  placeholder="Empresa">
+                        <div class="col-sm-1">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text input-group-text-sm">Año</div>
+                                </div>
+                                <input wire:model="filtroAnyo" type="text" class="form-control form-control-sm"  placeholder="Empresa">
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-sm-1">
-                        <div class="input-group input-group-sm">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text input-group-text-sm">Mes</div>
-                          </div>
-                          <input wire:model="filtroMes" type="text" class="form-control form-control-sm"  placeholder="Mes">
+                        <div class="col-sm-1">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text input-group-text-sm">Mes</div>
+                                </div>
+                                <input wire:model="filtroMes" type="text" class="form-control form-control-sm"  placeholder="Mes">
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-sm-2">
-                        <div class="input-group input-group-sm">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text input-group-text-sm">NºFactura</div>
-                          </div>
-                          <input wire:model="filtroFactura" type="text" class="form-control form-control-sm"  placeholder="NºFactura">
+                        <div class="col-sm-2">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text input-group-text-sm">NºFactura</div>
+                                </div>
+                                <input wire:model="filtroFactura" type="text" class="form-control form-control-sm"  placeholder="NºFactura">
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-auto">
-                        <div class="form-check">
-                            <input wire:model="filtroConta" class="form-check-input" type="checkbox">
-                            <label class="form-check-label">
-                                Contabilizado
-                            </label>
+                        <div class="col-auto">
+                            <div class="form-check">
+                                <input wire:model="filtroConta" class="form-check-input" type="checkbox">
+                                <label class="form-check-label">
+                                    Contabilizado
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input wire:model="filtroEnviado" class="form-check-input" type="checkbox">
+                                <label class="form-check-label">
+                                    Enviado
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input wire:model="filtroPagado" class="form-check-input" type="checkbox">
+                                <label class="form-check-label">
+                                    Pagado
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input wire:model="filtroEnviado" class="form-check-input" type="checkbox">
-                            <label class="form-check-label">
-                                Enviado
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input wire:model="filtroPagado" class="form-check-input" type="checkbox">
-                            <label class="form-check-label">
-                                Pagado
-                            </label>
-                        </div>
-                      </div>
-                  </form>
+                    </div>
+                    <div class="col-auto">
+                        {{ $facturaciones->links() }}
+                    </div>
+                </form>
             </div>
             <div class="card-body">
                 {{-- <div wire:loading class="alert alert-success col-md-12" >
@@ -71,7 +75,7 @@
                                 <th>Nº Factura</th>
                                 <th>F.Factura</th>
                                 <th>F.Vto</th>
-                                <th>Total €</th>
+                                <th class="text-right pr-4">Total €</th>
                                 <th>Cond.Pago</th>
                                 <th>Email</th>
                                 <th>Refcliente</th>
@@ -90,9 +94,9 @@
                                 <td>{{$facturacion->factura}}</td>
                                 <td>{{$facturacion->fechafactura}}</td>
                                 <td>{{$facturacion->fechavto}}</td>
-                                <td>€</td>
+                                <td class="text-right pr-4">{{$facturacion->getTotal()}}</td>
                                 <td>{{$facturacion->condpago->condpagocorto}}</td>
-                                <td>{{$facturacion->email}}</td>
+                                <td>{{$facturacion->emailconta}}</td>
                                 <td>{{$facturacion->refcliente}}</td>
                                 <td>@if($facturacion->mailenviado===1) <i class='fas fa-check text-success'></i> @else <i class='fas fa-times text-red'></i>@endif</td>
                                 <td>@if($facturacion->contabilizado===1) <i class='fas fa-check text-success'></i> @else <i class='fas fa-times text-red'></i>@endif</td>
@@ -108,7 +112,7 @@
                                 </td>
                             </tr>
                             @if($muestraDetalle)
-                                @forelse ($facturacion->facturaciondetalle as $detalle)
+                                @forelse ($facturacion->facturaciondetalles as $detalle)
                                 <tr class="border-0">
                                     <td colspan="14" class="border-0 my-0 py-0">
                                         <div class="card mb-0">
@@ -158,7 +162,6 @@
                         @endforelse
                         </tbody>
                     </table>
-                    {{ $facturaciones->links() }}
                 </div>
             </div>
         </div>
