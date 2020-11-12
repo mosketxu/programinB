@@ -15,9 +15,7 @@ class FacturacionController extends Controller
     public function index()
     {
         $facturaciones=Facturacion::all();
-        // dd($facturaciones);
         return view('facturacion.index',compact('facturaciones'));
-        // return view('empresa.index',compact('empresas','ciclos','sumas','busqueda'));
     }
 
     /**
@@ -60,7 +58,7 @@ class FacturacionController extends Controller
      */
     public function edit(Facturacion $facturacion)
     {
-        //
+        return view('facturacion.edit', compact('facturacion'));
     }
 
     /**
