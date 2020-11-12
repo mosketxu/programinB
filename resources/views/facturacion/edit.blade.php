@@ -23,9 +23,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            {{-- <div>Factura: {{$facturacion->id}}</div>
-                            <input wire:model='name' type="text"> --}}
-                            {{-- @livewire('facturaciondetalles',['name'=>$name]) --}}
+                                @livewire('facturacion-create',['facturacion'=>$facturacion])
                         </div>
                     </div>
                 </div>

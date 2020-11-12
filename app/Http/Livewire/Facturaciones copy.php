@@ -25,22 +25,6 @@ class Facturaciones extends Component
 
     protected $paginationTheme= 'bootstrap';
 
-    // protected $rules = [
-    //     'facturacion.factura' => 'string|max:9|min:8',
-    //     'facturacion.fechafactura' => 'date',
-    //     'facturacion.empresa_id' => 'integer',
-    //     'facturacion.fechavto' => 'date',
-    //     'facturacion.condpago' => 'integer',
-    //     'facturacion.subcuenta' => 'integer',
-    //     'facturacion.fechacontabilizado' => 'date',
-    //     'facturacion.contabilizado' => 'boolean',
-    //     'facturacion.emailconta' => 'string',
-    //     'facturacion.enviarmail' => 'boolean',
-    //     'facturacion.mailenviado' => 'boolean',
-    //     'facturacion.pagada' => 'boolean',
-    //     'facturacion.refcliente' => 'string',
-    // ];
-
     public function mount()
     {
         // $this->facturaciones=Facturacion::all();
