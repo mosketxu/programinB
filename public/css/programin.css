@@ -6,7 +6,7 @@
 
 /* boton como enlace */
 button.enlace{
-   border:0; 
+   border:0;
    background-color: rgba(104, 13, 13, 0) !important;
    cursor:pointer;
 }
@@ -15,8 +15,20 @@ button.enlace{
    border: none !important;
    }
 
+.inputsinborde {
+    border: none;
+    /* Opcion 1 */
+    outline: 0;
+    /* Opcion 2 */
+    outline: none;
+ }
+
 .colorfondo{
    background-color: rgb(68, 233, 18);
+   }
+
+.colorfondo2{
+   background-color: rgb(221, 238, 216);
    }
 
 .maximoancho{
@@ -35,7 +47,7 @@ button.enlace{
    line-height: 1.5;
    border-radius: 0.2rem; */
  }
- 
+
 
 /* quitar las flechas y las x de los input number y date */
 .unstyled::-webkit-inner-spin-button,
@@ -43,10 +55,10 @@ button.enlace{
        display: none;
        -webkit-appearance: none;
 }
-input[type="date"]::-webkit-inner-spin-button,    
+input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-clear-button { display: none; }
 
 /* muestra flechas para ordenar tablas sorttable.js */
-/* table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
-   content: " \25B4\25BE" 
+/* table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after {
+   content: " \25B4\25BE"
 } */

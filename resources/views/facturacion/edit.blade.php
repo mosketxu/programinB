@@ -9,24 +9,14 @@
 @endsection
 
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        {{-- content header --}}
         <div class="content-header">
             {{-- <div class="container-fluid">
             </div> --}}
         </div>
-        {{-- - /.content-header --}}
-        {{-- main content  --}}
         <section class="content">
             <div class="container-fluid">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                                @livewire('facturacion-create',['facturacion'=>$facturacion])
-                        </div>
-                    </div>
-                </div>
+                @livewire('facturaciondetalle',['facturacion'=>$facturacion])
             </div>
         </section>
     </div>

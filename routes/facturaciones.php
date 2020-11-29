@@ -7,10 +7,8 @@ use App\Http\Controllers\FacturacionController;
 Route::get('facturacion',[FacturacionController::class,'index'])->name('facturacion.index');
 // ->middleware('can:facturacions.index');
 
-
 Route::post('facturacion/store',[FacturacionController::class,'store'])->name('facturacion.store');
 // ->middleware('can:facturacions.create');
-
 
 Route::get('facturacion/create',[FacturacionController::class,'create'])->name('facturacion.create');
 // ->middleware('can:facturacions.create');

@@ -52,8 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
     require __DIR__ .'/contarecurrentes.php';
     //Facturacions
     require __DIR__ .'/facturaciones.php';
-
-
+    //Facturacion detalles
+    require __DIR__ .'/facturaciondetalles.php';
 });
 
 use App\Jobs\UserEmailWelcome;

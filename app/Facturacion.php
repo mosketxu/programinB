@@ -11,7 +11,14 @@ class Facturacion extends Model
 {
     use HasFactory;
 
-    public $fillable=['factura','fechafactura','empresa_id','fechavto','condpago_id','fechacontabilizado','contabilizado','emailconta','enviarmail','mailenviado','pagada','refcliente'];
+
+    public $fillable=['factura','fechafactura','empresa_id','fechavto','condpago_id','fechacontabilizado','contabilizado','emailconta','enviaremail','mailenviado','pagada','refcliente'];
+
+    const CONDICIONES_LIST = [
+        '' => 'Todos',
+        '1' => 'Sí',
+        '0' => 'No'
+    ];
 
     public function empresa()
     {
@@ -31,4 +38,5 @@ class Facturacion extends Model
         return number_format($this->facturacionDetalles()->sum(DB::raw('unidades * coste * (1+iva)')),2);
 
     }
+
 }

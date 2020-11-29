@@ -2,28 +2,30 @@ $(document).ready(function(){
     if(screen.height>1000) {
         $(".alturatabla").height(560);
         $(".alturatabla2").height(760);
+        $(".alturatabla3").height(605);
     }
     else {
         $(".alturatabla").height(340);
         $(".alturatabla2").height(520);
+        $(".alturatabla3").height(390);
     }
 
     $(".select2").select2({
         allowClear:true
     });
-    
+
 });
 
 // funcion para añadir registros o actualizar en todos los formularios menos en los de conta
 function update(formulario,ruta,limpiar) {
     var token= $('#token').val();
- 
+
     $.ajaxSetup({
         headers: { "X-CSRF-TOKEN": $('#token').val() },
     });
     var formElement = document.getElementById(formulario);
     var formData = new FormData(formElement);
- 
+
     $.ajax({
         type:'POST',
          url: ruta,
@@ -56,7 +58,7 @@ function update(formulario,ruta,limpiar) {
             }
      });
  }
- 
+
  // funcion para añadir registros o actualizar en todos los formularios  menos en los de conta
  function eliminar(ruta,id) {
      $confirmacion=confirm('¿Seguro que lo quieres eliminar?');
@@ -65,7 +67,7 @@ function update(formulario,ruta,limpiar) {
          var form=$('#formDelete'+id);
          var url=ruta;
          var data=form.serialize();
- 
+
          $.post(url,data,function(result){
              toastr.success(result[1],{
                  "progressBar":true,
@@ -110,4 +112,3 @@ document.addEventListener('keypress', function(evt) {
     }
   });
 
- 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Facturacion;
+use App\FacturacionDetalle;
 use Illuminate\Http\Request;
 
 class FacturacionController extends Controller
@@ -16,6 +17,12 @@ class FacturacionController extends Controller
     {
         $facturaciones=Facturacion::all();
         return view('facturacion.index',compact('facturaciones'));
+    }
+
+    public function detalle($facturacionId)
+    {
+        // $facturaciones=Facturacion::all();
+        return view('facturacion.detalle',compact('facturacionId'));
     }
 
     /**
@@ -58,6 +65,16 @@ class FacturacionController extends Controller
      */
     public function edit(Facturacion $facturacion)
     {
+        // $facturaciondetalles=FacturacionDetalle::where('facturacion_id',$facturacion->id)->get();
+        // dd($facturacion);
+
+        $facturacion=Facturacion::join('empresas','empresas.id','facturacions.empresa_id')
+            ->select('facturacions.*', 'empresas.empresa')
+            ->with('condpago')
+            ->with('facturaciondetalles')
+            ->find($facturacion->id);
+        // dd($facturacion);
+
         return view('facturacion.edit', compact('facturacion'));
     }
 
