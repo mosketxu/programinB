@@ -31,7 +31,7 @@ class CreateEmpresasTable extends Migration
             $table->string('web',100)->nullable();
             $table->string('idioma', 2)->default('ES');
             $table->string('periodoimpuesto_id',50)->default(0);
-            $table->integer('condicionpago_id')->default(1);
+            $table->integer('metodopago_id')->default(1);
             $table->integer('periodofacturacion_id')->default(2);
             $table->integer('diafactura')->default(1);
             $table->integer('diavencimiento')->default(10);

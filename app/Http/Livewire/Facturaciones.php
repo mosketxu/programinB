@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\{Facturacion,CondicionPago,Empresa, FacturacionDetalle};
+use App\{Facturacion,MetodoPago,Empresa, FacturacionDetalle};
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -61,7 +61,7 @@ class Facturaciones extends Component
         $this->filtroEnviado='';
         $this->filtroPagado='';
         $this->empresasas=Empresa::all();
-        $this->condiciones=CondicionPago::all();
+        $this->metodopagos=MetodoPago::all();
         $this->facturacion=$facturacion ?? new Facturacion;
         $this->facturaciondetalle=$facturaciondetalle ?? new FacturacionDetalle();
     }
@@ -179,7 +179,7 @@ class Facturaciones extends Component
             $this->facturacion->fechavto!='' ??  $dayVto;
             $this->facturacion->factura=$factura;
             $this->facturacion->enviarmail=$datos->enviaremail;
-            $this->facturacion->condpago_id=$datos->condicionpago_id;
+            $this->facturacion->condpago_id=$datos->metodopago_id;
             $this->facturacion->refcliente=$datos->referenciacliente;
             $this->facturacion->subcuenta=$datos->cuentacontable;
             $this->validate();

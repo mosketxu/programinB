@@ -28,9 +28,9 @@ class Facturacion extends Model
     {
         return $this->hasMany(FacturacionDetalle::class);
     }
-    public function condpago()
+    public function metodopago()
     {
-        return $this->belongsTo(CondicionPago::class);
+        return $this->belongsTo(MetodoPago::class);
     }
 
     public function getTotal()

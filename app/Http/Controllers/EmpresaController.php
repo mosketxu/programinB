@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{CondicionPago, Empresa,Pais, Ciclo, Provincia, Suma, TipoEmpresa};
+use App\{MetodoPago, Empresa,Pais, Ciclo, Provincia, Suma, TipoEmpresa};
 use App\Http\Requests\EmpresaRequest;
 use Illuminate\Http\Request;
 
@@ -42,7 +42,7 @@ class EmpresaController extends Controller
 
         $paises=Pais::get();
         $provincias=Provincia::get();
-        return view('empresa.create',compact('tipoempresas','paises','provincias','sumas')); 
+        return view('empresa.create',compact('tipoempresas','paises','provincias','sumas'));
     }
 
     /**
@@ -71,7 +71,7 @@ class EmpresaController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * 
+     *
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
@@ -81,11 +81,9 @@ class EmpresaController extends Controller
         $sumas=Suma::get();
         $paises=Pais::get();
         $provincias=Provincia::get();
-        $condpagos=CondicionPago::get();
+        $metodopagos=MetodoPago::get();
         $ciclos=Ciclo::get();
-        $empresa=Empresa::find($empresa->id);
-      
-        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','condpagos','ciclos','sumas'));
+        return view('empresa.edit',compact('empresa','tipoempresas','paises','provincias','metodopagos','ciclos','sumas'));
     }
 
     /**
@@ -95,16 +93,18 @@ class EmpresaController extends Controller
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response
      */
+
     public function update(EmpresaRequest $request)
     {
         Empresa::find($request->id)->update($request->all());
+
         if($request->ajax())
             return response()->json(['message', 'Empresa Actualizada']);
         return redirect()->back()->with(['message'=>'Actualizado']);
     }
 
     /**
-     * Remove the specified resource from storage. 
+     * Remove the specified resource from storage.
      *
      * @param  \App\Empresa  $empresa
      * @return \Illuminate\Http\Response

@@ -38,7 +38,7 @@ class Empresa extends Model
 
       public function recurrentes()
       {
-          return $this->hasMany(ContaRecurrente::class); 
+          return $this->hasMany(ContaRecurrente::class);
       }
 
       public function suma()
@@ -60,19 +60,19 @@ class Empresa extends Model
       {
           return $this->belongsTo(Provincia::class);
       }
-      
-      public function condicionpago()
+
+      public function metodopago()
       {
-          return $this->belongsTo(CondicionPago::class);
+          return $this->belongsTo(MetodoPago::class);
       }
       public function ciclo()
       {
-          return $this->belongsTo(Ciclo::class);
+          return $this->belongsTo(Ciclo::class,'periodofacturacion_id');
       }
 
     public function scopeSearch($query, $busca){
         return $query->where('empresa', 'LIKE', "%$busca%")
         ->orWhere('nif', 'LIKE', "%$busca%");
     }
-  
+
 }

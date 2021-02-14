@@ -24,6 +24,7 @@ class EmpresaRequest extends FormRequest
      * @return array
      */
     public function rules(){
+
         $rules= [
             'empresa'=>[
                 'required',

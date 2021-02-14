@@ -4,7 +4,7 @@
 @section('titlePag','Editar empresa')
 @section('navbar')
     @include('layouts.partials.navbarizquierda')
-    <p class="h3 pt-2 text-dark">@yield('titlePag')</p> 
+    <p class="h3 pt-2 text-dark">@yield('titlePag')</p>
     @include('empresa.navbar')
     {{-- @include('layouts.partials.navbarderecha') --}}
 @endsection
@@ -95,9 +95,9 @@
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="periodoimpuesto_id">Impuestos</label>
-                                                    <select class="form-control form-control-sm" name="periodoimpuesto_id" id="periodoimpuesto_id"> 
-                                                        @foreach($ciclos as $ciclo)
-                                                            <option value="{{old('periodoimpuesto_id',$ciclo->id)}}"  {{ $ciclo->ciclo == ($empresa->ciclo->ciclo??'-') ? 'selected' : '' }}>{{ $ciclo->ciclo }}</option>
+                                                    <select class="form-control form-control-sm" name="periodoimpuesto_id" id="periodoimpuesto_id">
+                                                        @foreach($ciclos as $cicloimpuesto)
+                                                            <option value="{{old('periodoimpuesto_id',$cicloimpuesto->id)}}"  {{ $cicloimpuesto->ciclo == ($empresa->impuesto->ciclo??'-') ? 'selected' : '' }}>{{ $cicloimpuesto->ciclo }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -202,16 +202,16 @@
                                     <div class="card-body border border-info rounded">
                                         <div class="row">
                                             <div class="form-group col">
-                                                <label for="condicionpago_id">Cond.Pago</label>
-                                                <select class="form-control form-control-sm" name="condicionpago_id" id="condicionpago_id">
-                                                    @foreach($condpagos as $condpagos)
-                                                        <option value="{{old('condicionpago_id',$condpagos->id)}}"  {{ $condpagos->condicionpago == $empresa->condicionpago->condicionpago ? 'selected' : '' }}>{{ $condpagos->condicionpago  }}</option>
+                                                <label for="metodopago_id">Metodo Pago</label>
+                                                <select class="form-control form-control-sm" name="metodopago_id" id="metodopago_id">
+                                                    @foreach($metodopagos as $metodopago)
+                                                        <option value="{{old('metodopago_id',$metodopago->id)}}"  {{ $metodopago->metodopago == $empresa->metodopago->metodopago ? 'selected' : '' }}>{{ $metodopago->metodopago  }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group col">
-                                                <label for="periodofacturacion_id">Per.Fact</label>
-                                                <select class="form-control form-control-sm" name="periodofacturacion_id" id="periodofacturacion_id"> 
+                                                <label for="periodofacturacion_id">Periodo Fact.</label>
+                                                <select class="form-control form-control-sm" name="periodofacturacion_id" id="periodofacturacion_id">
                                                     @foreach($ciclos as $ciclo)
                                                         <option value="{{old('periodofacturacion_id',$ciclo->id)}}"  {{ $ciclo->ciclo == ($empresa->ciclo->ciclo??'-') ? 'selected' : '' }}>{{ $ciclo->ciclo }}</option>
                                                     @endforeach
@@ -256,15 +256,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class="card-footer">
                             <div class="form-group">
-                                {{-- <button class="btn btn-primary" type="submit">Actualizar</button> --}}
+                                {{-- <button class="btn btn-primary" type="submit">Submit</button> --}}
                                 <a class="btn btn-primary" href="#" title="Ir la página anterior" onclick="update('creaForm','{{ route('empresa.update') }}',0)">Actualizar</a>
                                 <a class="btn btn-default" href="{{route('empresa.index')}}" title="Ir la página anterior">Volver</a>
                             </div>
-                
+
                         </div>
                     </form>
                 </div>
